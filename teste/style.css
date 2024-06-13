@@ -10,9 +10,9 @@ body{
     background-attachment: fixed;
     overflow-x: hidden;
     display: flex;
-    margin: 4rem;
-
+    margin: 3rem;
 }
+
 .container1 h1{
     margin: 0vw 2vw 2vw 2vw;
     font-size: 5vw;
