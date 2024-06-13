@@ -1,0 +1,85 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Montserrat";
+}
+body{
+    background-image: url('Design\ sem\ nome-1\ 1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    display: flex;
+    margin: 4rem;
+
+}
+.container1 h1{
+    margin: 0vw 2vw 2vw 2vw;
+    font-size: 5vw;
+
+    color: #237699;
+}
+.container1 h2{
+    margin: 0vw 2vw 3vw 2vw;
+    max-width: 60vw;
+    font-size: 1.5vw;
+    color: #237699;
+
+}
+.container1{
+    width: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.botãoContainer1{
+    font-weight: 700;
+    color: #b2dbbf;
+    font-size: 2vw;
+    text-align: center;
+    background-color: #237699;
+    padding: 18px;
+    padding-inline: 34px;
+    max-width: fit-content;
+    border-radius: 16px;
+    border: solid #b2dbbf 4px;
+}
+.paddingContainer2{
+    padding: 5vw;
+    width: 40vw;
+    background-color: #237699;
+    border-radius: 50px;
+}
+.container2{
+    align-items: center;
+    text-align: center;
+}
+.container2 h1{
+    color: white;
+    margin-bottom: 2rem;
+}
+.container2 h2{
+    padding: 15px;
+    background-color: white;
+    border-radius: 20px;
+    border: solid #237699 2px;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 4px;
+    color: #237699;
+    text-align: center;
+    max-width: 40vw;
+    margin-bottom: 2rem;
+}
+.container2 h3{
+    font-weight: 700;
+    color: #b2dbbf;
+    font-size: 1.4vw;
+    background-color: #237699;
+    padding: 18px;
+    padding-inline: 34px;
+    margin-inline: auto;
+    max-width: fit-content;
+    border-radius: 16px;
+    border: solid #b2dbbf 3px;
+}
