@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Formulario de Cadastro
+{% endblock %}
+
+{% block conteudo %}
+<body class="text-center">  
+    <div class="container">
+        <h1 class="h3 mb-3 font-weight-normal"> 
+            Por favor, crie a sua conta
+        </h1> 
+        <form method="POST" class="form-register" style="color: whitesmoke;"> 
+
+            {{ form.hidden_tag() }}
+
+            {{form.usuario.label()}}
+            {{form.usuario(class="form-control", placeholder="Informe o UserName")}}
+            
+            {{form.email.label()}}
+            {{form.email(class="form-control", placeholder="Informe o E-mail")}}
+
+            {{form.senha1.label()}}
+            {{form.senha1(class="form-control", placeholder="Informe a Senha")}}
+
+            {{form.senha2.label()}}
+            {{form.senha2(class="form-control", placeholder="Confirme a Senha")}}
+            <br>
+            <div class="checkbox mb-3">
+                <h5> Você já possui cadastro? </h5>
+                <a href="{{url_for('page_login)}}">Login</a>
+            </div>
+            <br>
+            <div class="d-grid">
+                {{form.submit(class="btn btn-lg btn-sucess")}}
+
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

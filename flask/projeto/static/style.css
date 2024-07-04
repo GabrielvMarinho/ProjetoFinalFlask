@@ -1,0 +1,78 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Montserrat";
+    font-weight: bold;
+}
+
+
+body{
+    background-color: rgb(112, 112, 112);
+    height: calc(100vh - var(--margin-principal) * 2);
+    background-image: url(imagens/FotoFundo.png);
+    background-size: cover;
+    height: 100vh;
+}
+:root{
+    --margin-principal: 60px;
+    --margin-principal-inline: 100px;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: var(--margin-principal-inline);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    border-radius: 30px;
+}
+.sidebar{
+    color: #fff;
+    background-color: #B2DBBF50;
+    width: 300px;
+    border-radius: 30px;
+    display: none;
+
+}
+
+
+.sidebar.open{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.botaoAbrirSidebar{
+    height: 40px;
+}
+.botaoHomeSidebar{
+    background-color: rgba(0, 0, 0, 0.1);
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+.botoesSidebar{
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+    text-align: center;
+    justify-content: space-around;
+}
+.botoesSidebar div{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+}
+.botoesSidebar img{
+    width: 35px;
+    height: 35px;
+}
+.botoesSidebar a{
+    font-size: 20px;
+}
