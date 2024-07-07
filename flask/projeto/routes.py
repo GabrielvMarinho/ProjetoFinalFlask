@@ -13,10 +13,10 @@ def index():
 def cadastro():
     form = CadastroForm()
     if form.validate_on_submit():
-        usuario = Responsavel, Funcionario(
+        usuario = Responsavel(
             usuario = form.usuario.data,
             email = form.email.data,
-            senhacrip = form.senha1.data
+            senha = form.senha1.data
         )
         
         db.session.add(usuario)
