@@ -72,12 +72,11 @@ form{
 
 .sidebarResponsavel{
     transition: 0.7s;
-
     align-items: center;
     align-items: flex-start;
 }
 .sidebarResponsavel:hover {
-    transition: 1.2s;
+    transition: 0.5s;
     width: 180px;
     
 }
