@@ -19,18 +19,18 @@
     <div class="container">
         
         <div class="sidebarResponsavel">
-            <div><img src="{{url_for('static', filename='imagens/Playlist.svg')}}"><p>HOME</p></div>
-            <div><img src="{{url_for('static', filename='imagens/calendar.svg')}}"><p>HISTÓRICO</p></div>
-            <div><img src="{{url_for('static', filename='imagens/calendar.svg')}}"><p>COMPRAS</p></div>
-            <div><img src="{{url_for('static', filename='imagens/calendar.svg')}}"><p>LIMITES</p></div>
-            <div><img src="{{url_for('static', filename='imagens/calendar.svg')}}"><p>DADOS</p></div>
-            <div><img src="{{url_for('static', filename='imagens/calendar.svg')}}"><p>SUPORTE</p></div>
+            <div><img src="{{url_for('static', filename='imagens/Home.svg')}}"><p>HOME</p></div>
+            <div><img src="{{url_for('static', filename='imagens/Historico.svg')}}"><p>HISTÓRICO</p></div>
+            <div><img src="{{url_for('static', filename='imagens/Compras.svg')}}"><p>COMPRAS</p></div>
+            <div><img src="{{url_for('static', filename='imagens/Limites.svg')}}"><p>LIMITES</p></div>
+            <div><img src="{{url_for('static', filename='imagens/Dados.svg')}}"><p>DADOS</p></div>
+            <div><img src="{{url_for('static', filename='imagens/Suporte.svg')}}"><p>SUPORTE</p></div>
 
         </div>
         
 
 
-        <div class="body">
+        <div class="bodyBaseResponsavel">
 
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {%if messages%}

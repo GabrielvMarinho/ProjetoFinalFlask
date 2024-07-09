@@ -66,24 +66,37 @@ form{
     align-items: center;
 
 }
+.bodyBaseResponsavel{
+    margin-left: 30vw;
+}
 
+.sidebarResponsavel{
+    transition: 0.7s;
 
-.sidebarResponsavel:hover {
-    transition: 1.2s;
-    width: 200px;
     align-items: center;
     align-items: flex-start;
 }
-.sidebarResponsavel:hover div{
+.sidebarResponsavel:hover {
+    transition: 1.2s;
+    width: 180px;
+    
+}
+.sidebarResponsavel div{
     margin-left: 25px;
     gap: 10px;
 }
 .sidebarResponsavel p{
-    color: #fff;
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    color: white;
+    transition: opacity 0.2s, visibility 0.2s;
+
 }
 .sidebarResponsavel:hover p{
-    display: block;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.7s, visibility 0.7s;
+    
 }
 .sidebarResponsavel div{
     display: flex;
