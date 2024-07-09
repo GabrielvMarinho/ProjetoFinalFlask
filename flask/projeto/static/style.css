@@ -27,52 +27,69 @@ body{
     background-color: #237699;
     border-radius: 30px;
 }
-.sidebar{
-    color: #fff;
-    background-color: #B2DBBF50;
-    width: 300px;
-    border-radius: 30px;
-    display: none;
 
-}
-
-
-.sidebar.open{
-
+.containerLogin, .containerCadastro{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
 }
-.botaoAbrirSidebar{
-    height: 40px;
-}
-.botaoHomeSidebar{
-    background-color: rgba(0, 0, 0, 0.1);
-    height: 15%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
-}
-.botoesSidebar{
+
+form{
     display: flex;
     flex-direction: column;
-    height: 40%;
-    text-align: center;
+}
+.section_home_responsavel{
+    display: flex;
+}
+.dadosReponsavel1{
+    display: flex;
+    flex-direction: column;
+}
+.dadosResponsavel1-1, .dadosResponsavel1-2{
+    width: 10vw;
+    height: 10vw;
+    background-color: #9aa2a5;
+}
+.dadosReponsavel2{
+    width: 20vw;
+    height: 20vw;
+    background-color: aqua;
+}
+.sidebarResponsavel{
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    background-color: #b2dbbfa2;
+    position: absolute;
+    border-radius: 30px;
+    height: calc(100vh - var(--margin-principal) * 2);
     justify-content: space-around;
-}
-.botoesSidebar div{
-    display: flex;
     align-items: center;
-    gap: 20px;
 
 }
-.botoesSidebar img{
-    width: 35px;
-    height: 35px;
+
+
+.sidebarResponsavel:hover {
+    transition: 1.2s;
+    width: 200px;
+    align-items: center;
+    align-items: flex-start;
 }
-.botoesSidebar a{
-    font-size: 20px;
+.sidebarResponsavel:hover div{
+    margin-left: 25px;
+    gap: 10px;
+}
+.sidebarResponsavel p{
+    color: #fff;
+    display: none;
+}
+.sidebarResponsavel:hover p{
+    display: block;
+}
+.sidebarResponsavel div{
+    display: flex;
+    align-items: center;
+}
+.sidebarResponsavel img{
+    width: 30px;
+    height: 30px;
 }

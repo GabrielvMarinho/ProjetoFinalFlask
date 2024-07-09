@@ -5,30 +5,31 @@
 {% endblock %}
 
 {% block conteudo %}
-    <body class="text-center">
-        <div class="container ">
+    <body>
+        <div class="containerLogin">
             <img class="mb-4" src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" style="width: 200px;">
-            <h1 class="h3 mb-3 font-weight-normal">
+            <h1 >
                 Por favor, faça o seu Login
-        </h1>
-        <form method="POST" class="form-signin" style="color: whitesmoke;">
-            {{form.hidden_tag() }}
+            </h1>
+            <form method="POST" class="form-signin" style="color: whitesmoke;">
+                {{form.hidden_tag() }}
 
-            {{form.usuario.label() }}
-            {{form.usuario(class='form-control', placeholder="Informe o Usuario") }}
+                {{form.usuario.label() }}
+                {{form.usuario(placeholder="Informe o Usuario") }}
 
-            {{form.senha.label() }}
-            {{form.senha(class='form-control', placeholder="Informe a Senha") }}
+                {{form.senha.label() }}
+                {{form.senha(placeholder="Informe a Senha") }}
+                
+                {{form.submit}}
+
+            </form>
             <br>
-            <div class="checkbox mb-3">
-                <h5> Você ainda não possiu cadastro? </h5>
-                <a class="btn btn-sm btn-secondary" href="{{url_for('page_cadastro)}}">Cadastre-se</a>
-            </div>
+                <div>
+                    <h5> Você ainda não possiu cadastro? </h5>
+                    <a href="{{url_for('cadastro')}}">Cadastre-se</a>
+                </div>
             <br>
+        </div>
 
-        </form>
-    </div>
-
-
-    </body>
+    </bod>
 {% endblock %}
