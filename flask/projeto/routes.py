@@ -1,9 +1,9 @@
 from flask import render_template, redirect, url_for, flash
 from projeto import app
 from projeto.forms import CadastroForm, LoginForm  
-from projeto.models import Responsavel, Funcionario
+from projeto.models import Responsavel, Funcionario, Dependente
 from projeto import db
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
 @app.route("/")
 def index():
@@ -12,6 +12,26 @@ def index():
 @app.route("/Home")
 def homeResponsavel():
     return render_template("homeResponsavel.html")
+
+@app.route('/adicionarDependente', methods=['GET', 'POST'])
+def adicionarDependente():
+    form = CadastroForm()
+    if form.validate_on_submit():
+
+        usuario = Dependente(
+            usuario = form.usuario.data,
+            email = form.email.data,
+            senhacrip = form.senha1.data,
+            idResponsavel = current_user.id
+        )
+        db.session.add(usuario)
+        db.session.commit()
+
+        
+    if form.errors != {}:
+        for err in form.errors.values():
+            flash(f"Erro ao cadastrar usuário {err}", category = "danger")
+    return render_template("adicionarDependente.html", form=form)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():

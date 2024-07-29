@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Formulario de Cadastro
+{% endblock %}
+
+{% block conteudo %}
+<body>  
+    <div class="containerCadastro">
+        <h1 class="h3 mb-3 font-weight-normal"> 
+            adicione o dependente
+        </h1> 
+        <form method="POST" class="form-register" style="color: whitesmoke;"> 
+
+            {{ form.hidden_tag() }}
+
+            {{form.usuario.label()}}
+            {{form.usuario(placeholder="Informe o UserName")}}
+            
+            {{form.email.label()}}
+            {{form.email(placeholder="Informe o E-mail")}}
+
+            {{form.senha1.label()}}
+            {{form.senha1(placeholder="Informe a Senha")}}
+
+            {{form.senha2.label()}}
+            {{form.senha2(placeholder="Confirme a Senha")}}
+            <br>
+            
+            <br>
+            
+                {{form.submit()}}
+
+    
+        </form>
+    </div>
+</body>
+{% endblock %}
