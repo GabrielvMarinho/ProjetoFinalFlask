@@ -1,13 +1,11 @@
 from flask import render_template, redirect, url_for, flash
 from projeto import app
-from projeto.forms import CadastroForm, LoginForm  
+from projeto.forms import CadastroForm, LoginForm, SaldoForm  
 from projeto.models import Responsavel, Funcionario, Dependente
 from projeto import db
 from flask_login import login_user, logout_user, current_user
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+
 
 @app.route("/Home")
 def homeResponsavel():
@@ -26,8 +24,7 @@ def adicionarDependente():
         )
         db.session.add(usuario)
         db.session.commit()
-
-        
+        return redirect(url_for("homeResponsavel"))
     if form.errors != {}:
         for err in form.errors.values():
             flash(f"Erro ao cadastrar usuário {err}", category = "danger")
@@ -46,13 +43,13 @@ def cadastro():
         
         db.session.add(usuario)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     if form.errors != {}:
         for err in form.errors.values():
             flash(f"Erro ao cadastrar usuário {err}", category = "danger")
     return render_template("cadastro.html", form=form)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     form = LoginForm()  
     if form.validate_on_submit():
@@ -60,13 +57,25 @@ def login():
         if usuario_logado and usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(usuario_logado)
             flash(f'Sucesso! seu login é: {usuario_logado.usuario}', category='success')
-            return render_template('home_responsavel.html')
+            return render_template('homeResponsavel.html')
         else:
             flash(f'Usuario ou senha estão incorretos! Tente novamente.', category='danger')
-    return render_template('login.html', form = form)
+    return render_template('index.html', form = form)
 
+@app.route('/adicionarSaldo', methods=['GET', 'POST'])
+def addsaldo():
+    form = SaldoForm()
+    if form.validate_on_submit():
+
+        usuario = Dependente(
+            saldo= form.saldo.data
+        )
+        db.session.add(usuario)
+        db.session.commit()
+    return render_template('adicionarSaldo.html', form=form)
+    
 @app.route('/logout')
 def logout():
     logout_user()
     flash("Você fez o logout", category="info")
-    return redirect(url_for("page_home"))
+    return redirect(url_for("login"))

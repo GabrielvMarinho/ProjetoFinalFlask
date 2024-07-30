@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError      
-from .models import Responsavel, Funcionario
+from .models import Responsavel, Funcionario, Dependente
 
 
 class CadastroForm(FlaskForm):
@@ -25,4 +25,8 @@ class CadastroForm(FlaskForm):
 class LoginForm(FlaskForm):
     usuario = StringField(label="Usuário", validators=[DataRequired()])
     senha = PasswordField(label="Senha", validators=[DataRequired()])
-    submit = SubmitField(label="Log In")    
+    submit = SubmitField(label="Log In")   
+
+class SaldoForm(FlaskForm):
+    saldo = IntegerField(label="Valor a ser adicionado", validators=[DataRequired()])
+    submit = SubmitField(label="Adicionar")

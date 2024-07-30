@@ -5,17 +5,78 @@
     font-weight: bold;
 }
 
-
+.botãoContainer1{
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    font-weight: 700;
+    color: #b2dbbf;
+    font-size: 1.5vw;
+    text-align: center;
+    background-color: #237699;
+    padding: 0.7vw;
+    padding-inline: 2.3vw;
+    max-width: fit-content;
+    border-radius: 1vw;
+    border: solid #b2dbbf 0.3vw;
+}
 body{
     background-color: rgb(112, 112, 112);
     height: calc(100vh - var(--margin-principal) * 2);
-    background-image: url(imagens/FotoFundo.png);
+    background-image: url(imagens/FotoFundo1.png);
     background-size: cover;
     height: 100vh;
 }
+.bannerLogin img{
+    width: 7vw;
+}
+
 :root{
     --margin-principal: 60px;
     --margin-principal-inline: 100px;
+}
+.containerEntrandoLogin{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: calc(var(--margin-principal-inline)-40px);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    border-radius: 30px;
+}
+.containerEntrando{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: var(--margin-principal-inline);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    border-radius: 30px;
+}
+a{
+    text-decoration: none;
+}
+.loginPrincipal{
+    justify-content: center;
+    display: flex;
+    gap: 5vw;
+}
+.bannerLogin h1{
+    font-size: 5vw;
+    color: #237699;
+}
+.bannerLogin{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.bannerLogin h3{
+    margin-top: 1vw;
+    margin-bottom: 2vw;
+    width: 20vw;
+    color: #237699;
 }
 .container{
     display: flex;
@@ -32,6 +93,45 @@ body{
     display: flex;
     flex-direction: column;
 }
+.formsLogin{
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+    align-items: center;
+}
+.formsLoginBox{
+    width: 70%;
+    border: 0;
+    height: 3vw;
+    font-size: 1.3vw;
+    border: #237699 solid 0.2vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    border-radius: 0.8vw;
+}
+.formsLogin ::placeholder{
+    text-align: center;
+    
+    color: #91BACC;
+    border: 0;
+}
+.containerLogin div{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    gap: 2vw;
+    width: 75%;
+    margin-inline: auto;
+}
+.containerLogin{
+    width:45vw;
+    justify-content: center;
+}
+.containerLogin h1{
+    color:#fff;
+    font-size: 4vw;
+
+}   
+
 
 form{
     display: flex;

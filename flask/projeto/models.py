@@ -6,14 +6,13 @@ from flask_login import UserMixin
 def load_user(user_id):
     return Responsavel.query.get(int(user_id))   
 
-
 class Dependente(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    saldo = db.Column(db.Integer, nullable=False, unique=False, default=0)
     usuario = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False, unique=True)
     idResponsavel = db.Column(db.Integer)
-
     @property
     def senhacrip(self):
         return self.senhacrip
@@ -29,7 +28,7 @@ class Responsavel(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     usuario = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=30), nullable=False, unique=True)
-    senha = db.Column(db.String(length=30), nullable=False, unique=True)
+    senha = db.Column(db.String(length=30), nullable=False, unique=False)
     
     @property
     def senhacrip(self):
@@ -50,6 +49,3 @@ class Funcionario(db.Model, UserMixin):
     usuario = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False, unique=True)
-
-
-

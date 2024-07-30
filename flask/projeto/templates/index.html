@@ -1,13 +1,44 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+</head>
 
-{% block titulo %}
-    MySnack
-{% endblock %}
-
-{% block conteudo %}
-    <div class="image"></div>
-    <div>
-        <a href="{{url_for('cadastro')}}">Cadastrar</a>
-        <a href="{{url_for('login')}}">Login</a>
+<body class="loginPrincipal">
+    
+    <div class="bannerLogin">
+        <img src="{{url_for('static', filename='imagens/RealLove.png')}}">
+        <h1>MySnack</h1>
+        <h3>Bem vindo! Se você não possui cadastro, faça!</h3>
+        <a href="{{url_for('cadastro')}}" class="botãoContainer1">Fazer Cadastro</a>
     </div>
-{%endblock%}
+
+    <div class="containerEntrandoLogin">
+        <div class="containerLogin">
+            <div>
+                <h1 >
+                    Faça seu Login 
+                </h1>
+                <form method="POST" class="formsLogin" style="color: whitesmoke;">
+                    {{form.hidden_tag() }}
+
+                    {{form.usuario(class="formsLoginBox", placeholder="Usuario") }}
+
+                    {{form.senha(class="formsLoginBox", placeholder="Senha") }}
+                    
+                    {{form.submit(class="botãoContainer1")}}
+
+                </form>
+            </div>
+            
+        </div>
+    </div>
+</bod>
+</html>

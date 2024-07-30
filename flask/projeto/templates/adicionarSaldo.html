@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Adicionar Saldo
+{% endblock %}
+
+{% block conteudo %}
+
+<form method="POST" class="form-register" style="color: whitesmoke;"> 
+
+    {{ form.hidden_tag() }}
+
+    {{form.saldo.label()}}
+    {{form.saldo(placeholder="Informe o Saldo")}}
+    
+    {{form.submit()}}
+</form>
+
+{% endblock %}
