@@ -19,13 +19,12 @@
     <div class="container">
         
         <div class="sidebarResponsavel">
-            <div><img src="{{url_for('static', filename='imagens/Home.svg')}}"><p>HOME</p></div>
+            <a href="{{url_for('homeResponsavel')}}"><div><img src="{{url_for('static', filename='imagens/Home.svg')}}"><p>HOME</p></div></a>
             <div><img src="{{url_for('static', filename='imagens/Historico.svg')}}"><p>HISTÓRICO</p></div>
             <div><img src="{{url_for('static', filename='imagens/Compras.svg')}}"><p>COMPRAS</p></div>
             <div><img src="{{url_for('static', filename='imagens/Limites.svg')}}"><p>LIMITES</p></div>
             <div><img src="{{url_for('static', filename='imagens/Dados.svg')}}"><p>DADOS</p></div>
             <div><img src="{{url_for('static', filename='imagens/Suporte.svg')}}"><p>SUPORTE</p></div>
-
         </div>
         
 
@@ -53,7 +52,7 @@
 
             
             {%endblock%}
-
+            
         </div>
     </div>
 

@@ -3,8 +3,25 @@
     margin: 0;
     font-family: "Montserrat";
     font-weight: bold;
+    color: #fff;
 }
 
+
+.botãoContainerLogout {
+    margin-right: 2.5vw;
+    margin-bottom: 2.5vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    font-weight: 700;
+    color: #dd6666;
+    font-size: 1.5vw;
+    text-align: center;
+    background-color: #df4e4e4f;
+    padding: 0.7vw;
+    height: 2vw;
+    padding-inline: 2.3vw;
+    border-radius: 1vw;
+    border: solid #dd6666 0.3vw;
+}
 .botãoContainer1{
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     font-weight: 700;
@@ -18,6 +35,19 @@
     border-radius: 1vw;
     border: solid #b2dbbf 0.3vw;
 }
+header{
+    height: 20%;
+    /*background-color: #b2dbbf91;*/
+}
+
+footer{
+    display: flex;
+    justify-content: right;
+    align-items:end;
+    height: 22.3%;
+    /*background-color: #9aa2a581;*/
+}
+
 body{
     background-color: rgb(112, 112, 112);
     height: calc(100vh - var(--margin-principal) * 2);
@@ -89,9 +119,26 @@ a{
     border-radius: 30px;
 }
 
-.containerLogin, .containerCadastro{
+.containerLogin, .containerCadastro, .containerCadastroDependente, .containerAdicionarSaldo{
     display: flex;
     flex-direction: column;
+}
+.containerCadastroDependente, .containerAdicionarSaldo{
+    height: 80%;
+    width: 80%;
+    justify-content: center;
+}
+.formsDependente{
+    display: flex;
+    flex-direction: column;
+    gap:0.5vw;
+    align-items: center;
+}
+.formsSaldo{
+    display: flex;
+    flex-direction: column;
+    gap:0.9vw;
+    align-items: center;
 }
 .formsLogin{
     display: flex;
@@ -104,6 +151,7 @@ a{
     border: 0;
     height: 3vw;
     font-size: 1.3vw;
+    color: #000;
     border: #237699 solid 0.2vw;
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     border-radius: 0.8vw;
@@ -139,6 +187,8 @@ form{
 }
 .section_home_responsavel{
     display: flex;
+    height: 57%;
+    /*background-color: #dd66666e;*/
 }
 .dadosReponsavel1{
     display: flex;
@@ -154,11 +204,15 @@ form{
     height: 20vw;
     background-color: aqua;
 }
+
+.containerAdicionarSaldo, .containerCadastroDependente{
+    text-align: center;
+}
 .sidebarResponsavel{
     display: flex;
     flex-direction: column;
-    width: 80px;
-    background-color: #b2dbbfa2;
+    width: 6.3%;
+    background-color: hsl(197, 45%, 44%);
     position: absolute;
     border-radius: 30px;
     height: calc(100vh - var(--margin-principal) * 2);
@@ -167,7 +221,9 @@ form{
 
 }
 .bodyBaseResponsavel{
-    margin-left: 30vw;
+
+    margin-left: 10%;
+    width: 90%;
 }
 
 .sidebarResponsavel{

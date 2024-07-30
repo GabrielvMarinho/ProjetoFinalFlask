@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField
-from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError      
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, FloatField
+from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError, NumberRange
 from .models import Responsavel, Funcionario, Dependente
 
 
@@ -28,5 +28,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label="Log In")   
 
 class SaldoForm(FlaskForm):
-    saldo = IntegerField(label="Valor a ser adicionado", validators=[DataRequired()])
+    idDependente = FloatField(label="Id do dependente", validators=[DataRequired()])
+    saldo = FloatField(label="Valor a ser adicionado", validators=[NumberRange(min=1), DataRequired()])
     submit = SubmitField(label="Adicionar")

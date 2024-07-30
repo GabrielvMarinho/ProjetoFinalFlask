@@ -1,19 +1,25 @@
-{% extends 'base.html' %}
+
+{% extends 'baseResponsavel.html' %}
 
 {% block titulo %}
     Adicionar Saldo
 {% endblock %}
 
 {% block conteudo %}
+<container class="containerAdicionarSaldo">
+    <h1>Adicionar Saldo</h1>
+    <form method="POST" class="formsSaldo" style="color: whitesmoke;"> 
 
-<form method="POST" class="form-register" style="color: whitesmoke;"> 
+        {{ form.hidden_tag() }}
 
-    {{ form.hidden_tag() }}
+        {{form.idDependente.label()}}
+        {{form.idDependente(class="formsLoginBox", placeholder="Informe o id do Dependente")}}
 
-    {{form.saldo.label()}}
-    {{form.saldo(placeholder="Informe o Saldo")}}
-    
-    {{form.submit()}}
-</form>
+        {{form.saldo.label()}}
+        {{form.saldo(class="formsLoginBox", placeholder="Informe o Saldo")}}
+        
+        {{form.submit(class="botãoContainer1")}}
+    </form>
+</container>
 
 {% endblock %}

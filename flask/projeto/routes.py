@@ -56,22 +56,17 @@ def login():
         usuario_logado = Responsavel.query.filter_by(usuario=form.usuario.data).first()
         if usuario_logado and usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(usuario_logado)
-            flash(f'Sucesso! seu login é: {usuario_logado.usuario}', category='success')
             return render_template('homeResponsavel.html')
-        else:
-            flash(f'Usuario ou senha estão incorretos! Tente novamente.', category='danger')
     return render_template('index.html', form = form)
 
 @app.route('/adicionarSaldo', methods=['GET', 'POST'])
 def addsaldo():
     form = SaldoForm()
     if form.validate_on_submit():
-
-        usuario = Dependente(
-            saldo= form.saldo.data
-        )
-        db.session.add(usuario)
+        dependente = Dependente.query.get(form.idDependente.data)
+        dependente.saldo = dependente.saldo+form.saldo.data
         db.session.commit()
+        return render_template('homeResponsavel.html')
     return render_template('adicionarSaldo.html', form=form)
     
 @app.route('/logout')
