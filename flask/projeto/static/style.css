@@ -35,9 +35,39 @@
     border-radius: 1vw;
     border: solid #b2dbbf 0.3vw;
 }
+header div{
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+    margin: 2vw;
+}
+header div div{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+header div div img{
+    width: 8vw;
+    height: 8vw;
+}
+header a{
+    width: fit-content;
+}
 header{
+    display: flex;
+    justify-content: right;
     height: 20%;
     /*background-color: #b2dbbf91;*/
+}
+header h1{
+    background-color: hsl(197, 45%, 44%);
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5vw;
+    color: #ffffff;
+    border-radius: 0.3vw;
+    padding-inline: 4vw;
+
 }
 
 footer{
@@ -54,14 +84,15 @@ body{
     background-image: url(imagens/FotoFundo1.png);
     background-size: cover;
     height: 100vh;
+    overflow-y: hidden;
 }
 .bannerLogin img{
     width: 7vw;
 }
 
 :root{
-    --margin-principal: 60px;
-    --margin-principal-inline: 100px;
+    --margin-principal: 3vw;
+    --margin-principal-inline: 4vw;
 }
 .containerEntrandoLogin{
     display: flex;
@@ -81,7 +112,9 @@ body{
     margin-inline: var(--margin-principal-inline);
     margin-bottom: var(--margin-principal);
     background-color: #237699;
-    border-radius: 30px;
+    
+
+    border-radius: 4vw;
 }
 a{
     text-decoration: none;
@@ -116,7 +149,18 @@ a{
     margin-inline: var(--margin-principal-inline);
     margin-bottom: var(--margin-principal);
     background-color: #237699;
-    border-radius: 30px;
+    overflow: auto;
+
+    border-radius: 0.4vw;
+}
+.botoesChoseDependent{
+    background-color: #b2dbbf;
+    border: solid 0.5vw #689aaf;
+    color: #237699;
+}
+.container::-webkit-scrollbar{
+    background-color: #237699;
+    border-radius: 3vw;
 }
 
 .containerLogin, .containerCadastro, .containerCadastroDependente, .containerAdicionarSaldo{
@@ -214,14 +258,13 @@ form{
     width: 6.3%;
     background-color: hsl(197, 45%, 44%);
     position: absolute;
-    border-radius: 30px;
+    border-radius: 0.4vw;
     height: calc(100vh - var(--margin-principal) * 2);
     justify-content: space-around;
     align-items: center;
 
 }
 .bodyBaseResponsavel{
-
     margin-left: 10%;
     width: 90%;
 }

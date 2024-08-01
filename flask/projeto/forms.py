@@ -27,7 +27,11 @@ class LoginForm(FlaskForm):
     senha = PasswordField(label="Senha", validators=[DataRequired()])
     submit = SubmitField(label="Log In")   
 
+class adicionarSaldoRespo(FlaskForm):
+    adicional = FloatField(label="valor á ser adicionado",  validators=[NumberRange(min=1), DataRequired()])
+    submit = SubmitField(label="Adicionar")
+
 class SaldoForm(FlaskForm):
-    idDependente = FloatField(label="Id do dependente", validators=[DataRequired()])
+    idDependente = FloatField(label="Id do dependente")
     saldo = FloatField(label="Valor a ser adicionado", validators=[NumberRange(min=1), DataRequired()])
     submit = SubmitField(label="Adicionar")

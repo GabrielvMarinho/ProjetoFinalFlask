@@ -1,0 +1,20 @@
+{% extends 'baseResponsavel.html'%}
+
+{%block titulo%}
+    Dependentes
+{%endblock%}
+
+{% block conteudo %}
+<div>
+    <form method="post">
+        {% for dependente in dependentes %}
+        {% if dependente.idResponsavel==idAtual %}
+            <h1>{{dependente.usuario}}</h1>
+            <h2>{{dependente.saldo}}</h2>
+            <a hre="{{url_for('addsaldo')}}">asd</a>
+            <button class="botoesChoseDependent" name="botao" value={{dependente.id}}> <a >clique aqui para {{dependente.usuario}}</a></button>
+        {%endif%}
+        {%endfor%}
+    </form>
+</div>
+{%endblock%}

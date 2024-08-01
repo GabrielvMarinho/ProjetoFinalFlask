@@ -29,6 +29,7 @@ class Responsavel(db.Model, UserMixin):
     usuario = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False, unique=False)
+    saldo = db.Column(db.Double, nullable=False, default=0)
     
     @property
     def senhacrip(self):
@@ -49,3 +50,7 @@ class Funcionario(db.Model, UserMixin):
     usuario = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False, unique=True)
+class Produto(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    lanche = db.Column(db.String(length=30))
+    valor = db.Column()

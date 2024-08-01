@@ -8,32 +8,25 @@
 
 {% block conteudo %}
 <header>
+
     <div>
-        <h1>Saldo atual -> </h1>
+        <div>
+            <h1>Saldo atual: {{current_user.saldo}}</h1>
+            <img src="{{url_for('static', filename='imagens/RealLove.png')}}">
+        </div>
         <a href="{{url_for('adicionarDependente')}}">cadastrar dependente</a>
-        <a href="{{url_for('addsaldo')}}">adicionar saldo</a>
+        <a href="{{url_for('escolherDependente')}}">gerenciar dependentes</a>
+        <a href="{{url_for('adicionarSaldoResponsavel')}}">adicionar saldo</a>
     </div>
 </header>
 
 <section class="section_home_responsavel">
-    <container class="dadosReponsavel1">
-        <div class="dadosResponsavel1-1">
-            dados importantes
-        </div>
 
-        <div class="dadosResponsavel1-2">
-            dados muito importantes
-        </div>
-
-    </container>
-    
-    <container class="dadosReponsavel2">
-        grafico
-    </container>
 </section>
 <footer>
     <a class="botãoContainerLogout" href="{{url_for('logout')}}">
             sair
     </a>
 </footer>
+
 {%endblock%}
