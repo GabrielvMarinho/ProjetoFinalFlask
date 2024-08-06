@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Compras</title>
+</head>
+<body>
+    <h1>Histórico de Compras</h1>
+    <a href="{{ url_for('base') }}">Voltar para a página principal</a>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for historico in historicos %}
+                <tr>
+                    <td>{{ historico.data }}</td>
+                    <td>${{ historico.valor }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

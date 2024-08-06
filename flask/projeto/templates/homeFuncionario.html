@@ -1,6 +1,6 @@
 
 
-{% extends 'baseResponsavel.html' %}
+{% extends 'baseFuncionario.html' %}
 
 {% block titulo %}
     HOME
@@ -16,8 +16,23 @@
 </section>
 <footer>
     <a class="botãoContainerLogout" href="{{url_for('logout')}}">
-            sair
-    </a>
+        sair
+</a>
+    <a href="{{url_for('addProduto')}}">add produto</a>
+    <form method="post">
+        {% for dependente in dependentes %}
+        {% if dependente.idResponsavel==idAtual %}
+            <h1>{{dependente.usuario}}</h1>
+            <h2>{{dependente.saldo}}</h2>
+            <a href="{{url_for('addsaldo')}}">asd</a>
+            <button class="botoesChoseDependent" name="botao" value={{dependente.id}}> <a >clique aqui para {{dependente.usuario}}</a></button>
+        {%endif%}
+        {%endfor%}
+    </form>
+
+
+
+    
 </footer>
 
 {%endblock%}

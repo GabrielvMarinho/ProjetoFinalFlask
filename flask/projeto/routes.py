@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from projeto import app
-from projeto.forms import adicionarSaldoRespo, CadastroForm, LoginForm, SaldoForm  
-from projeto.models import Responsavel, Funcionario, Dependente
+from projeto.forms import adicionarSaldoRespo, CadastroForm, LoginForm, SaldoForm, adicionarProduto
+from projeto.models import Responsavel, Funcionario, Dependente, Produto
 from projeto import db
 from flask_login import login_user, logout_user, current_user
 
@@ -76,8 +76,9 @@ def login():
         elif dependente_logado and dependente_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(dependente_logado)
             print("deu certo dependente")
-            return render_template('homeDependente.html')
-        elif funcionario_logado and funcionario_logado.converte_senha(senha_texto_claro=form.senha.data):
+            return redirect(url_for("escolherProduto"))
+
+        elif funcionario_logado and funcionario_logado.senha==form.senha.data:
             login_user(funcionario_logado)
             print("deu certo funcionario")
             return render_template('homeFuncionario.html')
@@ -88,13 +89,8 @@ def login():
 def addsaldo():
     form = SaldoForm()
     id = request.args.get('botao')
-    
-
     if form.validate_on_submit():
-        
-
         dependente = Dependente.query.get(id)
-        
         if(form.saldo.data<=current_user.saldo):
             dependente.saldo = dependente.saldo+form.saldo.data
             current_user.saldo = current_user.saldo-form.saldo.data
@@ -121,5 +117,50 @@ def escolherDependente():
         return redirect(url_for("addsaldo", botao = botao_clicado))
     return render_template("ChoseDependent.html", botao = botao_clicado, dependentes =dependentes, idAtual=idAtual)
 
+
+@app.route('/adicionarProduto', methods=['GET', 'POST'])
+def addProduto():
+    form = adicionarProduto()
     
+    if form.validate_on_submit():
+        produto = Produto(
+            lanche = form.lanche.data,
+            valor = form.valor.data
+        )
+        db.session.add(produto)
+        db.session.commit()
+        return render_template("homeFuncionario.html", form = form)
+
     
+    return render_template("adicionarProduto.html", form = form)
+
+@app.route('/teste')
+def teste():
+    return render_template("teste.html")
+
+
+@app.route('/homeFuncionario', methods=['GET', 'POST'])
+def escolherProduto():
+    #produtos = Produto.query.all()
+    #botao_clicado=None
+    #if request.method == 'POST':
+    #    botao_clicado = request.form.get('botao')
+    #    return render_template('homeFuncionario.html', botao = botao_clicado)
+    #return render_template('homeFuncionario.html', botao = botao_clicado, produtos = produtos)
+    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+    produtos = Produto.query.all()
+    idAtual = current_user.id
+    botao_clicado=None
+
+    if request.method == 'POST':
+        botao_clicado = request.form.get('botao')
+
+        return redirect(url_for("escolherProduto", botao = botao_clicado))
+    return render_template("homeDependente.html", botao = botao_clicado, produtos =produtos, idAtual=idAtual)
+
+
+
+
+
