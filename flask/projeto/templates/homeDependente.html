@@ -1,6 +1,6 @@
 
 
-{% extends 'baseResponsavel.html' %}
+{% extends 'baseDependente.html' %}
 
 {% block titulo %}
     HOME
@@ -9,17 +9,26 @@
 {% block conteudo %}
 <header>
     <div>
+        <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+            sair
+    </a>
         <h1>Saldo atual -> {{current_user.saldo}}</h1>
+        
     </div>
 </header>
 
-<section class="section_home_responsavel">
 
-</section>
+    
+<form method="post">
+    {% for produto in produtos %}
+        <h1>{{produto.lanche}}</h1>
+        <h2>{{produto.valor}}</h2>
+        <button class="botoesChoseDependent" name="botao" value={{produto.id}}> <a>clique aqui para {{produto.lanche}}</a></button>
+    {%endfor%}
+</form>
+
 <footer>
-    <a class="botãoContainerLogout" href="{{url_for('logout')}}">
-            sair
-    </a>
+    
 </footer>
 
 {%endblock%}

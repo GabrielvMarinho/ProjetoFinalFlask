@@ -1,37 +1,26 @@
-const ctx = getElementById('barchart').getContext('2');
-const barchart = new Chart(ctx, { 
-    type: 'bar',
-    data: {
-          labels: ['Dados', 'dados2', 'dados3', 'dados4'],
-          datasets: [{
-            lasbel: 'MOSTRA DADOS',
-            data: [15, 10, 11, 12],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-          ],
-          borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-          ],
-          borderWidth: 1
-        }]
-        },
-        options:{
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-});
+
+// Obtém o modal
+var modal = document.getElementById("myModal");
+
+// Obtém o botão que abre o modal
+var btn = document.getElementById("openModalBtn");
+
+// Obtém o elemento <span> que fecha o modal
+var span = document.getElementsByClassName("close")[0];
+
+// Quando o usuário clicar no botão, abre o modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// Quando o usuário clicar no <span> (x), fecha o modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Quando o usuário clicar fora do modal, fecha o modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
