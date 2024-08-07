@@ -71,10 +71,10 @@ def login():
         if usuario_logado and usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(usuario_logado)
             print("deu asd")
-
             return render_template('homeResponsavel.html')
         elif dependente_logado and dependente_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(dependente_logado)
+            print(current_user.saldo)
             print("deu certo dependente")
             return redirect(url_for("escolherProduto"))
 
@@ -139,26 +139,20 @@ def teste():
     return render_template("teste.html")
 
 
-@app.route('/homeFuncionario', methods=['GET', 'POST'])
+@app.route('/homeDependente', methods=['GET', 'POST'])
 def escolherProduto():
-    #produtos = Produto.query.all()
-    #botao_clicado=None
-    #if request.method == 'POST':
-    #    botao_clicado = request.form.get('botao')
-    #    return render_template('homeFuncionario.html', botao = botao_clicado)
-    #return render_template('homeFuncionario.html', botao = botao_clicado, produtos = produtos)
+    
     print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     produtos = Produto.query.all()
-    idAtual = current_user.id
+    print(current_user.saldo)
     botao_clicado=None
-
     if request.method == 'POST':
         botao_clicado = request.form.get('botao')
 
-        return redirect(url_for("escolherProduto", botao = botao_clicado))
-    return render_template("homeDependente.html", botao = botao_clicado, produtos =produtos, idAtual=idAtual)
+        return redirect(url_for("escolherProduto", botao = botao_clicado, saldo=id))
+    return render_template("homeDependente.html", botao = botao_clicado, produtos =produtos, saldo=id)
 
 
 
