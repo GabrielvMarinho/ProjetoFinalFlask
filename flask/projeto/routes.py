@@ -74,7 +74,7 @@ def login():
             return render_template('homeResponsavel.html')
         elif dependente_logado and dependente_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(dependente_logado)
-            print(current_user.saldo)
+            print(dependente_logado.saldo)
             print("deu certo dependente")
             return redirect(url_for("escolherProduto"))
 
@@ -141,7 +141,6 @@ def teste():
 
 @app.route('/homeDependente', methods=['GET', 'POST'])
 def escolherProduto():
-    
     print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
@@ -152,7 +151,7 @@ def escolherProduto():
         botao_clicado = request.form.get('botao')
 
         return redirect(url_for("escolherProduto", botao = botao_clicado, saldo=id))
-    return render_template("homeDependente.html", botao = botao_clicado, produtos =produtos, saldo=id)
+    return render_template("homeDependente.html", botao = botao_clicado, produtos =produtos)
 
 
 

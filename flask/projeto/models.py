@@ -5,7 +5,9 @@ from sqlalchemy import Column, Integer, String, Float
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Responsavel.query.get(int(user_id))   
+    user = Dependente.query.get(int(user_id))  or Responsavel.query.get(int(user_id))  or Funcionario.query.get(int(user_id)) 
+    if user:
+        return user
 
 class Dependente(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
