@@ -1,0 +1,21 @@
+{%extends 'baseResponsavel.html'%}
+
+{%block conteudo%}
+
+<div>
+    <h1 >
+        Mude sua senha
+    </h1>
+    <form method="POST" class="formsLogin" style="color: whitesmoke;">
+        {{form.hidden_tag() }}
+
+        {{form.usuario(class="formsLoginBox", placeholder="Usuario") }}
+
+        {{form.senha(class="formsLoginBox", placeholder="Nova Senha") }}
+        
+        {{form.submit(class="botãoContainer1")}}
+
+    </form>
+</div>
+
+{%endblock conteudo%}

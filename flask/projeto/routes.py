@@ -1,14 +1,15 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, session
 from projeto import app
-from projeto.forms import adicionarSaldoRespo, CadastroForm, LoginForm, SaldoForm, adicionarProduto
+from projeto.forms import adicionarSaldoRespo, CadastroForm, LoginForm, SaldoForm, adicionarProduto, confirmarForm
 from projeto.models import Responsavel, Funcionario, Dependente, Produto
 from projeto import db
 from flask_login import login_user, logout_user, current_user
-
+from bcrypt import _bcrypt
 
 
 @app.route("/Home")
 def homeResponsavel():
+    print(current_user.saldo)
     return render_template("homeResponsavel.html")
 
 @app.route("/adicionarSaldoResponsavel", methods=['GET', 'POST'])
@@ -70,17 +71,17 @@ def login():
         funcionario_logado = Funcionario.query.filter_by(usuario=form.usuario.data).first()
         if usuario_logado and usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(usuario_logado)
-            print("deu asd")
+            session['user_type'] = 'responsavel'
             return render_template('homeResponsavel.html')
         elif dependente_logado and dependente_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(dependente_logado)
-            print(dependente_logado.saldo)
+            session['user_type'] = 'dependente'
             print("deu certo dependente")
             return redirect(url_for("escolherProduto"))
 
         elif funcionario_logado and funcionario_logado.senha==form.senha.data:
             login_user(funcionario_logado)
-            print("deu certo funcionario")
+            session['user_type'] = 'funcionario'
             return render_template('homeFuncionario.html')
 
     return render_template('index.html', form = form)
@@ -101,10 +102,36 @@ def addsaldo():
     
     return render_template('adicionarSaldo.html', form=form)
     
+
+
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for("login"))
+
+@app.route('/mudar-senha', methods=['POST', 'GET'])
+def mudarSenha():
+    form = LoginForm() 
+    if request.method == 'POST':
+        email=request.form.get('email')
+        password=request.form.get('password')
+        if email == "" or password == "":
+            flash('Existem campos em branco','danger')
+            return redirect('/mudar-senha')
+    else:
+        usuario_logado = Responsavel.query.filter_by(usuario=form.usuario.data).first()
+        if usuario_logado:
+            hash_password=_bcrypt.generate_password_hash(password,10)
+            Responsavel.query.filter_by(email=email).update(dict(password=hash_password))
+            db.session.commit()
+            flash('Senha Alterada','success')
+            return redirect('/mudar-senha')
+        else:
+            flash('Email Invalido','danger')
+            return redirect('/mudar-senha')
+
+    return render_template('mudar-senha.html', title="Mudar Senha", form=form)
+
 
 @app.route('/escolherDependente', methods=['GET', 'POST'])
 def escolherDependente():
@@ -139,19 +166,22 @@ def teste():
     return render_template("teste.html")
 
 
+@app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
+def comprarProduto(id):
+    form = confirmarForm()
+    obj = Produto.query.get(id)
+    if form.validate_on_submit():
+        current_user.saldo = current_user.saldo-obj.valor
+        db.session.commit()
+        return redirect(url_for("escolherProduto"))
+
+    return render_template("comprarProduto.html", obj=obj, form=form)
+    
+
 @app.route('/homeDependente', methods=['GET', 'POST'])
 def escolherProduto():
-    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-    print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
     produtos = Produto.query.all()
-    print(current_user.saldo)
-    botao_clicado=None
-    if request.method == 'POST':
-        botao_clicado = request.form.get('botao')
-
-        return redirect(url_for("escolherProduto", botao = botao_clicado, saldo=id))
-    return render_template("homeDependente.html", botao = botao_clicado, produtos =produtos)
+    return render_template("homeDependente.html", produtos =produtos)
 
 
 

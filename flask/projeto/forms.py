@@ -36,6 +36,9 @@ class SaldoForm(FlaskForm):
     saldo = FloatField(label="Valor a ser adicionado", validators=[NumberRange(min=1), DataRequired()])
     submit = SubmitField(label="Adicionar")
 
+class confirmarForm(FlaskForm):
+    submit = SubmitField(label="Confirmar")
+
 class adicionarProduto(FlaskForm):
     lanche = StringField(label="Nome do lanche", validators=[DataRequired()])
     valor = FloatField(label="valor do produto", validators=[NumberRange(min=1), DataRequired()])
