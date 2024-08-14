@@ -35,6 +35,20 @@
     border-radius: 1vw;
     border: solid #b2dbbf 0.3vw;
 }
+.bodyChoseDependent form{
+    display: flex;
+    flex-direction: row;
+}
+.boxChoseDependent{
+    width: 40%;
+    background-color: #689aaf;
+    display: flex;
+    flex-direction: column;
+    gap:0.3vw;
+    justify-content: center;
+    align-items: center;
+
+}
 header div{
     display: flex;
     flex-direction: column;

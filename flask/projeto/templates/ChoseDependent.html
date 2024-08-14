@@ -5,14 +5,16 @@
 {%endblock%}
 
 {% block conteudo %}
-<div>
+<div class="bodyChoseDependent">
     <form method="post">
         {% for dependente in dependentes %}
         {% if dependente.idResponsavel==idAtual %}
+        <div class="boxChoseDependent">
             <h1>{{dependente.usuario}}</h1>
             <h2>{{dependente.saldo}}</h2>
             <a href="{{url_for('addsaldo')}}">asd</a>
             <button class="botoesChoseDependent" name="botao" value={{dependente.id}}> <a >clique aqui para {{dependente.usuario}}</a></button>
+        </div>
         {%endif%}
         {%endfor%}
     </form>
