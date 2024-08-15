@@ -92,6 +92,7 @@ def login():
 def addsaldo():
     form = SaldoForm()
     id = request.args.get('botao')
+    acao = request.args.get('acao')
     if form.validate_on_submit():
         dependente = Dependente.query.get(id)
         if(form.saldo.data<=current_user.saldo):
@@ -99,7 +100,6 @@ def addsaldo():
             current_user.saldo = current_user.saldo-form.saldo.data
             db.session.commit()
             return redirect(url_for('escolherDependente', form=form))
-
         else:
             flash("Insuficiente")
             return render_template('homeResponsavel.html')
@@ -144,8 +144,9 @@ def escolherDependente():
     botao_clicado=None
     if request.method == 'POST':
         botao_clicado = request.form.get('botao')
-
-        return redirect(url_for("addsaldo", botao = botao_clicado))
+        acao = request.form.get('acao')
+        print(acao)
+        return redirect(url_for("addsaldo", botao = botao_clicado, acao = acao))
     return render_template("ChoseDependent.html", botao = botao_clicado, dependentes =dependentes, idAtual=idAtual)
 
 

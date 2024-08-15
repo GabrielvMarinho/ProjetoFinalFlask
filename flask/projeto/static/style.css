@@ -373,7 +373,7 @@ form{
 .sidebarResponsavel{
     display: flex;
     flex-direction: column;
-    width: 6.6%;
+    width: 7%;
     background-color: hsl(197, 45%, 44%);
     position: absolute;
     border-radius: 0.4vw;
@@ -405,12 +405,12 @@ form{
 }
 .sidebarResponsavel:hover {
     transition: 0.5s;
-    width: 16%;
+    width: 18%;
     
 }
 .sidebarResponsavel div{
-    margin-left: 25px;
-    gap: 10px;
+    margin-left: 2.1vw;
+    gap: 1vw;
 }
 .sidebarResponsavel p{
     visibility: hidden;
