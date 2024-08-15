@@ -1,0 +1,37 @@
+
+
+{% extends 'baseFuncionario.html' %}
+
+{% block titulo %}
+    HOME
+{% endblock %}
+
+{% block conteudo %}
+<header>
+
+</header>
+
+<section class="section_home_responsavel">
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        {{form.lanche.label()}}
+        {{form.lanche(class="formsLoginBox", placeholder="Informe o nome")}}
+
+        {{form.valor.label()}}
+        {{form.valor(class="formsLoginBox", placeholder="Informe o valor")}}
+
+        {{form.submit(class="botãoContainer1")}}
+
+    </form>
+    
+</section>
+<footer>
+    
+    
+
+</footer>
+
+
+{%endblock%}

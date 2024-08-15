@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request, session
 from projeto import app
-from projeto.forms import adicionarSaldoRespo, CadastroForm, LoginForm, SaldoForm, adicionarProduto, confirmarForm
+from projeto.forms import adicionarSaldoRespo, CadastroForm,removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
 from projeto.models import Responsavel, Funcionario, Dependente, Produto
 from projeto import db
 from flask_login import login_user, logout_user, current_user
@@ -10,7 +10,8 @@ from bcrypt import _bcrypt
 @app.route("/Home")
 def homeResponsavel():
     print(current_user.saldo)
-    return render_template("homeResponsavel.html")
+    produtos = Produto.query.all()
+    return render_template("homeResponsavel.html", produtos=produtos)
 
 @app.route("/adicionarSaldoResponsavel", methods=['GET', 'POST'])
 def adicionarSaldoResponsavel():
@@ -86,6 +87,7 @@ def login():
 
     return render_template('index.html', form = form)
 
+
 @app.route('/adicionarSaldo', methods=['GET', 'POST'])
 def addsaldo():
     form = SaldoForm()
@@ -96,6 +98,8 @@ def addsaldo():
             dependente.saldo = dependente.saldo+form.saldo.data
             current_user.saldo = current_user.saldo-form.saldo.data
             db.session.commit()
+            return redirect(url_for('escolherDependente', form=form))
+
         else:
             flash("Insuficiente")
             return render_template('homeResponsavel.html')
@@ -148,7 +152,6 @@ def escolherDependente():
 @app.route('/adicionarProduto', methods=['GET', 'POST'])
 def addProduto():
     form = adicionarProduto()
-    
     if form.validate_on_submit():
         produto = Produto(
             lanche = form.lanche.data,
@@ -157,21 +160,38 @@ def addProduto():
         db.session.add(produto)
         db.session.commit()
         return render_template("homeFuncionario.html", form = form)
-
-    
     return render_template("adicionarProduto.html", form = form)
 
-@app.route('/teste')
+@app.route('/homeFunc', methods=['GET', 'POST'])
+def homeFunc():
+    return render_template("homeFuncionario.html")
+
+@app.route("/escolherProduto", methods=['GET', 'POST'])
+def choseProduto():
+    produtos = Produto.query.all()
+    return render_template("escolherRemoverProduto.html", produtos=produtos)
+
+
+@app.route('/removerProduto/<int:id>', methods=['GET', 'POST'])
+def removerProdutos(id):
+    form = confirmarForm()
+    obj = Produto.query.get(id)
+    if form.validate_on_submit():
+        db.session.delete(obj)
+        db.session.commit()
+        return redirect(url_for("choseProduto"))
+    return render_template("excluirProduto.html", obj=obj, form=form)
+
+        
+@app.route('/dependetes')
 def teste():
-    return render_template("teste.html")
+    return render_template("Dependentes.html")
 
 
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 def comprarProduto(id):
     form = confirmarForm()
     obj = Produto.query.get(id)
-    
-
     if form.validate_on_submit():
         if current_user.saldo >= obj.valor:
             current_user.saldo = current_user.saldo-obj.valor

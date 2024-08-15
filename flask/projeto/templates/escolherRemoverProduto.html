@@ -1,0 +1,33 @@
+
+
+{% extends 'baseDependente.html' %}
+
+{% block titulo %}
+    HOME
+{% endblock %}
+
+{% block conteudo %}
+<body class="bodyDependente">
+
+<header>
+    <a class="botãoContainerVoltar" href="{{url_for('homeFunc')}}">
+        VOLTAR
+    </a>
+</header>
+
+<div class="bodyChoseDependent">
+    <form method="post">
+        
+            {% for produto in produtos %}
+            <div class="boxChoseLanche">
+                <h1>{{produto.lanche}}</h1>
+                <h2>{{produto.valor}}</h2>
+                <a class="botoesChoseLanche" href="{{url_for('removerProdutos', id = produto.id)}}">EXCLUIR</a>
+            </div>
+            {%endfor%}
+        
+    </form>
+</div>
+</body>
+{%endblock%}
+

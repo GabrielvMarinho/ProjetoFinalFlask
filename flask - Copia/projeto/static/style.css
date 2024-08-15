@@ -1,0 +1,447 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Montserrat";
+    font-weight: bold;
+    color: #fff;
+}
+
+
+.botãoContainerLogout {
+    margin-right: 2.5vw;
+    margin-bottom: 2.5vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    font-weight: 700;
+    color: #dd6666;
+    font-size: 1.5vw;
+    text-align: center;
+    background-color: #df4e4e4f;
+    padding: 0.7vw;
+    height: 2vw;
+    padding-inline: 2.3vw;
+    border-radius: 1vw;
+    border: solid #dd6666 0.3vw;
+}
+.botãoContainer1{
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    font-weight: 700;
+    color: #b2dbbf;
+    font-size: 1.5vw;
+    text-align: center;
+    background-color: #237699;
+    padding: 0.7vw;
+    padding-inline: 2.3vw;
+    max-width: fit-content;
+    border-radius: 1vw;
+    border: solid #b2dbbf 0.3vw;
+}
+.bodyChoseDependent{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bodyChoseDependent .titulo{
+    margin-top: 4vw;
+    font-size: 5vw;
+    color: rgba(255, 255, 255, 0.952);
+
+}
+.bodyChoseDependent form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:2vw;
+}
+.linhaTitulo{
+    margin-top: 2vw;
+    margin-bottom: 3vw;
+    height: 0.1vw;
+    width: 85%;
+    background-color: rgba(255, 255, 255, 0.158);
+}
+.boxChoseLanche h1{
+    text-transform: uppercase;
+    font-size: 2.3vw;
+    word-break: break-word;
+    max-width: 90%;
+    line-height: 2.5vw;
+    color: rgba(255, 255, 255, 0.89);
+    margin: 0;
+}
+.boxChoseDependent h1{
+    text-transform: uppercase;
+    font-size: 2.6vw;
+    color: rgba(255, 255, 255, 0.89);
+}
+.boxChoseDependent h2, .boxChoseLanche h2{
+    font-size: 1.5vw;
+    color: #ffffff86;
+    margin-bottom: 2vw;
+}
+
+.boxChoseDependent, .boxChoseLanche{
+    width: 26vw;
+    height: 16vw;
+    border: hsl(198, 40%, 46%) solid 0.6vw;
+    background-color: hsl(197, 45%, 44%);
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.2vw;
+    justify-content:center;
+    align-items: center;
+    
+
+}
+
+.boxChoseLanche{
+    width: 19vw;
+    height: 15vw;
+}
+header div{
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+    margin: 2vw;
+}
+header div div{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+header div div img{
+    width: 8vw;
+    height: 8vw;
+}
+header a{
+    width: fit-content;
+}
+header{
+    display: flex;
+    justify-content: right;
+    height: 20%;
+    /*background-color: #b2dbbf91;*/
+}
+header h1{
+    background-color: hsl(197, 45%, 44%);
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5vw;
+    color: #ffffff;
+    border-radius: 0.3vw;
+    padding-inline: 4vw;
+
+}
+
+footer{
+    display: flex;
+    justify-content: right;
+    align-items:end;
+    height: 22.3%;
+    /*background-color: #9aa2a581;*/
+}
+
+body{
+    background-color: rgb(112, 112, 112);
+    height: calc(100vh - var(--margin-principal) * 2);
+    background-image: url(imagens/FotoFundo1.png);
+    background-size: cover;
+    height: 100vh;
+    overflow-y: hidden;
+}
+.bannerLogin img{
+    width: 7vw;
+}
+
+:root{
+    --margin-principal: 3vw;
+    --margin-principal-inline: 4vw;
+}
+.containerEntrandoLogin{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: calc(var(--margin-principal-inline)-40px);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    border-radius: 30px;
+}
+.containerEntrando{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: var(--margin-principal-inline);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    
+
+    border-radius: 4vw;
+}
+a{
+    text-decoration: none;
+}
+.loginPrincipal{
+    justify-content: center;
+    display: flex;
+    gap: 5vw;
+}
+.bannerLogin h1{
+    font-size: 5vw;
+    color: #237699;
+}
+.bannerLogin{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.bannerLogin h3{
+    margin-top: 1vw;
+    margin-bottom: 2vw;
+    width: 20vw;
+    color: #237699;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: var(--margin-principal-inline);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    overflow: auto;
+    border-radius: 0.4vw;
+}
+.botoesChoseDependent a{
+    color: hsl(197, 85%, 73%);
+}
+.bodyDependente header div{
+    display: flex;
+    flex-direction: row;
+}
+.bodyDependente{
+    display: flex;
+}
+.containerFunc{
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: var(--margin-principal-inline);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    overflow: auto;
+    border-radius: 0.4vw;
+    width: 92%;
+}
+.container{
+    width: 100%;
+}
+.botoesChoseLanche{
+    font-size: 1.1vw;
+    background-color: hsla(197, 45%, 44%, 0.288);
+    border: solid hsl(197, 64%, 66%) 0.25vw;
+    padding: 0.4vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
+    color: hsl(197, 85%, 73%);
+    padding-inline: 1vw;
+    border-radius: 0.6vw;
+}
+.botoesChoseDependent{
+    background-color: hsla(197, 45%, 44%, 0.288);
+    border: solid hsl(197, 64%, 66%) 0.25vw;
+    padding: 0.6vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
+
+    padding-inline: 1.1vw;
+    border-radius: 0.8vw;
+}
+.container::-webkit-scrollbar, .containerFunc::-webkit-scrollbar{
+    background-color: #237699;
+    border-radius: 3vw;
+}
+
+.containerLogin, .containerCadastro, .containerCadastroDependente, .containerAdicionarSaldo{
+    display: flex;
+    flex-direction: column;
+}
+.containerCadastroDependente, .containerAdicionarSaldo{
+    height: 80%;
+    width: 80%;
+    justify-content: center;
+}
+.formsDependente{
+    display: flex;
+    flex-direction: column;
+    gap:0.5vw;
+    align-items: center;
+}
+.formsSaldo{
+    display: flex;
+    flex-direction: column;
+    gap:0.9vw;
+    align-items: center;
+}
+.formsLogin{
+    display: flex;
+    flex-direction: column;
+    gap:2vw;
+    align-items: center;
+}
+.formsLoginBox{
+    width: 70%;
+    border: 0;
+    height: 3vw;
+    font-size: 1.3vw;
+    color: #000;
+    border: #237699 solid 0.2vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    border-radius: 0.8vw;
+}
+.formsLogin ::placeholder{
+    text-align: center;
+    
+    color: #91BACC;
+    border: 0;
+}
+.containerLogin div{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    gap: 2vw;
+    width: 75%;
+    margin-inline: auto;
+}
+.containerLogin{
+    width:45vw;
+    justify-content: center;
+}
+.containerLogin h1{
+    color:#fff;
+    font-size: 4vw;
+
+}   
+
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+.section_home_responsavel{
+    display: flex;
+    height: 57%;
+    /*background-color: #dd66666e;*/
+}
+.dadosReponsavel1{
+    display: flex;
+    flex-direction: column;
+}
+.dadosResponsavel1-1, .dadosResponsavel1-2{
+    width: 10vw;
+    height: 10vw;
+    background-color: #9aa2a5;
+}
+.dadosReponsavel2{
+    width: 20vw;
+    height: 20vw;
+    background-color: aqua;
+}
+
+.containerAdicionarSaldo, .containerCadastroDependente{
+    text-align: center;
+}
+.sidebarResponsavel{
+    display: flex;
+    flex-direction: column;
+    width: 7.3%;
+    background-color: hsl(197, 45%, 44%);
+    position: absolute;
+    border-radius: 0.4vw;
+    height: calc(100vh - var(--margin-principal) * 2);
+    justify-content: space-around;
+    align-items: center;
+
+}
+.bodyBaseResponsavel{
+    margin-left: 8.5%;
+    width: 90%;
+}
+
+.sidebarResponsavel{
+    transition: 0.7s;
+    align-items: center;
+    align-items: flex-start;
+}
+.sidebarResponsavel:hover {
+    transition: 0.5s;
+    width: 180px;
+    
+}
+.sidebarResponsavel div{
+    margin-left: 25px;
+    gap: 10px;
+}
+.sidebarResponsavel p{
+    visibility: hidden;
+    opacity: 0;
+    color: white;
+    transition: opacity 0.2s, visibility 0.2s;
+
+}
+.sidebarResponsavel:hover p{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.7s, visibility 0.7s;
+    
+}
+.sidebarResponsavel div{
+    display: flex;
+    align-items: center;
+}
+.sidebarResponsavel img{
+    width: 30px;
+    height: 30px;
+}
+
+/* O Modal (Fundo) */
+.modal {
+    display: none; /* Esconde o modal por padrão */
+    position: fixed; /* Fixa o modal na tela */
+    z-index: 1; /* Fica acima do conteúdo da página */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total da tela */
+    height: 100%; /* Altura total da tela */
+    overflow: auto; /* Adiciona rolagem se necessário */
+    background-color: rgb(0,0,0); /* Cor de fundo */
+    background-color: rgba(0,0,0,0.4); /* Fundo semi-transparente */
+}
+
+/* Conteúdo do Modal */
+.modal-content {
+    background-color: #91BACC;
+    margin: 15% auto; /* Alinha o modal ao centro */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largura do modal */
+    max-width: 600px; /* Largura máxima do modal */
+}
+
+/* Botão de Fechar */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

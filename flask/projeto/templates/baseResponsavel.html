@@ -17,33 +17,31 @@
 </head>
 <body>
     <div class="container">
-        
-        <div class="sidebarResponsavel">
-            <a href="{{url_for('homeResponsavel')}}"><div><img src="{{url_for('static', filename='imagens/Home.svg')}}"><p>HOME</p></div></a>
-            <div><img src="{{url_for('static', filename='imagens/Historico.svg')}}"><p>HISTÓRICO</p></div>
-            <div><img src="{{url_for('static', filename='imagens/Compras.svg')}}"><p>COMPRAS</p></div>
-            <div><img src="{{url_for('static', filename='imagens/Limites.svg')}}"><p>LIMITES</p></div>
-            <div><img src="{{url_for('static', filename='imagens/Dados.svg')}}"><p>DADOS</p></div>
-            <div><img src="{{url_for('static', filename='imagens/Suporte.svg')}}"><p>SUPORTE</p></div>
-        </div>
-        
 
+        <div class="sidebarResponsavel">
+            <div><a href="{{url_for('homeResponsavel')}}"><img src="{{url_for('static', filename='imagens/RealLove.png')}}"><p style="text-align:center">MySnack</a></p></div>
+            <div><a href="{{url_for('adicionarDependente')}}"><img src="{{url_for('static', filename='imagens/config.png')}}"><p>CADASTRAR</a></p></div>
+            <div><a href="{{url_for('escolherDependente')}}"><img src="{{url_for('static', filename='imagens/registro.png')}}"><p>GERENCIAR</a></p></div>
+            <div><a href="{{url_for('adicionarSaldoResponsavel')}}"><img src="{{url_for('static', filename='imagens/dolar.png')}}"><p>DEPOSITAR</a></p></div>
+            <div><a href="{url_for('escolherDependente')}"><img src="{{url_for('static', filename='imagens/Historico.svg')}}"><p>OUTRO</a></p></div>
+            <div><a href="{url_for('escolherDependente')}"><img src="{{url_for('static', filename='imagens/Historico.svg')}}"><p>OUTRO</a></p></div>
+
+        </div>
 
         <div class="bodyBaseResponsavel">
-
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {%if messages%}
                     {%for category, message in messages%}
-                    <div class="alert alert-{{category}} alert-dismissable fade show" role="alert">
-                        <button
-                        type="button"
-                        class="btn-class"
-                        data-bs-dismiss="alert"
-                        arial-label="Close"> 
-                        </button>
-                        {{message}}
-                    </div>
-                        <p>{{message}}</p>
+                        <div class="alert alert-{{category}} alert-dismissable fade show" role="alert">
+                            <button
+                            type="button"
+                            class="btn-class"
+                            data-bs-dismiss="alert"
+                            arial-label="Close"> 
+                            </button>
+                            {{message}}
+                        </div>
+                    <p>{{message}}</p>
                     {%endfor%}
                 {%endif%}
             {%endwith%}

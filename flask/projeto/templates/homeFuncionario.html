@@ -12,15 +12,14 @@
 </header>
 
 <section class="section_home_responsavel">
-
-</section>
-<footer>
     <a class="botãoContainerLogout" href="{{url_for('logout')}}">
         SAIR
 </a>
-    <a href="{{url_for('addProduto')}}">add produto</a>
+    <a class="boxFunc" href="{{url_for('addProduto')}}">add produto</a>
+    <a class="boxFunc" href="{{url_for('choseProduto')}}">remover produto</a>
+</section>
+<footer>
     
-
 </footer>
 
 {%endblock%}
