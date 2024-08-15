@@ -93,17 +93,35 @@ def addsaldo():
     form = SaldoForm()
     id = request.args.get('botao')
     acao = request.args.get('acao')
+    idAtual = request.args.get('idAtual')
+    current_user= Responsavel.query.get(idAtual)
+    print("teste", id)
+    dependente = Dependente.query.get(id)    
     if form.validate_on_submit():
-        dependente = Dependente.query.get(id)
-        if(form.saldo.data<=current_user.saldo):
-            dependente.saldo = dependente.saldo+form.saldo.data
-            current_user.saldo = current_user.saldo-form.saldo.data
-            db.session.commit()
-            return redirect(url_for('escolherDependente', form=form))
+        
+        if acao == "0":
+            if form.saldo.data<=current_user.saldo:
+                dependente.saldo = dependente.saldo+form.saldo.data
+                current_user.saldo = current_user.saldo-form.saldo.data
+                db.session.commit()
+                return redirect(url_for('escolherDependente', form=form))
+        elif acao =="1":
+            if form.saldo.data>dependente.saldo:
+                flash("Insuficiente")
+                return render_template('homeResponsavel.html') 
+            else:
+                dependente.saldo = dependente.saldo-form.saldo.data
+                current_user.saldo = current_user.saldo+form.saldo.data
+                db.session.commit()
+                return redirect(url_for('escolherDependente', form=form))
+
         else:
             flash("Insuficiente")
             return render_template('homeResponsavel.html')
-    
+    if acao==0:
+        remover="REMOVER"
+        return render_template('adicionarSaldo.html', form=form, remover=remover)
+
     return render_template('adicionarSaldo.html', form=form)
     
 
@@ -141,14 +159,27 @@ def mudarSenha():
 def escolherDependente():
     dependentes = Dependente.query.all()
     idAtual = current_user.id
-    botao_clicado=None
+    acao = None
+    botao_clicado = None
+    
     if request.method == 'POST':
-        botao_clicado = request.form.get('botao')
-        acao = request.form.get('acao')
-        print(acao)
-        return redirect(url_for("addsaldo", botao = botao_clicado, acao = acao))
-    return render_template("ChoseDependent.html", botao = botao_clicado, dependentes =dependentes, idAtual=idAtual)
+        botaoid = request.form.get('botaoid')
 
+        # Encontrar o botão clicado
+        for dependente in dependentes:
+            if request.form.get(f'acao_{dependente.id}') is not None:
+                botao_clicado = dependente.id
+                acao = request.form.get(f'acao_{dependente.id}')
+                break
+
+        print("id do dependente", botao_clicado)
+        print("acao", acao)
+        print("idAtual", idAtual)
+        
+        # Redirect to addsaldo view
+        return redirect(url_for("addsaldo", botao=botao_clicado, acao=acao, idAtual=idAtual, botaoid=botaoid))
+
+    return render_template("ChoseDependent.html", dependentes=dependentes, idAtual=idAtual)
 
 @app.route('/adicionarProduto', methods=['GET', 'POST'])
 def addProduto():
@@ -193,6 +224,7 @@ def teste():
 def comprarProduto(id):
     form = confirmarForm()
     obj = Produto.query.get(id)
+    
     if form.validate_on_submit():
         if current_user.saldo >= obj.valor:
             current_user.saldo = current_user.saldo-obj.valor

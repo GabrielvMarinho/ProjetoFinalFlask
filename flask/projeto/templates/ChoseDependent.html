@@ -10,18 +10,21 @@
     <div class="linhaTitulo"></div>
     <form method="post">
         {% for dependente in dependentes %}
-        {% if dependente.idResponsavel==idAtual %}
-        <div class="boxChoseDependent">
-            <h1>{{dependente.usuario}}</h1>
-            <h2>Saldo: {{dependente.saldo}}</h2>
-            <button class="botoesChoseDependent" name="botao" value={{dependente.id}}><a></a></button>
-            <button class="botoesChoseDependent" name="acao" value=0> <a >ADICIONAR</a></button>
-            <button class="botoesChoseDependent" name="acao" value=1> <a >REMOVER</a></button>
-
-            
-        </div>
-        {%endif%}
-        {%endfor%}
+            {% if dependente.idResponsavel == idAtual %}
+                <div class="boxChoseDependent">
+                    <h1>{{ dependente.usuario }}</h1>
+                    <h2>Saldo: {{ dependente.saldo }}</h2>
+                    <input class="botoesChoseDependent" name="botaoid" type="hidden" value="{{ idAtual }}">
+                    <input class="botoesChoseDependent" name="idDependente" type="hidden" value="{{ dependente.id }}">
+                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" type="submit" value="0">ADICIONAR</button>
+                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" type="submit" value="1">REMOVER</button>
+                </div>
+            {% endif %}
+        {% endfor %}
     </form>
+    
+    
+
+    
 </div>
 {%endblock%}

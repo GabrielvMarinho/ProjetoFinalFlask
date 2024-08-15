@@ -7,13 +7,12 @@
 
 {% block conteudo %}
 <container class="containerAdicionarSaldo">
-    <h1>Adicionar Saldo</h1>
+    <h1>Alterar Saldo</h1>
     <form method="POST" class="formsSaldo" style="color: whitesmoke;"> 
 
         {{ form.hidden_tag() }}
 
-        {{form.saldo.label()}}
-        {{form.saldo(class="formsLoginBox", placeholder="Informe o Saldo")}}
+        {{form.saldo(class="formsLoginBox", placeholder="Informe a quantia")}}
         
         {{form.submit(class="botãoContainer1")}}
     </form>

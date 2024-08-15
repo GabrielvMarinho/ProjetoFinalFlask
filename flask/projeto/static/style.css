@@ -398,6 +398,9 @@ form{
     align-items: center;
     justify-content: center;
 }
+#hidden{
+    display: none;
+}
 .sidebarResponsavel{
     transition: 0.7s;
     align-items: center;

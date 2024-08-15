@@ -33,8 +33,8 @@ class adicionarSaldoRespo(FlaskForm):
 
 class SaldoForm(FlaskForm):
     idDependente = FloatField(label="Id do dependente")
-    saldo = FloatField(label="Valor a ser adicionado", validators=[NumberRange(min=1), DataRequired()])
-    submit = SubmitField(label="Adicionar")
+    saldo = FloatField(label="Digite a quantia", validators=[NumberRange(min=1), DataRequired()])
+    submit = SubmitField(label="Alterar")
 
 class confirmarForm(FlaskForm):
     submit = SubmitField(label="Confirmar")
