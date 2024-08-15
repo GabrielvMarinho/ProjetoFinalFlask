@@ -170,11 +170,14 @@ def teste():
 def comprarProduto(id):
     form = confirmarForm()
     obj = Produto.query.get(id)
-    if form.validate_on_submit():
-        current_user.saldo = current_user.saldo-obj.valor
-        db.session.commit()
-        return redirect(url_for("escolherProduto"))
+    
 
+    if form.validate_on_submit():
+        if current_user.saldo >= obj.valor:
+            current_user.saldo = current_user.saldo-obj.valor
+            db.session.commit()
+            return redirect(url_for("escolherProduto"))
+        return render_template("comprarProduto.html", obj=obj, form=form)
     return render_template("comprarProduto.html", obj=obj, form=form)
     
 

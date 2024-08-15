@@ -7,26 +7,29 @@
 {% endblock %}
 
 {% block conteudo %}
-<header>
-    <div>
-        <a class="botãoContainerLogout" href="{{url_for('logout')}}">
-            sair
-    </a>
-        <h1>Saldo atual: {{current_user.saldo}}</h1>
-        
+<body class="bodyDependente">
+    <header>
+        <div>
+            <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+                SAIR
+            </a>
+            <h1>Saldo atual: {{current_user.saldo}}</h1>
+            
+        </div>
+    </header>
+    <div class="bodyChoseDependent">
+        <form method="post">
+            {% for produto in produtos %}
+            <div class="boxChoseLanche">
+
+                <h1>{{produto.lanche}}</h1>
+                <h2>{{produto.valor}}</h2>
+                <a class="botoesChoseLanche" href="{{url_for('comprarProduto', id = produto.id)}}">COMPRAR</a>
+            </div>
+            {%endfor%}
+        </form>
     </div>
-</header>
-
-<form method="post">
-    {% for produto in produtos %}
-        <h1>{{produto.lanche}}</h1>
-        <h2>{{produto.valor}}</h2>
-        
-        <button> <a href="{{url_for('comprarProduto', id = produto.id)}}">clique aqui para {{produto.lanche}}</a></button>
-    
-    {%endfor%}
-</form>
-
+</body>
 <script src="{{url_for('static', filename='scripts.js')}}"></script>
 
 <footer>

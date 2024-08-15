@@ -35,19 +35,70 @@
     border-radius: 1vw;
     border: solid #b2dbbf 0.3vw;
 }
+.bodyChoseDependent{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bodyChoseDependent .titulo{
+    margin-top: 4vw;
+    font-size: 5vw;
+    color: rgba(255, 255, 255, 0.952);
+
+}
 .bodyChoseDependent form{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:2vw;
 }
-.boxChoseDependent{
-    width: 40%;
-    background-color: #689aaf;
+.linhaTitulo{
+    margin-top: 2vw;
+    margin-bottom: 3vw;
+    height: 0.1vw;
+    width: 85%;
+    background-color: rgba(255, 255, 255, 0.158);
+}
+.boxChoseLanche h1{
+    text-transform: uppercase;
+    font-size: 2.3vw;
+    word-break: break-word;
+    max-width: 90%;
+    line-height: 2.5vw;
+    color: rgba(255, 255, 255, 0.89);
+    margin: 0;
+}
+.boxChoseDependent h1{
+    text-transform: uppercase;
+    font-size: 2.6vw;
+    color: rgba(255, 255, 255, 0.89);
+}
+.boxChoseDependent h2, .boxChoseLanche h2{
+    font-size: 1.5vw;
+    color: #ffffff86;
+    margin-bottom: 2vw;
+}
+
+.boxChoseDependent, .boxChoseLanche{
+    width: 26vw;
+    height: 16vw;
+    border: hsl(198, 40%, 46%) solid 0.6vw;
+    background-color: hsl(197, 45%, 44%);
     display: flex;
     flex-direction: column;
-    gap:0.3vw;
-    justify-content: center;
+    border-radius: 1.2vw;
+    justify-content:center;
     align-items: center;
+    
 
+}
+
+.boxChoseLanche{
+    width: 19vw;
+    height: 15vw;
 }
 header div{
     display: flex;
@@ -164,13 +215,36 @@ a{
     margin-bottom: var(--margin-principal);
     background-color: #237699;
     overflow: auto;
-
     border-radius: 0.4vw;
 }
+.botoesChoseDependent a{
+    color: hsl(197, 85%, 73%);
+}
+.bodyDependente header div{
+    display: flex;
+    flex-direction: row;
+}
+.bodyDependente{
+    display: flex;
+}
+.botoesChoseLanche{
+    font-size: 1.1vw;
+    background-color: hsla(197, 45%, 44%, 0.288);
+    border: solid hsl(197, 64%, 66%) 0.25vw;
+    padding: 0.4vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
+    color: hsl(197, 85%, 73%);
+    padding-inline: 1vw;
+    border-radius: 0.6vw;
+}
 .botoesChoseDependent{
-    background-color: #b2dbbf;
-    border: solid 0.5vw #689aaf;
-    color: #237699;
+    background-color: hsla(197, 45%, 44%, 0.288);
+    border: solid hsl(197, 64%, 66%) 0.25vw;
+    padding: 0.6vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
+
+    padding-inline: 1.1vw;
+    border-radius: 0.8vw;
 }
 .container::-webkit-scrollbar{
     background-color: #237699;
@@ -269,7 +343,7 @@ form{
 .sidebarResponsavel{
     display: flex;
     flex-direction: column;
-    width: 6.3%;
+    width: 7.3%;
     background-color: hsl(197, 45%, 44%);
     position: absolute;
     border-radius: 0.4vw;
@@ -279,7 +353,7 @@ form{
 
 }
 .bodyBaseResponsavel{
-    margin-left: 10%;
+    margin-left: 8.5%;
     width: 90%;
 }
 

@@ -6,14 +6,17 @@
 
 {% block conteudo %}
 <div class="bodyChoseDependent">
+    <h1 class="titulo">DEPENDENTES</h1>
+    <div class="linhaTitulo"></div>
     <form method="post">
         {% for dependente in dependentes %}
         {% if dependente.idResponsavel==idAtual %}
         <div class="boxChoseDependent">
             <h1>{{dependente.usuario}}</h1>
-            <h2>{{dependente.saldo}}</h2>
-            <a href="{{url_for('addsaldo')}}">asd</a>
-            <button class="botoesChoseDependent" name="botao" value={{dependente.id}}> <a >clique aqui para {{dependente.usuario}}</a></button>
+            <h2>Saldo: {{dependente.saldo}}</h2>
+            <button class="botoesChoseDependent" name="botao" value={{dependente.id}}> <a >ADICIONAR</a></button>
+
+            
         </div>
         {%endif%}
         {%endfor%}
