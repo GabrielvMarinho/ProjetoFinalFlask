@@ -79,8 +79,12 @@ class Produto(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     lanche = db.Column(db.String(length=30), nullable=False)
     valor = db.Column(db.Integer, nullable=False)
+    quantidade = db.Column(db.Integer, nullable=False)
 
 class Historico(db.Model):
-    produto = db.Column(db.String(length=30), nullable=False)
+    id = db.Column(db.Integer, primary_key = True)
+    idproduto = db.Column(db.Integer, nullable=False)
     data = db.Column(db.Date, primary_key = True)
     valor = db.Column(db.Integer, nullable=False)
+    quantidade = db.Column(db.Integer, nullable=False)
+    idDependente = db.Column(db.Integer, nullable=False)

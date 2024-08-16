@@ -224,7 +224,6 @@ def teste():
 def comprarProduto(id):
     form = confirmarForm()
     obj = Produto.query.get(id)
-    
     if form.validate_on_submit():
         if current_user.saldo >= obj.valor:
             current_user.saldo = current_user.saldo-obj.valor
