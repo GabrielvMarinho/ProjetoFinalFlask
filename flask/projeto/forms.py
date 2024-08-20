@@ -48,7 +48,7 @@ class confirmarFormQuantidade(FlaskForm):
 class adicionarProduto(FlaskForm):
     lanche = StringField(label="Nome do lanche", validators=[DataRequired()])
     valor = FloatField(label="valor do produto", validators=[NumberRange(min=1), DataRequired()])
-    quantidade = IntegerField(validators=[DataRequired(),NumberRange(min=1)])
+    #quantidade = IntegerField(validators=[DataRequired(),NumberRange(min=1)])
     submit = SubmitField(label="Adicionar")
 
 class removerProduto(FlaskForm):

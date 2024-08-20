@@ -79,7 +79,7 @@ class Produto(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     lanche = db.Column(db.String(length=30), nullable=False)
     valor = db.Column(db.Integer, nullable=False)
-    quantidade = db.Column(db.Integer, nullable=False)
+    #quantidade = db.Column(db.Integer, nullable=False)
 
 class Historico(db.Model):
     id = db.Column(db.Integer, primary_key = True)
