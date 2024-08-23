@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request, session
 from projeto import app
-from projeto.forms import adicionarSaldoRespo, CadastroForm,removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
+from projeto.forms import adicionarSaldoRespo, CadastroForm,confirmarFormQuantidade, incrementoForm,decrementoForm, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
 from projeto.models import Responsavel, Funcionario, Dependente, Produto
 from projeto import db
 from flask_login import login_user, logout_user, current_user
@@ -222,15 +222,29 @@ def teste():
 
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 def comprarProduto(id):
-    form = confirmarForm()
+    
+    #incremento = incrementoForm()
+    #decremento = decrementoForm()
+    form = confirmarFormQuantidade()
     obj = Produto.query.get(id)
+    #if incremento.validate_on_submit():
+        #form.quantidade = form.quantidade.data+1
+        #print(form.quantidade)
+        #return redirect(url_for('comprarProduto', id=id))
+
+
+    #elif decremento.validate_on_submit():
+        #form.quantidade = form.quantidade.data-1
+        #print(form.quantidade)
+        #return redirect(url_for('comprarProduto', id=id))
+
     if form.validate_on_submit():
         if current_user.saldo >= obj.valor:
             current_user.saldo = current_user.saldo-obj.valor
             db.session.commit()
             return redirect(url_for("escolherProduto"))
-        return render_template("comprarProduto.html", obj=obj, form=form)
-    return render_template("comprarProduto.html", obj=obj, form=form)
+        return render_template("comprarProduto.html", obj=obj, form=form) #decremento = decremento, incremento = incremento)
+    return render_template("comprarProduto.html", obj=obj, form=form) #decremento = decremento, incremento = incremento)
     
 
 @app.route('/homeDependente', methods=['GET', 'POST'])

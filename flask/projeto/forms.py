@@ -39,12 +39,18 @@ class SaldoForm(FlaskForm):
 class confirmarForm(FlaskForm):
     submit = SubmitField(label="Confirmar")
 
+
+
 class confirmarFormQuantidade(FlaskForm):
-    quantidade = IntegerField(validators=[DataRequired(),NumberRange(min=1)])
-    incremento = SubmitField('+')
-    decremento = SubmitField('-')
+    quantidade = IntegerField('Quantidade', default=1)
     submit = SubmitField(label="Confirmar")
-    
+
+class incrementoForm(FlaskForm):
+    incremento = SubmitField('+')
+
+class decrementoForm(FlaskForm):
+    decremento = SubmitField('-')
+
 class adicionarProduto(FlaskForm):
     lanche = StringField(label="Nome do lanche", validators=[DataRequired()])
     valor = FloatField(label="valor do produto", validators=[NumberRange(min=1), DataRequired()])
@@ -52,5 +58,5 @@ class adicionarProduto(FlaskForm):
     submit = SubmitField(label="Adicionar")
 
 class removerProduto(FlaskForm):
-    idLanche = IntegerField(validators=[DataRequired()])
+    idLanche = IntegerField(validators=[NumberRange(min=1), DataRequired()])
     submite = SubmitField(validators=[DataRequired()])
