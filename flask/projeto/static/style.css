@@ -95,7 +95,10 @@
     color: #ffffff86;
     margin-bottom: 2vw;
 }
-
+.estoquetxt{
+    color: #ffffff5e;
+    margin-top: 1vw;
+}
 .boxChoseDependent, .boxChoseLanche{
     width: 26vw;
     height: 16vw;

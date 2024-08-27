@@ -23,6 +23,8 @@
                 <h1>{{produto.lanche}}</h1>
                 <h2>{{produto.valor}}</h2>
                 <a class="botoesChoseLanche" href="{{url_for('removerProdutos', id = produto.id)}}">EXCLUIR</a>
+                <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
+
             </div>
             {%endfor%}
         

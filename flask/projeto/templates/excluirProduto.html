@@ -14,7 +14,7 @@
 <form method="post">
     <h1>deseja realmente EXCLUIR? {{obj.nome}}</h1>
     {{ form.hidden_tag() }}
-   
+    
     {{form.submit(class="botãoContainer1")}}
 
     <a href="{{url_for('choseProduto')}}">Voltar</a>

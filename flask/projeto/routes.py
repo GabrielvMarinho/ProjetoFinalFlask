@@ -225,12 +225,12 @@ def comprarProduto(id):
     obj = Produto.query.get(id)
     counter_value = int(request.form.get('counter_value', 1))  # Pega o valor do counter, padrão 1
     if form.validate_on_submit():
-        
         if current_user.saldo >= obj.valor*counter_value:
-            
-            current_user.saldo = current_user.saldo-obj.valor*counter_value
-            db.session.commit()
-            return redirect(url_for("escolherProduto"))
+            if obj.quantidade>=counter_value:
+                obj.quantidade = obj.quantidade-counter_value
+                current_user.saldo = current_user.saldo-obj.valor*counter_value
+                db.session.commit()
+                return redirect(url_for("escolherProduto"))
         return render_template("comprarProduto.html", obj=obj, form=form)
     return render_template("comprarProduto.html", obj=obj, form=form)
     
