@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request, session
 from projeto import app
-from projeto.forms import adicionarSaldoRespo, CadastroForm,confirmarFormQuantidade, incrementoForm,decrementoForm, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
+from projeto.forms import adicionarSaldoRespo, CadastroForm,confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
 from projeto.models import Responsavel, Funcionario, Dependente, Produto
 from projeto import db
 from flask_login import login_user, logout_user, current_user
@@ -165,7 +165,6 @@ def escolherDependente():
     if request.method == 'POST':
         botaoid = request.form.get('botaoid')
 
-        # Encontrar o botão clicado
         for dependente in dependentes:
             if request.form.get(f'acao_{dependente.id}') is not None:
                 botao_clicado = dependente.id
@@ -176,7 +175,6 @@ def escolherDependente():
         print("acao", acao)
         print("idAtual", idAtual)
         
-        # Redirect to addsaldo view
         return redirect(url_for("addsaldo", botao=botao_clicado, acao=acao, idAtual=idAtual, botaoid=botaoid))
 
     return render_template("ChoseDependent.html", dependentes=dependentes, idAtual=idAtual)
@@ -187,7 +185,8 @@ def addProduto():
     if form.validate_on_submit():
         produto = Produto(
             lanche = form.lanche.data,
-            valor = form.valor.data
+            valor = form.valor.data,
+            quantidade = form.quantidade.data
         )
         db.session.add(produto)
         db.session.commit()
@@ -222,29 +221,18 @@ def teste():
 
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 def comprarProduto(id):
-    
-    #incremento = incrementoForm()
-    #decremento = decrementoForm()
     form = confirmarFormQuantidade()
     obj = Produto.query.get(id)
-    #if incremento.validate_on_submit():
-        #form.quantidade = form.quantidade.data+1
-        #print(form.quantidade)
-        #return redirect(url_for('comprarProduto', id=id))
-
-
-    #elif decremento.validate_on_submit():
-        #form.quantidade = form.quantidade.data-1
-        #print(form.quantidade)
-        #return redirect(url_for('comprarProduto', id=id))
-
+    counter_value = int(request.form.get('counter_value', 1))  # Pega o valor do counter, padrão 1
     if form.validate_on_submit():
-        if current_user.saldo >= obj.valor:
-            current_user.saldo = current_user.saldo-obj.valor
+        
+        if current_user.saldo >= obj.valor*counter_value:
+            
+            current_user.saldo = current_user.saldo-obj.valor*counter_value
             db.session.commit()
             return redirect(url_for("escolherProduto"))
-        return render_template("comprarProduto.html", obj=obj, form=form) #decremento = decremento, incremento = incremento)
-    return render_template("comprarProduto.html", obj=obj, form=form) #decremento = decremento, incremento = incremento)
+        return render_template("comprarProduto.html", obj=obj, form=form)
+    return render_template("comprarProduto.html", obj=obj, form=form)
     
 
 @app.route('/homeDependente', methods=['GET', 'POST'])

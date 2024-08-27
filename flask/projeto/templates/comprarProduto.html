@@ -16,6 +16,12 @@
     {{ form.hidden_tag() }}
     
 
+    <div class="counter" id="counter" value="1">1</div>
+    <button type ="button" onclick="increment()">Incrementar</button>
+    <button type ="button" onclick="decrement()">Decrementar</button>
+
+    <input type="hidden" name="counter_value" id="counter_value" value="1">
+
     {{form.submit(class="botãoContainer1")}}
 
     <a href="{{url_for('escolherProduto')}}">Voltar</a>
