@@ -54,3 +54,5 @@ class adicionarProduto(FlaskForm):
 class removerProduto(FlaskForm):
     idLanche = IntegerField(validators=[NumberRange(min=1), DataRequired()])
     submite = SubmitField(validators=[DataRequired()])
+
+

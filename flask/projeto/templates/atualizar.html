@@ -1,0 +1,31 @@
+{%extends 'baseResponsavel.html' %}
+
+{%block titulo%}
+    MySnack Atualizar
+{%endblock%}
+
+
+{%block conteudo%}
+<div class="containerEntrandoLogin">
+    <div class="containerLogin">
+        <div>
+            <h1 >
+                Atualizar Dados...
+            </h1>
+            <form method="POST" class="formsLogin" style="color: whitesmoke;">
+                {{form.hidden_tag() }}
+
+                {{form.usuario(class="formsLoginBox", placeholder="Usuario") }}
+
+                {{form.email(class="formsLoginBox", placeholder="Email") }}
+
+                {{form.senha1(class="formsLoginBox", placeholder="Senha") }}
+                
+                {{form.submit(class="botãoContainer1")}}
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

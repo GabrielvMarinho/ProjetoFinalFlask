@@ -15,16 +15,145 @@
                 SAIR
         </a>
             <h1>Saldo atual: {{current_user.saldo}}</h1>
+            <a href="{{url_for('PerfilPage')}}">
+                <p>{{current_user.usuario}}</p>
+            </a>
         </div>
         
-    </div>
+        
+        
 </header>
 
 <section class="section_home_responsavel">
+    <div class="canva">
+        <h1>TODOS OS SALDOS ATUAIS</h1>
+        <canvas id="myChart2">
+        </canvas>
+    </div>
+    <div class="canva">
+        <h1>QUANTIDADE MOEDAS GASTAS</h1>
+
+        <canvas id="myChart">
+        </canvas>
+    </div>
+    <div class="canva">
+        <h1>QUANTIDADE DE LANCHES</h1>
+        <canvas id="myChart1">
+        </canvas>
+    </div>
     
 </section>
 <footer>
     
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+        <script>
+            const ctx = document.getElementById('myChart');
+            const ctx1 = document.getElementById('myChart1');
+            const ctx2 = document.getElementById('myChart2');
+
+            
+            new Chart(ctx2, {
+              type: 'pie',
+              data: {
+                datasets: [{
+                  label: 'SALDO EM SNACKCOINS',
+                  data: {{ listaSaldo|tojson }},
+                  borderWidth: 1
+                }],
+                labels: {{ listaNome|tojson }}
+
+              },
+              options: {
+                responive:true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+
+                    labels: {
+                        color: 'rgb(205, 220, 231)',
+
+
+                        font: {
+                        family: 'Arial',
+                        size: 14,
+                        weight: 'bold'
+
+                        }
+                    }
+                    }
+                }
+                }
+              
+            });
+            new Chart(ctx1, {
+              type: 'pie',
+              data: {
+                datasets: [{
+                  label: 'QUANTIA DE LANCHES',
+                  data: {{ listaQuantidade|tojson }},
+                  borderWidth: 1
+                }],
+                labels: {{ listaNome|tojson }}
+
+              },
+              options: {
+                responive:true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+
+                    labels: {
+                        color: 'rgb(205, 220, 231)',
+
+
+                        font: {
+                        family: 'Arial',
+                        size: 14,
+                        weight: 'bold'
+
+                        }
+                    }
+                    }
+                }
+                }
+              
+            });
+            new Chart(ctx, {
+              type: 'pie',
+              data: {
+                datasets: [{
+                  label: 'SNACKCOINS GASTAS',
+                  data: {{ dados|tojson }},
+                  borderWidth: 1
+                }],
+                labels: {{ listaNome|tojson }}
+
+              },
+              options: {
+                responive:true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+
+                    labels: {
+                        color: 'rgb(205, 220, 231)',
+
+                        font: {
+                        family: 'Arial',
+                        size: 14,
+                        weight: 'bold'
+
+                        }
+                    }
+                    }
+                }
+                }
+              
+            });
+          </script>
+           
+        
+    </div>
 {%endblock%}

@@ -1,17 +1,51 @@
 from flask import render_template, redirect, url_for, flash, request, session
 from projeto import app
-from projeto.forms import adicionarSaldoRespo, CadastroForm,confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
-from projeto.models import Responsavel, Funcionario, Dependente, Produto
+from projeto.forms import adicionarSaldoRespo, CadastroForm, confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
+from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico
 from projeto import db
 from flask_login import login_user, logout_user, current_user
-from bcrypt import _bcrypt
+from bcrypt import _bcrypt, hashpw
 
-
+from datetime import date
 @app.route("/Home")
 def homeResponsavel():
-    print(current_user.saldo)
+    historicos = Historico.query.all()
+    dependentes = Dependente.query.all()
+    lista = []
+    listaNome = []
+    listaQuantidade =[]
+    listaFinal = []
+    listaSaldo =[]
+    for i in dependentes:
+        if i.idResponsavel == current_user.id:
+            listaNome.append(i.usuario)
+            lista.append(i)
+            
+
+    for i in range(len(dependentes)):
+        listaSaldo.append(0)
+        for y in dependentes:
+            if y.id == lista[i].id:
+                listaSaldo[i] = y.saldo
+
+    print("lista de saldoss", listaSaldo)
+    for i in range(len(lista)):
+        listaFinal.append(0)
+        listaQuantidade.append(0)
+        
+        for y in historicos:
+            print(lista[i].id)
+            print(y.idDependente)
+
+            if lista[i].id == y.idDependente:
+                print("add")
+                listaFinal[i] += y.valor
+                listaQuantidade[i] +=y.quantidade
+                
+    
     produtos = Produto.query.all()
-    return render_template("homeResponsavel.html", produtos=produtos)
+    print(listaFinal)
+    return render_template("homeResponsavel.html", produtos=produtos, listaSaldo=listaSaldo, listaQuantidade=listaQuantidade, dados=listaFinal, listaNome=listaNome)
 
 @app.route("/adicionarSaldoResponsavel", methods=['GET', 'POST'])
 def adicionarSaldoResponsavel():
@@ -73,7 +107,7 @@ def login():
         if usuario_logado and usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(usuario_logado)
             session['user_type'] = 'responsavel'
-            return render_template('homeResponsavel.html')
+            return redirect(url_for("homeResponsavel"))
         elif dependente_logado and dependente_logado.converte_senha(senha_texto_claro=form.senha.data):
             login_user(dependente_logado)
             session['user_type'] = 'dependente'
@@ -87,7 +121,10 @@ def login():
 
     return render_template('index.html', form = form)
 
-
+@app.route('/perfil-page')
+def PerfilPage():
+    return render_template('PerfilResponsavel.html') 
+    
 @app.route('/adicionarSaldo', methods=['GET', 'POST'])
 def addsaldo():
     form = SaldoForm()
@@ -135,16 +172,16 @@ def logout():
 def mudarSenha():
     form = LoginForm() 
     if request.method == 'POST':
-        email=request.form.get('email')
+        usuario=request.form.get('usuario')
         password=request.form.get('password')
-        if email == "" or password == "":
+        if usuario == "" or password == "":
             flash('Existem campos em branco','danger')
             return redirect('/mudar-senha')
     else:
         usuario_logado = Responsavel.query.filter_by(usuario=form.usuario.data).first()
         if usuario_logado:
             hash_password=_bcrypt.generate_password_hash(password,10)
-            Responsavel.query.filter_by(email=email).update(dict(password=hash_password))
+            Responsavel.query.filter_by(usuario=usuario).update(dict(password=hash_password))
             db.session.commit()
             flash('Senha Alterada','success')
             return redirect('/mudar-senha')
@@ -152,9 +189,31 @@ def mudarSenha():
             flash('Email Invalido','danger')
             return redirect('/mudar-senha')
 
-    return render_template('mudar-senha.html', title="Mudar Senha", form=form)
+    return render_template('mudar-senha.html', form=form)
 
-
+@app.route('/atualizar<int:id>', methods=['POST', 'GET'])
+def atualizar(id):
+    form = CadastroForm()
+    mudar_nome = Responsavel.query.get_or_404(id)
+    if request.method=="POST":
+        mudar_nome.usuario = request.form['usuario']
+        mudar_nome.email = request.form['email']
+        senha = request.form['senha1']
+        if senha:  
+            hashed_senha = _bcrypt.generate_password_hash(senha)  # Hash the password before saving (replace with your hash function)
+            mudar_nome.senha = hashed_senha
+        try:
+            db.session.commit()
+            flash("Usuairio atualizado")
+            return redirect(url_for('atualizar', id=mudar_nome.id))
+        except:
+            db.session.rollback()
+            flash(f"Erro ao atualizar o usuário")
+            return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
+    else:
+        flash(f"Erro ao atualizar o usuário")
+        return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
+    
 @app.route('/escolherDependente', methods=['GET', 'POST'])
 def escolherDependente():
     dependentes = Dependente.query.all()
@@ -188,6 +247,7 @@ def addProduto():
             valor = form.valor.data,
             quantidade = form.quantidade.data
         )
+        
         db.session.add(produto)
         db.session.commit()
         return render_template("homeFuncionario.html", form = form)
@@ -196,6 +256,27 @@ def addProduto():
 @app.route('/homeFunc', methods=['GET', 'POST'])
 def homeFunc():
     return render_template("homeFuncionario.html")
+
+
+@app.route("/adicionarEstoques", methods=['GET', 'POST'])
+def addProdutoQuantidade():
+    produtoSemEstoque = Produto.query.all()
+    form = confirmarForm()
+    if form.validate_on_submit():
+        print("submit")
+    return render_template("adicionarEstoque.html", produtos = produtoSemEstoque, form=form)
+
+@app.route("/adicionarEstoqueFim<int:id>", methods=['GET', 'POST'])
+def addProdutoQuantidadeFim(id):  
+    produto = Produto.query.get(id)
+    form = confirmarForm()
+    counter_value = int(request.form.get('counter_value', 1))
+    if form.validate_on_submit():
+        produto.quantidade += counter_value
+        db.session.commit()
+        print(produto.quantidade)
+        return redirect(url_for("addProdutoQuantidade"))
+    return render_template("adicionarEstoqueFim.html", form=form, produto = produto)
 
 @app.route("/escolherProduto", methods=['GET', 'POST'])
 def choseProduto():
@@ -223,12 +304,21 @@ def teste():
 def comprarProduto(id):
     form = confirmarFormQuantidade()
     obj = Produto.query.get(id)
-    counter_value = int(request.form.get('counter_value', 1))  # Pega o valor do counter, padrão 1
+    counter_value = int(request.form.get('counter_value', 1)) 
     if form.validate_on_submit():
         if current_user.saldo >= obj.valor*counter_value:
             if obj.quantidade>=counter_value:
                 obj.quantidade = obj.quantidade-counter_value
                 current_user.saldo = current_user.saldo-obj.valor*counter_value
+                historico = Historico(
+                    idproduto = id,
+                    data = date.today(),
+                    valor = counter_value*obj.valor,
+                    quantidade = counter_value, 
+                    idDependente = current_user.id
+
+                )
+                db.session.add(historico)
                 db.session.commit()
                 return redirect(url_for("escolherProduto"))
         return render_template("comprarProduto.html", obj=obj, form=form)
@@ -239,6 +329,8 @@ def comprarProduto(id):
 def escolherProduto():
     produtos = Produto.query.all()
     return render_template("homeDependente.html", produtos =produtos)
+
+
 
 
 

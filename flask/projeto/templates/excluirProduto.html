@@ -8,7 +8,8 @@
 
 {% block conteudo %}
 <header>
-    
+    <a class="botãoContainerVoltar" href="{{url_for('choseProduto')}}">Voltar</a>
+
 </header>
 
 <form method="post">
@@ -17,7 +18,6 @@
     
     {{form.submit(class="botãoContainer1")}}
 
-    <a href="{{url_for('choseProduto')}}">Voltar</a>
 </form>
 
 

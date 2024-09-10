@@ -16,12 +16,14 @@ def load_user(user_id):
     return None
 
 class Dependente(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     saldo = db.Column(db.Integer, nullable=False, unique=False, default=0)
     usuario = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False)
     idResponsavel = db.Column(db.Integer)
+    imagemPerfil = db.Column(db.LargeBinary)  # ATRIBUTO PARA IMAGEM
+
     user_type = 'dependente'
     @property
     def senhacrip(self):
@@ -40,6 +42,8 @@ class Responsavel(db.Model, UserMixin):
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False)
     saldo = db.Column(db.Double, nullable=False, default=0)
+    imagemPerfil = db.Column(db.LargeBinary)  # ATRIBUTO PARA IMAGEM
+
     user_type = 'responsavel'
     @property
     def senhacrip(self):
@@ -84,7 +88,8 @@ class Produto(db.Model):
 class Historico(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     idproduto = db.Column(db.Integer, nullable=False)
-    data = db.Column(db.Date, primary_key = True)
+    data = db.Column(db.Date, nullable=False)
     valor = db.Column(db.Integer, nullable=False)
     quantidade = db.Column(db.Integer, nullable=False)
     idDependente = db.Column(db.Integer, nullable=False)
+

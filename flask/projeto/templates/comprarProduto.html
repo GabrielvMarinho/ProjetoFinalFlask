@@ -8,7 +8,8 @@
 
 {% block conteudo %}
 <header>
-    
+    <a class="botãoContainerVoltar" href="{{url_for('escolherProduto')}}">Voltar</a>
+
 </header>
 
 <form method="post">
@@ -17,14 +18,13 @@
     
 
     <div class="counter" id="counter" value="1">1</div>
-    <button type ="button" onclick="increment()">Incrementar</button>
-    <button type ="button" onclick="decrement()">Decrementar</button>
+    <button class="botaoIncremento" type ="button" onclick="increment()">Incrementar</button>
+    <button class="botaoDecremento" type ="button" onclick="decrement()">Decrementar</button>
 
     <input type="hidden" name="counter_value" id="counter_value" value="1">
 
     {{form.submit(class="botãoContainer1")}}
 
-    <a href="{{url_for('escolherProduto')}}">Voltar</a>
 </form>
 
 <script src="{{url_for('static', filename='scripts.js')}}"></script>
