@@ -93,3 +93,7 @@ class Historico(db.Model):
     quantidade = db.Column(db.Integer, nullable=False)
     idDependente = db.Column(db.Integer, nullable=False)
 
+
+class ADM(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key = True)
+    saldo = db.Column(db.Integer, nullable=False, unique=False, default=0)

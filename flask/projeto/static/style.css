@@ -165,9 +165,8 @@ header a{
 }
 header{
     display: flex;
-    justify-content: right;
     height: 20%;
-    /*background-color: #b2dbbf91;*/
+    justify-content: center;
 }
 header h1{
     background-color: hsl(197, 45%, 44%);
@@ -177,6 +176,7 @@ header h1{
     color: #ffffff;
     border-radius: 0.3vw;
     padding-inline: 4vw;
+    font-size: 2vw;
 
 }
 
@@ -380,7 +380,7 @@ form{
 .section_home_responsavel{
     display: flex;
     height: 57%;
-    justify-content: end;
+    justify-content: center;
     gap:3vw;
     /*background-color: #dd66666e;*/
 }
@@ -441,7 +441,7 @@ form{
 }
 .sidebarResponsavel:hover {
     transition: 0.5s;
-    width: 18%;
+    width: 16.5%;
     
 }
 .sidebarResponsavel div{

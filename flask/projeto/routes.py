@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request, session
 from projeto import app
 from projeto.forms import adicionarSaldoRespo, CadastroForm, confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
-from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico
+from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico, ADM
 from projeto import db
 from flask_login import login_user, logout_user, current_user
 from bcrypt import _bcrypt, hashpw
@@ -56,7 +56,7 @@ def adicionarSaldoResponsavel():
         responsavel = Responsavel.query.get(current_user.id)
         responsavel.saldo = responsavel.saldo+form.adicional.data
         db.session.commit()
-        return render_template('homeResponsavel.html')
+        return redirect(url_for('homeResponsavel'))
     return render_template("adicionarSaldoResp.html", form =form)
 
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
@@ -118,6 +118,11 @@ def login():
             login_user(funcionario_logado)
             session['user_type'] = 'funcionario'
             return render_template('homeFuncionario.html')
+        
+        else:
+            flash("OCORREU ERRO NO LOGIN!")
+            return render_template('index.html', form = form)
+
 
     return render_template('index.html', form = form)
 
@@ -235,7 +240,6 @@ def escolherDependente():
         print("idAtual", idAtual)
         
         return redirect(url_for("addsaldo", botao=botao_clicado, acao=acao, idAtual=idAtual, botaoid=botaoid))
-
     return render_template("ChoseDependent.html", dependentes=dependentes, idAtual=idAtual)
 
 @app.route('/adicionarProduto', methods=['GET', 'POST'])
@@ -304,8 +308,10 @@ def teste():
 def comprarProduto(id):
     form = confirmarFormQuantidade()
     obj = Produto.query.get(id)
+    print("pode escolher cara")
     counter_value = int(request.form.get('counter_value', 1)) 
     if form.validate_on_submit():
+
         if current_user.saldo >= obj.valor*counter_value:
             if obj.quantidade>=counter_value:
                 obj.quantidade = obj.quantidade-counter_value
@@ -318,6 +324,8 @@ def comprarProduto(id):
                     idDependente = current_user.id
 
                 )
+                adm = ADM.query.get(1)
+                adm.saldo +=obj.valor*counter_value
                 db.session.add(historico)
                 db.session.commit()
                 return redirect(url_for("escolherProduto"))

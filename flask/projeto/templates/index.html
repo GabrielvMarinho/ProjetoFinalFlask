@@ -10,10 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     
 </head>
-
 <body class="loginPrincipal">
     
 
+    
     
     <div class="bannerLogin">
         <img src="{{url_for('static', filename='imagens/RealLove.png')}}">
@@ -25,9 +25,18 @@
     <div class="containerEntrandoLogin">
         <div class="containerLogin">
             <div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {%if messages%}
+                    {%for category, message in messages%}
+
+                        <p>{{message}}</p>
+                    {%endfor%}
+                {%endif%}
+                {%endwith%}
                 <h1 >
                     Faça seu Login 
                 </h1>
+
                 <form method="POST" class="formsLogin" style="color: whitesmoke;">
                     {{form.hidden_tag() }}
 
