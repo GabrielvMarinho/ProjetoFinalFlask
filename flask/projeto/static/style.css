@@ -105,6 +105,26 @@
     color: #ffffff5e;
     margin-top: 1vw;
 }
+.perfildiv{
+    display: flex;
+    flex-direction: column;
+    margin: 3vw;
+    margin-left: 10vw;
+
+    gap:2vw
+}
+.perfildiv p{
+    font-size: 1.5vw;
+
+}
+.perfildiv strong{
+    font-size: 3vw;
+}
+.opcoesFunc{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 .boxChoseDependent, .boxChoseLanche{
     width: 26vw;
     height: 16vw;
@@ -119,17 +139,26 @@
     
 
 }
+.divCanvas{
+    
+    display: flex;
+    align-items: center;
+}
+.canvaF{
+    width: clamp(200px, 24vw, 2000px);
+    height: clamp(200px, 24vw, 2000px);
+    text-align: center;
+    font-size: 1vw;
+}
 .canva{
     margin-top: 3vw;
     width: 20vw;
     height: 20vw;
     text-align: center;
     font-size: 1vw;
-    
 }
 .canva h1{
     color: rgb(205, 220, 231);
-
     height: 3vw;
     display: flex;
     justify-content: center;
@@ -178,6 +207,20 @@ header h1{
     padding-inline: 4vw;
     font-size: 2vw;
 
+}
+.headerFuncM{
+    justify-content: center;
+    align-items: center;
+}
+.headerFunc{
+    display: flex;
+    flex-direction: row;
+}
+.divFunc{
+    display: flex;
+    justify-content: center;
+    width: 90vw;
+    gap: 2vw;
 }
 
 footer{
@@ -315,6 +358,12 @@ a{
     display: flex;
     flex-direction: column;
 }
+.containerAtualizarDados{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10vw;
+    gap:1vw
+}
 .containerCadastroDependente, .containerAdicionarSaldo{
     height: 80%;
     width: 80%;
@@ -419,6 +468,19 @@ form{
     margin-left: 8.5%;
     width: 90%;
 }
+.titCanv{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vw;
+    font-size: 1.4vw;
+}
+.bodyBaseFuncionario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2vw;
+    width:100%;
+}
 .boxFunc{
     background-color: #66a8dd;
     border: #66a4dd 0.4vw solid;
@@ -431,6 +493,11 @@ form{
     align-items: center;
     justify-content: center;
 }
+.divFunc a{
+    font-size: 1.3vw;
+    
+}
+
 #hidden{
     display: none;
 }

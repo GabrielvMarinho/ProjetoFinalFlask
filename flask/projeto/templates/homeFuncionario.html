@@ -7,21 +7,111 @@
 {% endblock %}
 
 {% block conteudo %}
-<header>
-
-</header>
-
-<section class="section_home_responsavel">
+<header class="headerFuncM">
     <a class="botãoContainerLogout" href="{{url_for('logout')}}">
         SAIR
     </a>
-    <a class="boxFunc" href="{{url_for('addProduto')}}">add produto</a>
-    <a class="boxFunc" href="{{url_for('choseProduto')}}">remover produto</a>
-    <a class="boxFunc" href="{{url_for('addProdutoQuantidade')}}">adicionar estoque</a>
+    <div class="headerFunc">
+        <h1>Logado como: {{current_user.usuario}}</h1>
+    </div>
+</header>
+
+<section class="section_home_responsavel">
+        
+        <div class="divFunc">
+            <div class="opcoesFunc">
+                <a class="boxFunc" href="{{url_for('addProduto')}}">add produto</a>
+                <a class="boxFunc" href="{{url_for('choseProduto')}}">remover produto</a>
+                <a class="boxFunc" href="{{url_for('addProdutoQuantidade')}}">adicionar estoque</a>
+            </div>
+            <div class="divCanvas">           
+                <div  class="canvaF">
+                    <h1 class="titCanv">LANCHES NO ESTOQUE</h1>
+                    <canvas id="myChart.1"></canvas>
+                </div>
+                <div  class="canvaF">
+                    <h1 class="titCanv">COMPRAS NO HISTÓRICO</h1>
+                    <canvas id="myChart.2"></canvas>
+                </div>
+            </div>
+
+        </div>  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart.1');
+    const ctx1 = document.getElementById('myChart.2');
+
     
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          label: 'UNIDADES',
+          data: {{ quantidadeEstoque|tojson }},
+          borderWidth: 1
+        }],
+        labels: {{ nomes|tojson }}
+
+      },
+      options: {
+        responive:true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+
+            labels: {
+                color: 'rgb(205, 220, 231)',
+
+
+                font: {
+                family: 'Arial',
+                size: 11,
+                weight: 'bold'
+
+                }
+            }
+            }
+        }
+        }
+      
+    });
+
+    new Chart(ctx1, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          label: 'R$',
+          data: {{ listaHist|tojson }},
+          borderWidth: 1
+        }],
+        labels: {{ nomes1|tojson }}
+
+      },
+      options: {
+        responive:true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+
+            labels: {
+                color: 'rgb(205, 220, 231)',
+
+
+                font: {
+                family: 'Arial',
+                size: 11,
+                weight: 'bold'
+
+                }
+            }
+            }
+        }
+        }
+      
+    });
+    </script>
+
 </section>
-<footer>
-    
-</footer>
 
 {%endblock%}

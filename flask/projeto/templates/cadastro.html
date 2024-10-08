@@ -23,6 +23,13 @@
     <div class="containerEntrandoLogin">
         <div class="containerLogin">
             <div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {%if messages%}
+                    {%for category, message in messages%}
+                        <p>{{message}}</p>
+                    {%endfor%}
+                {%endif%}
+                {%endwith%}
                 <h1 >
                     Faça seu Cadastro
                 </h1>

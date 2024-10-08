@@ -81,8 +81,9 @@ def adicionarDependente():
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     form = CadastroForm()
+    
     if form.validate_on_submit():
-
+        
         usuario = Responsavel(
             usuario = form.usuario.data,
             email = form.email.data,
@@ -91,10 +92,10 @@ def cadastro():
         
         db.session.add(usuario)
         db.session.commit()
+        
         return redirect(url_for('login'))
-    if form.errors != {}:
-        for err in form.errors.values():
-            flash(f"Erro ao cadastrar usuário {err}", category = "danger")
+    
+    
     return render_template("cadastro.html", form=form)
 
 @app.route('/', methods=['GET', 'POST'])
@@ -117,7 +118,7 @@ def login():
         elif funcionario_logado and funcionario_logado.senha==form.senha.data:
             login_user(funcionario_logado)
             session['user_type'] = 'funcionario'
-            return render_template('homeFuncionario.html')
+            return redirect(url_for("homeFunc"))
         
         else:
             flash("OCORREU ERRO NO LOGIN!")
@@ -203,10 +204,7 @@ def atualizar(id):
     if request.method=="POST":
         mudar_nome.usuario = request.form['usuario']
         mudar_nome.email = request.form['email']
-        senha = request.form['senha1']
-        if senha:  
-            hashed_senha = _bcrypt.generate_password_hash(senha)  # Hash the password before saving (replace with your hash function)
-            mudar_nome.senha = hashed_senha
+        
         try:
             db.session.commit()
             flash("Usuairio atualizado")
@@ -215,9 +213,8 @@ def atualizar(id):
             db.session.rollback()
             flash(f"Erro ao atualizar o usuário")
             return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
-    else:
-        flash(f"Erro ao atualizar o usuário")
-        return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
+    
+    return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
     
 @app.route('/escolherDependente', methods=['GET', 'POST'])
 def escolherDependente():
@@ -254,12 +251,33 @@ def addProduto():
         
         db.session.add(produto)
         db.session.commit()
-        return render_template("homeFuncionario.html", form = form)
+        return redirect(url_for("homeFunc"))
     return render_template("adicionarProduto.html", form = form)
 
 @app.route('/homeFunc', methods=['GET', 'POST'])
 def homeFunc():
-    return render_template("homeFuncionario.html")
+    quantidadeEstoque = []
+    produtos = Produto.query.all()
+    nomes = []
+    for i in produtos:
+        quantidadeEstoque.append(i.quantidade)
+        nomes.append(i.lanche)
+
+    pessoas = Dependente.query.all()
+    nomes1 = []
+    listaHist=[]
+    for i in pessoas:
+        historico = (Historico.query.filter_by(idDependente=i.id))
+        soma = 0
+        nomes1.append(i.usuario)
+        for ii in historico:
+            soma +=ii.valor
+
+        listaHist.append(soma)
+
+    print(listaHist)
+    print(nomes)
+    return render_template("homeFuncionario.html", quantidadeEstoque=quantidadeEstoque, nomes=nomes, listaHist=listaHist, nomes1=nomes1)
 
 
 @app.route("/adicionarEstoques", methods=['GET', 'POST'])

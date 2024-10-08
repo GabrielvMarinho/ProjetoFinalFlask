@@ -6,14 +6,13 @@
 
 {%block conteudo%}
 
-<div class="">
+<div class="perfildiv">
     <strong>Nome: </strong>
-    {{current_user.usuario}}
+    <p>{{current_user.usuario}}</p>
     <strong>Email: </strong>
-    {{current_user.email}}
-    <strong>Senha: </strong>
-    {{current_user.senha}}
+    <p>{{current_user.email}}</p>
+    <a class="botãoContainer1" href="{{url_for('atualizar', id=current_user.id)}}">Atualizar</a>
+
 </div>
-<a href="{{url_for('atualizar', id=current_user.id)}}">Atualizar</a>
     
 {%endblock%}
