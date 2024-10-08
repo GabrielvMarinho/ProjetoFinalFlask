@@ -3,11 +3,12 @@ from projeto import app
 from projeto.forms import adicionarSaldoRespo, CadastroForm, confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
 from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico, ADM
 from projeto import db
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import _bcrypt, hashpw
 
 from datetime import date
 @app.route("/Home")
+@login_required
 def homeResponsavel():
     historicos = Historico.query.all()
     dependentes = Dependente.query.all()
@@ -28,26 +29,23 @@ def homeResponsavel():
             if y.id == lista[i].id:
                 listaSaldo[i] = y.saldo
 
-    print("lista de saldoss", listaSaldo)
     for i in range(len(lista)):
         listaFinal.append(0)
         listaQuantidade.append(0)
         
         for y in historicos:
-            print(lista[i].id)
-            print(y.idDependente)
+            
 
             if lista[i].id == y.idDependente:
-                print("add")
                 listaFinal[i] += y.valor
                 listaQuantidade[i] +=y.quantidade
                 
     
     produtos = Produto.query.all()
-    print(listaFinal)
     return render_template("homeResponsavel.html", produtos=produtos, listaSaldo=listaSaldo, listaQuantidade=listaQuantidade, dados=listaFinal, listaNome=listaNome)
 
 @app.route("/adicionarSaldoResponsavel", methods=['GET', 'POST'])
+@login_required
 def adicionarSaldoResponsavel():
     form = adicionarSaldoRespo()
 
@@ -60,6 +58,7 @@ def adicionarSaldoResponsavel():
     return render_template("adicionarSaldoResp.html", form =form)
 
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
+@login_required
 def adicionarDependente():
     form = CadastroForm()
     if form.validate_on_submit():
@@ -128,17 +127,18 @@ def login():
     return render_template('index.html', form = form)
 
 @app.route('/perfil-page')
+@login_required
 def PerfilPage():
     return render_template('PerfilResponsavel.html') 
     
 @app.route('/adicionarSaldo', methods=['GET', 'POST'])
+@login_required
 def addsaldo():
     form = SaldoForm()
     id = request.args.get('botao')
     acao = request.args.get('acao')
     idAtual = request.args.get('idAtual')
     current_user= Responsavel.query.get(idAtual)
-    print("teste", id)
     dependente = Dependente.query.get(id)    
     if form.validate_on_submit():
         
@@ -170,11 +170,13 @@ def addsaldo():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for("login"))
 
 @app.route('/mudar-senha', methods=['POST', 'GET'])
+@login_required
 def mudarSenha():
     form = LoginForm() 
     if request.method == 'POST':
@@ -198,6 +200,7 @@ def mudarSenha():
     return render_template('mudar-senha.html', form=form)
 
 @app.route('/atualizar<int:id>', methods=['POST', 'GET'])
+@login_required
 def atualizar(id):
     form = CadastroForm()
     mudar_nome = Responsavel.query.get_or_404(id)
@@ -217,6 +220,7 @@ def atualizar(id):
     return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
     
 @app.route('/escolherDependente', methods=['GET', 'POST'])
+@login_required
 def escolherDependente():
     dependentes = Dependente.query.all()
     idAtual = current_user.id
@@ -231,15 +235,12 @@ def escolherDependente():
                 botao_clicado = dependente.id
                 acao = request.form.get(f'acao_{dependente.id}')
                 break
-
-        print("id do dependente", botao_clicado)
-        print("acao", acao)
-        print("idAtual", idAtual)
         
         return redirect(url_for("addsaldo", botao=botao_clicado, acao=acao, idAtual=idAtual, botaoid=botaoid))
     return render_template("ChoseDependent.html", dependentes=dependentes, idAtual=idAtual)
 
 @app.route('/adicionarProduto', methods=['GET', 'POST'])
+@login_required
 def addProduto():
     form = adicionarProduto()
     if form.validate_on_submit():
@@ -255,6 +256,7 @@ def addProduto():
     return render_template("adicionarProduto.html", form = form)
 
 @app.route('/homeFunc', methods=['GET', 'POST'])
+@login_required
 def homeFunc():
     quantidadeEstoque = []
     produtos = Produto.query.all()
@@ -275,20 +277,18 @@ def homeFunc():
 
         listaHist.append(soma)
 
-    print(listaHist)
-    print(nomes)
     return render_template("homeFuncionario.html", quantidadeEstoque=quantidadeEstoque, nomes=nomes, listaHist=listaHist, nomes1=nomes1)
 
 
 @app.route("/adicionarEstoques", methods=['GET', 'POST'])
+@login_required
 def addProdutoQuantidade():
     produtoSemEstoque = Produto.query.all()
     form = confirmarForm()
-    if form.validate_on_submit():
-        print("submit")
     return render_template("adicionarEstoque.html", produtos = produtoSemEstoque, form=form)
 
 @app.route("/adicionarEstoqueFim<int:id>", methods=['GET', 'POST'])
+@login_required
 def addProdutoQuantidadeFim(id):  
     produto = Produto.query.get(id)
     form = confirmarForm()
@@ -296,17 +296,18 @@ def addProdutoQuantidadeFim(id):
     if form.validate_on_submit():
         produto.quantidade += counter_value
         db.session.commit()
-        print(produto.quantidade)
         return redirect(url_for("addProdutoQuantidade"))
     return render_template("adicionarEstoqueFim.html", form=form, produto = produto)
 
 @app.route("/escolherProduto", methods=['GET', 'POST'])
+@login_required
 def choseProduto():
     produtos = Produto.query.all()
     return render_template("escolherRemoverProduto.html", produtos=produtos)
 
 
 @app.route('/removerProduto/<int:id>', methods=['GET', 'POST'])
+@login_required
 def removerProdutos(id):
     form = confirmarForm()
     obj = Produto.query.get(id)
@@ -318,15 +319,16 @@ def removerProdutos(id):
 
         
 @app.route('/dependetes')
+@login_required
 def teste():
     return render_template("Dependentes.html")
 
 
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
+@login_required
 def comprarProduto(id):
     form = confirmarFormQuantidade()
     obj = Produto.query.get(id)
-    print("pode escolher cara")
     counter_value = int(request.form.get('counter_value', 1)) 
     if form.validate_on_submit():
 
@@ -352,6 +354,7 @@ def comprarProduto(id):
     
 
 @app.route('/homeDependente', methods=['GET', 'POST'])
+@login_required
 def escolherProduto():
     produtos = Produto.query.all()
     return render_template("homeDependente.html", produtos =produtos)
