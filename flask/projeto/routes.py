@@ -61,6 +61,7 @@ def adicionarSaldoResponsavel():
 @login_required
 def adicionarDependente():
     form = CadastroForm()
+    dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
     if form.validate_on_submit():
         existing_usuario = Responsavel.query.filter_by(usuario=form.usuario.data).first()
         existing_usuario1 = Dependente.query.filter_by(usuario=form.usuario.data).first()
@@ -96,7 +97,7 @@ def adicionarDependente():
         db.session.commit()
         return redirect(url_for("homeResponsavel"))
     
-    return render_template("adicionarDependente.html", form=form)
+    return render_template("adicionarDependente.html", form=form, dependentes=dependentes)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():

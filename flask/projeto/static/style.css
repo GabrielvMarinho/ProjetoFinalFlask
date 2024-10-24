@@ -23,7 +23,7 @@
 }
 
 .botãoContainerLogout {
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     font-weight: 700;
     color: #dd6666;
     font-size: 1vw;
@@ -36,7 +36,7 @@
     border: solid #dd6666 0.2vw;
 }
 .botãoContainer1{
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     font-weight: 700;
     color: #b2dbbf;
     font-size: 1.5vw;
@@ -195,28 +195,35 @@ header a{
 }
 header{
     display: flex;
-    height: 20%;
+    height: 15%;
     justify-content: center;
 }
 header h1{
-    font-size: 2vw;
+    font-size: 1.7vw;
     color: #ffffff79;
+}
+.dadosListaDependentes p{
+    color: #ffffff79;
+
+}
+.dadosListaDependentes .saldoText{
+    color: #ffffffef;
 
 }
 .saldoHeader{
     background-color: hsl(197, 45%, 44%);
     width: fit-content;
     height: fit-content;
-    padding: 0.5vw;
+    padding: 0.2vw;
     border-radius: 0.3vw;
     padding-inline: 4vw;
     display: flex;
     flex-direction: row;
-    gap:1vw;
+    gap:0.5vw;
 }
 header .saldoText{
     color: #ffffffef;
-    font-size: 2.2vw;
+    font-size: 1.7vw;
 }
 .headerFuncM{
     justify-content: center;
@@ -451,17 +458,32 @@ a{
     font-size: 1.1vw;
     color: #000;
     border: #237699 solid 0.2vw;
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     border-radius: 0.6vw;
 }
+
+
+
+.formsLoginBoxMenor:focus{
+    background-color: #508ba5;
+    outline: none;
+    color: #ffffffef;
+}
+
 .bodyDependente header div{
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 2.6vw;
 }
-.bodyDependente{
+
+.bodyaddDependente{
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: start;
+    gap:6vw;
 }
 .containerFunc{
     display: flex;
@@ -483,7 +505,7 @@ a{
     background-color: hsla(197, 45%, 44%, 0.288);
     border: solid hsl(197, 64%, 66%) 0.2vw;
     padding: 0.4vw;
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
+    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.2vw;
     color: hsl(197, 85%, 73%);
     padding-inline: 1vw;
     border-radius: 0.6vw;
@@ -492,7 +514,7 @@ a{
     background-color: hsla(197, 45%, 44%, 0.288);
     border: solid hsl(197, 64%, 66%) 0.2vw;
     padding: 0.6vw;
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
+    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.2vw;
 
     padding-inline: 1.1vw;
     border-radius: 0.8vw;
@@ -512,15 +534,26 @@ a{
     margin-left: 10vw;
     gap:1vw
 }
-.containerCadastroDependente, .containerAdicionarSaldo{
+ .containerAdicionarSaldo{
     height: 80%;
     width: 80%;
     justify-content: center;
 }
+
+.containerCadastroDependente{
+    width: fit-content;
+}
 .formsDependente{
+    width: fit-content;
     display: flex;
     flex-direction: column;
-    gap:0.5vw;
+    gap:1.5vw;
+    align-items: center;
+}
+.formsDependente .flex .labelLogin{
+    width: 23vw;
+}
+.formsDependente .flex{
     align-items: center;
 }
 .formsSaldo{
@@ -542,13 +575,30 @@ a{
     font-size: 1.1vw;
     color: #000;
     border: #237699 solid 0.2vw;
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     border-radius: 0.6vw;
+}
+
+.formsLoginBox:focus{
+    background-color: #508ba5;
+    outline: none;
+    color: #ffffffef;
+}
+
+input{
+    padding: 0px;
+    padding-inline: 8px;
+
+}
+
+.formsDependente ::placeholder{
+    text-align: center;
+    color: #9abccc;
+    border: 0;
 }
 .formsLogin ::placeholder{
     text-align: center;
-    
-    color: #91BACC;
+    color: #9abccc;
     border: 0;
 }
 .containerLogin div{
@@ -596,9 +646,17 @@ form{
     height: 20vw;
     background-color: aqua;
 }
+.flex{
+    display: flex;
+}
 
 .containerAdicionarSaldo, .containerCadastroDependente{
     text-align: center;
+    display: flex;
+    justify-content: center;
+    gap:2vw;
+    align-items: center;
+    height: 100%;
 }
 
 .sidebarResponsavel{
@@ -613,8 +671,37 @@ form{
     align-items: center;
 
 }
+.dadosListaDependentes{
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+    background-color: hsl(197, 45%, 44%);
+    border-radius: 0.5vw;
+    justify-content: center;
+
+}
+.dadosListaDependentes{
+    overflow: hidden;
+    max-height: 20vw;
+    overflow-y: scroll;
+}
 .bodyBaseResponsavel{
     margin-left: 8.5%;
+    width: 90%;
+}
+
+.listaDependentes h1{
+    margin: 1vw;
+    font-size: 2vw;
+}
+
+.bodyDependente{
+    gap:5vw;
+    margin-left: 8.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 90%;
 }
 .titCanv{

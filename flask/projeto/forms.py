@@ -11,7 +11,7 @@ class CadastroForm(FlaskForm):
     usuario = StringField(label='Username:', validators=[Length(min=2, max=30), DataRequired()])
     email = StringField(label='E-mail:', validators=[DataRequired()])
     senha1 = PasswordField(label='Senha:', validators=[Length(min=4), DataRequired()])
-    senha2 = PasswordField(label='Confirmação de senha:', validators=[DataRequired()])
+    senha2 = PasswordField(label='Confirmação:', validators=[DataRequired()])
     submit = SubmitField(label='Cadastrar')
 
 class LoginForm(FlaskForm):
