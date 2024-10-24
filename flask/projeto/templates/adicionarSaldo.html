@@ -7,7 +7,7 @@
 
 {% block conteudo %}
 <container class="containerAdicionarSaldo">
-    <h1>Alterar Saldo</h1>
+    <h1>Alterar Saldo - Seu saldo atual: {{current_user.saldo}}</h1>
     <form method="POST" class="formsSaldo" style="color: whitesmoke;"> 
 
         {{ form.hidden_tag() }}

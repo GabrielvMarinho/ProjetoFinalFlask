@@ -41,7 +41,7 @@ class Responsavel(db.Model, UserMixin):
     usuario = db.Column(db.String(length=30), nullable=False, unique=True)
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False)
-    saldo = db.Column(db.Double, nullable=False, default=0)
+    saldo = db.Column(db.Integer, nullable=False, default=0)
     imagemPerfil = db.Column(db.LargeBinary)  # ATRIBUTO PARA IMAGEM
 
     user_type = 'responsavel'

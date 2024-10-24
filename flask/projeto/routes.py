@@ -62,6 +62,29 @@ def adicionarSaldoResponsavel():
 def adicionarDependente():
     form = CadastroForm()
     if form.validate_on_submit():
+        existing_usuario = Responsavel.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario1 = Dependente.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario2 = Funcionario.query.filter_by(usuario=form.usuario.data).first()
+
+        if existing_usuario or existing_usuario1 or existing_usuario2:
+            flash('Nome de usuário já existe!')
+            return redirect(url_for('adicionarDependente', form=form))
+        
+        existing_email = Responsavel.query.filter_by(email=form.email.data).first()
+        existing_email1 = Dependente.query.filter_by(email=form.email.data).first()
+        existing_email2 = Funcionario.query.filter_by(email=form.email.data).first()
+
+        if existing_email or existing_email1 or existing_email2:
+            flash("E-mail já cadastrado!")
+            return redirect(url_for('adicionarDependente', form=form))
+        
+        if '@gmail.com' not in form.email.data:
+            flash('E-mail inválido!')
+            return redirect(url_for('adicionarDependente', form=form))
+
+        if form.senha1.data != form.senha2.data:
+            flash("Senhas precisam ser IGUAIS!")
+            return redirect(url_for('adicionarDependente', form=form))
 
         usuario = Dependente(
             usuario = form.usuario.data,
@@ -72,9 +95,7 @@ def adicionarDependente():
         db.session.add(usuario)
         db.session.commit()
         return redirect(url_for("homeResponsavel"))
-    if form.errors != {}:
-        for err in form.errors.values():
-            flash(f"Erro ao cadastrar usuário {err}", category = "danger")
+    
     return render_template("adicionarDependente.html", form=form)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
@@ -82,6 +103,31 @@ def cadastro():
     form = CadastroForm()
     
     if form.validate_on_submit():
+        
+        existing_usuario = Responsavel.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario1 = Dependente.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario2 = Funcionario.query.filter_by(usuario=form.usuario.data).first()
+
+        if existing_usuario or existing_usuario1 or existing_usuario2:
+            flash('Nome de usuário já existe!')
+            return redirect(url_for('cadastro', form=form))
+        
+        existing_email = Responsavel.query.filter_by(email=form.email.data).first()
+        existing_email1 = Dependente.query.filter_by(email=form.email.data).first()
+        existing_email2 = Funcionario.query.filter_by(email=form.email.data).first()
+
+        if existing_email or existing_email1 or existing_email2:
+            flash("E-mail já cadastrado!")
+            return redirect(url_for('cadastro', form=form))
+        
+        if '@gmail.com' not in form.email.data:
+            flash('E-mail inválido!')
+            return redirect(url_for('cadastro', form=form))
+
+        if form.senha1.data != form.senha2.data:
+            flash("Senhas precisam ser IGUAIS!")
+            return redirect(url_for('cadastro', form=form))
+
         
         usuario = Responsavel(
             usuario = form.usuario.data,
@@ -138,6 +184,7 @@ def addsaldo():
     id = request.args.get('botao')
     acao = request.args.get('acao')
     idAtual = request.args.get('idAtual')
+    botaoid = request.args.get("botaoid")
     current_user= Responsavel.query.get(idAtual)
     dependente = Dependente.query.get(id)    
     if form.validate_on_submit():
@@ -151,14 +198,15 @@ def addsaldo():
                 current_user.saldo = current_user.saldo-form.saldo.data
                 db.session.commit()
                 return redirect(url_for('escolherDependente', form=form))
+            flash("Saldo da conta INSUFICIENTE")
+            return redirect(url_for("addsaldo", botao=id, acao=acao, idAtual=idAtual, botaoid=botaoid)) 
+
+
         elif acao =="1":
-            print("1")
 
             if form.saldo.data>dependente.saldo:
-                print("1")
-
-                flash("Insuficiente")
-                return render_template('homeResponsavel.html') 
+                flash("Saldo do dependente INSUFICIENTE")
+                return redirect(url_for("addsaldo", botao=id, acao=acao, idAtual=idAtual, botaoid=botaoid)) 
             else:
                 dependente.saldo = dependente.saldo-form.saldo.data
                 current_user.saldo = current_user.saldo+form.saldo.data
@@ -360,6 +408,7 @@ def comprarProduto(id):
             return render_template("comprarProduto.html", obj=obj, form=form)
         flash("SALDO insuficiente!")
         return render_template("comprarProduto.html", obj=obj, form=form)
+    
     return render_template("comprarProduto.html", obj=obj, form=form)
     
 

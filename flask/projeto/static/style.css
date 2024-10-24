@@ -3,7 +3,7 @@
     margin: 0;
     font-family: "Montserrat";
     font-weight: bold;
-    color: #fff;
+    color: #ffffffef;
 }
 
 .botãoContainerVoltar{
@@ -21,10 +21,7 @@
     border-radius: 1vw;
     border: solid #66a4dd 0.3vw;
 }
-.flashMessages{
-    color: #ffaaaa;
-    
-}
+
 .botãoContainerLogout {
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     font-weight: 700;
@@ -202,15 +199,24 @@ header{
     justify-content: center;
 }
 header h1{
+    font-size: 2vw;
+    color: #ffffff79;
+
+}
+.saldoHeader{
     background-color: hsl(197, 45%, 44%);
     width: fit-content;
     height: fit-content;
     padding: 0.5vw;
-    color: #ffffff;
     border-radius: 0.3vw;
     padding-inline: 4vw;
-    font-size: 2vw;
-
+    display: flex;
+    flex-direction: row;
+    gap:1vw;
+}
+header .saldoText{
+    color: #ffffffef;
+    font-size: 2.2vw;
 }
 .headerFuncM{
     justify-content: center;
@@ -254,7 +260,7 @@ body{
 .containerEntrandoLogin{
     display: flex;
     flex-direction: row;
-    height: calc(80vh - var(--margin-principal) * 2);
+    height: calc(90vh - var(--margin-principal) * 2);
     margin-top: var(--margin-principal);
     margin-inline: calc(var(--margin-principal-inline)-40px);
     margin-bottom: var(--margin-principal);
@@ -291,13 +297,10 @@ a{
         gap:3vw;
     }
     .flashMessages{
-        margin: 2vw;
+        margin-top: 2vw;
         font-size: 4vw !important;
     }
-    .bodyDependente header div{
-        justify-content: center;
-        align-items: center;
-    }
+    
     header h1{
         font-size: 5vw;
     }
@@ -403,8 +406,11 @@ a{
     margin: 2vw;
 }
 .flashMessages {
-    margin: 1vw;
+    margin-top: 1vw;
     font-size: 1.5vw;
+    color: #ffaaaa;
+        
+    
 }
 .bannerLogin h1{
     font-size: 5vw;
@@ -451,6 +457,8 @@ a{
 .bodyDependente header div{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    height: 2.6vw;
 }
 .bodyDependente{
     display: flex;
@@ -473,7 +481,7 @@ a{
 .botoesChoseLanche{
     font-size: 1.1vw;
     background-color: hsla(197, 45%, 44%, 0.288);
-    border: solid hsl(197, 64%, 66%) 0.25vw;
+    border: solid hsl(197, 64%, 66%) 0.2vw;
     padding: 0.4vw;
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
     color: hsl(197, 85%, 73%);
@@ -557,7 +565,7 @@ a{
     justify-content: center;
 }
 .containerLogin h1{
-    color:#fff;
+    color: #ffffffef;
     margin: 2vw;
     font-size: 3vw;
 }   
@@ -659,7 +667,7 @@ form{
 .sidebarResponsavel p{
     visibility: hidden;
     opacity: 0;
-    color: white;
+    color: #ffffffef;
     transition: opacity 0.2s, visibility 0.2s;
 
 }

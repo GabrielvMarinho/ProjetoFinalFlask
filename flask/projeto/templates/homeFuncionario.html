@@ -11,8 +11,10 @@
     <a class="botãoContainerLogout" href="{{url_for('logout')}}">
         SAIR
     </a>
-    <div class="headerFunc">
-        <h1>Logado como: {{current_user.usuario}}</h1>
+
+    <div class="saldoHeader">
+        <h1>Logado como: </h1>
+        <p class="saldoText">{{current_user.usuario}}</p>
     </div>
 </header>
 

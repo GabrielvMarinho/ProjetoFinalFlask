@@ -13,8 +13,10 @@
             <a class="botãoContainerLogout" href="{{url_for('logout')}}">
                 SAIR
             </a>
-            <h1>Saldo: {{current_user.saldo}}</h1>
-            
+            <div class="saldoHeader">
+                <h1>Saldo: </h1>
+                <p class="saldoText">{{current_user.saldo}}</p>
+            </div>
         </div>
     </header>
     <div class="bodyChoseDependent">
