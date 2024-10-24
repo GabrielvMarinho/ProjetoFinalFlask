@@ -22,11 +22,10 @@
 
     <div class="containerEntrandoLogin">
         <div class="containerLogin">
-            <div>
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {%if messages%}
                     {%for category, message in messages%}
-                        <p>{{message}}</p>
+                        <p class="flashMessages">{{message}}</p>
                     {%endfor%}
                 {%endif%}
                 {%endwith%}
@@ -50,7 +49,6 @@
         
                     
                 </form>
-            </div>
             
         </div>
     </div>

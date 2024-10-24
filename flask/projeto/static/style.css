@@ -21,18 +21,22 @@
     border-radius: 1vw;
     border: solid #66a4dd 0.3vw;
 }
+.flashMessages{
+    color: #ffaaaa;
+    
+}
 .botãoContainerLogout {
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     font-weight: 700;
     color: #dd6666;
-    font-size: 1.5vw;
+    font-size: 1vw;
     text-align: center;
     background-color: #df4e4e4f;
-    padding: 0.7vw;
-    height: 2vw;
-    padding-inline: 2.3vw;
-    border-radius: 1vw;
-    border: solid #dd6666 0.3vw;
+    padding: 0.4vw;
+    height: 1.2vw;
+    padding-inline: 1.5vw;
+    border-radius: 0.6vw;
+    border: solid #dd6666 0.2vw;
 }
 .botãoContainer1{
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
@@ -45,7 +49,7 @@
     padding-inline: 2.3vw;
     max-width: fit-content;
     border-radius: 1vw;
-    border: solid #b2dbbf 0.3vw;
+    border: solid #b2dbbf 0.2vw;
     margin-block: 1vw;
 }
 .bodyaddEstoque{
@@ -61,7 +65,7 @@
 
 .bodyChoseDependent .titulo{
     margin-top: 4vw;
-    font-size: 5vw;
+    font-size: 3vw;
     color: rgba(255, 255, 255, 0.952);
 
 }
@@ -91,7 +95,7 @@
 }
 .boxChoseDependent h1{
     text-transform: uppercase;
-    font-size: 2.6vw;
+    font-size: 1.6vw;
     color: rgba(255, 255, 255, 0.89);
 }
 .boxChoseLanche h3{
@@ -250,12 +254,12 @@ body{
 .containerEntrandoLogin{
     display: flex;
     flex-direction: row;
-    height: calc(100vh - var(--margin-principal) * 2);
+    height: calc(80vh - var(--margin-principal) * 2);
     margin-top: var(--margin-principal);
     margin-inline: calc(var(--margin-principal-inline)-40px);
     margin-bottom: var(--margin-principal);
     background-color: #237699;
-    border-radius: 30px;
+    border-radius: 1.5vw;
 }
 .containerEntrando{
     display: flex;
@@ -275,7 +279,132 @@ a{
 .loginPrincipal{
     justify-content: center;
     display: flex;
+    align-items: center;
     gap: 5vw;
+}
+@media (max-width: 900px){
+    .boxChoseLanche{
+        width: 50vw;
+        height: 50vw;
+        gap:0;
+        justify-content: center;
+        gap:3vw;
+    }
+    .flashMessages{
+        margin: 2vw;
+        font-size: 4vw !important;
+    }
+    .bodyDependente header div{
+        justify-content: center;
+        align-items: center;
+    }
+    header h1{
+        font-size: 5vw;
+    }
+    .botaoIncremento{
+        padding:1.5vw !important; 
+        padding-inline: 6vw !important;
+        max-width: 55vw !important;
+        border-radius: 1vw !important;
+        margin-block: 3vw !important;
+        border: #57a571 solid 0.4vw !important;
+        font-size: 5.5vw !important;
+        border-radius: 2vw !important;
+    }
+    .botaoDecremento{
+        padding:1.5vw !important; 
+        padding-inline: 6vw !important;
+        max-width: 55vw !important;
+        border-radius: 1vw !important;
+        margin-bottom: 2vw !important;
+        border: #c55a5a solid 0.4vw !important;
+        font-size: 5.5vw !important;
+        border-radius: 2vw !important;
+
+
+    }
+    
+    .botãoContainerLogout{
+        font-size:5vw;
+        height: 6vw;
+        padding: 1vw;
+        padding-inline: 3vw;
+        border-radius: 2vw;
+        border: solid #dd6666 0.6vw;
+    }
+    .boxChoseLanche h1{
+        font-size: 5vw;
+    }
+    .boxChoseLanche h3{
+        font-size: 5vw;
+    }
+    .boxChoseDependent h2, .boxChoseLanche h2{
+        font-size: 5vw;
+    }
+    .botoesChoseLanche{
+        width: 25vw;
+        height: 5vw;
+        font-size: 4vw !important;
+        border: solid hsl(197, 64%, 66%) 0.5vw !important; 
+    }
+    .loginPrincipal{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:0;
+    }
+    .containerLogin {
+        width: 80vw !important;
+        height: 70vw;
+        gap: 3vw;
+    }
+    .containerEntrandoLogin{
+        height: fit-content;
+    }
+    .bannerLogin img{
+        width: 20vw;
+    }
+    .bannerLogin h1{
+        font-size: 14vw !important;
+    }
+    .containerLogin h1{
+        font-size: 8vw !important;
+        text-align: center;
+        line-height: 10vw;
+    }
+    .formsLoginBox{
+        width: 120% !important;
+        height: 6vw !important;
+        font-size: 3vw  !important;
+
+    }
+    .botãoContainer1{
+        font-size: 4vw;
+        padding: 2vw;
+        border-radius: 2.7vw;
+        border: solid #b2dbbf 0.5vw;
+
+        padding-inline: 4.3vw;
+    }
+    .bannerLogin h3{
+        display: none;
+    }
+    .bannerLogin h1{
+        font-size: 12vw !important;
+    }
+}
+.tituloComprarProduto{
+    font-size: 3vw;
+
+}
+.counter{
+    font-size: 2vw;
+    margin: 2vw;
+}
+.flashMessages {
+    margin: 1vw;
+    font-size: 1.5vw;
 }
 .bannerLogin h1{
     font-size: 5vw;
@@ -292,6 +421,7 @@ a{
     margin-top: 1vw;
     margin-bottom: 2vw;
     width: 20vw;
+    font-size: 1.5vw;
     color: #237699;
 }
 .container{
@@ -307,6 +437,16 @@ a{
 }
 .botoesChoseDependent a{
     color: hsl(197, 85%, 73%);
+}
+.formsLoginBoxMenor{
+    width: 80%;
+    border: 0;
+    height: 2.5vw;
+    font-size: 1.1vw;
+    color: #000;
+    border: #237699 solid 0.2vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    border-radius: 0.6vw;
 }
 .bodyDependente header div{
     display: flex;
@@ -342,7 +482,7 @@ a{
 }
 .botoesChoseDependent{
     background-color: hsla(197, 45%, 44%, 0.288);
-    border: solid hsl(197, 64%, 66%) 0.25vw;
+    border: solid hsl(197, 64%, 66%) 0.2vw;
     padding: 0.6vw;
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.2vw;
 
@@ -388,14 +528,14 @@ a{
     align-items: center;
 }
 .formsLoginBox{
-    width: 70%;
+    width: 110%;
     border: 0;
-    height: 3vw;
-    font-size: 1.3vw;
+    height: 2.5vw;
+    font-size: 1.1vw;
     color: #000;
     border: #237699 solid 0.2vw;
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
-    border-radius: 0.8vw;
+    border-radius: 0.6vw;
 }
 .formsLogin ::placeholder{
     text-align: center;
@@ -412,13 +552,14 @@ a{
     margin-inline: auto;
 }
 .containerLogin{
-    width:45vw;
+    width: 38vw;
+    align-items: center;
     justify-content: center;
 }
 .containerLogin h1{
     color:#fff;
-    font-size: 4vw;
-
+    margin: 2vw;
+    font-size: 3vw;
 }   
 
 
@@ -577,7 +718,7 @@ form{
 .botaoIncremento{
     padding: 0.5vw;
     padding-inline: 2vw;
-    max-width: 15vw;
+    max-width: 10vw;
     border-radius: 1vw;
     margin-block: 1vw;
     background-color: #7cbe92;
@@ -587,7 +728,7 @@ form{
 .botaoDecremento{
     padding: 0.5vw;
     padding-inline: 2vw;
-    max-width: 15vw;
+    max-width: 10vw;
     border-radius: 1vw;
     margin-block: 1vw;
     background-color:#d46f6f;

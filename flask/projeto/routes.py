@@ -50,11 +50,11 @@ def adicionarSaldoResponsavel():
     form = adicionarSaldoRespo()
 
     if form.validate_on_submit():
-            
         responsavel = Responsavel.query.get(current_user.id)
         responsavel.saldo = responsavel.saldo+form.adicional.data
         db.session.commit()
         return redirect(url_for('homeResponsavel'))
+    
     return render_template("adicionarSaldoResp.html", form =form)
 
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
@@ -143,13 +143,20 @@ def addsaldo():
     if form.validate_on_submit():
         
         if acao == "0":
+            ("0")
+
             if form.saldo.data<=current_user.saldo:
+                print("0")
                 dependente.saldo = dependente.saldo+form.saldo.data
                 current_user.saldo = current_user.saldo-form.saldo.data
                 db.session.commit()
                 return redirect(url_for('escolherDependente', form=form))
         elif acao =="1":
+            print("1")
+
             if form.saldo.data>dependente.saldo:
+                print("1")
+
                 flash("Insuficiente")
                 return render_template('homeResponsavel.html') 
             else:
@@ -349,6 +356,9 @@ def comprarProduto(id):
                 db.session.add(historico)
                 db.session.commit()
                 return redirect(url_for("escolherProduto"))
+            flash("ESTOQUE insuficiente!")
+            return render_template("comprarProduto.html", obj=obj, form=form)
+        flash("SALDO insuficiente!")
         return render_template("comprarProduto.html", obj=obj, form=form)
     return render_template("comprarProduto.html", obj=obj, form=form)
     
