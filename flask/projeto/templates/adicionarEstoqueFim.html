@@ -1,9 +1,9 @@
 
 
-{% extends 'baseDependente.html' %}
+{% extends 'baseFuncionario.html' %}
 
 {% block titulo %}
-    HOME
+    ADICIONAR ESTOQUE FIM
 {% endblock %}
 
 {% block conteudo %}
@@ -13,19 +13,19 @@
 </header>
 
     <form method="post">
-        <h1>deseja realmente aumentar o estoque de: {{produto.nome}}</h1>
+        <h1>Escolha a quantidade - {{produto.lanche}}</h1>
         {{ form.hidden_tag() }}
         
         <div class="counter" id="counter" value="1">1</div>
-        <button class="botaoIncremento" type ="button" onclick="increment()">Incrementar</button>
-        <button class="botaoDecremento" type ="button" onclick="decrement()">Decrementar</button>
+        <button class="botaoIncremento" type ="button" onclick="increment()">+</button>
+        <button class="botaoDecremento" type ="button" onclick="decrement()">-</button>
 
         <input type="hidden" name="counter_value" id="counter_value" value="1">
         
         {{ form.submit(class="botãoContainer1")}}
 
     </form>
-    <script src="{{url_for('static', filename='scripts.js')}}"></script>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
 
 
 {%endblock%}

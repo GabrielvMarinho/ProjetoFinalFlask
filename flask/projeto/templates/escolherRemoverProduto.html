@@ -1,13 +1,12 @@
 
 
-{% extends 'baseDependente.html' %}
+{% extends 'baseFuncionario.html' %}
 
 {% block titulo %}
-    HOME
+    ESCOLHER REMOVER PRODUTO
 {% endblock %}
 
 {% block conteudo %}
-<body class="bodyDependente">
 
 <header>
     <a class="botãoContainerVoltar" href="{{url_for('homeFunc')}}">
@@ -15,7 +14,6 @@
     </a>
 </header>
 
-<div class="bodyChoseDependent">
     <form method="post">
         
             {% for produto in produtos %}
@@ -29,7 +27,5 @@
             {%endfor%}
         
     </form>
-</div>
-</body>
 {%endblock%}
 

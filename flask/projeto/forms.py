@@ -38,8 +38,8 @@ class confirmarFormQuantidade(FlaskForm):
     submit = SubmitField(label="Confirmar")
 
 class adicionarProduto(FlaskForm):
-    lanche = StringField(label="Nome do lanche", validators=[DataRequired()])
-    valor = FloatField(label="valor do produto", validators=[NumberRange(min=1), DataRequired()])
+    lanche = StringField(label="Nome", validators=[DataRequired()])
+    valor = FloatField(label="valor", validators=[NumberRange(min=1), DataRequired()])
     quantidade = IntegerField(validators=[DataRequired(),NumberRange(min=1)])
     submit = SubmitField(label="Adicionar")
 

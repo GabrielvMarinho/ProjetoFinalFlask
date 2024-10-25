@@ -43,6 +43,7 @@ def homeResponsavel():
     
     produtos = Produto.query.all()
     return render_template("homeResponsavel.html", produtos=produtos, listaSaldo=listaSaldo, listaQuantidade=listaQuantidade, dados=listaFinal, listaNome=listaNome)
+@app.route("/historico")
 
 @app.route("/adicionarSaldoResponsavel", methods=['GET', 'POST'])
 @login_required
@@ -299,6 +300,7 @@ def escolherDependente():
 @login_required
 def addProduto():
     form = adicionarProduto()
+    produtos = Produto.query.all()
     if form.validate_on_submit():
         produto = Produto(
             lanche = form.lanche.data,
@@ -309,7 +311,7 @@ def addProduto():
         db.session.add(produto)
         db.session.commit()
         return redirect(url_for("homeFunc"))
-    return render_template("adicionarProduto.html", form = form)
+    return render_template("adicionarProduto.html", form = form, produtos=produtos)
 
 @app.route('/homeFunc', methods=['GET', 'POST'])
 @login_required

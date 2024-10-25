@@ -1,44 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0('static', filename='style.css')">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>
+        {%block titulo%}
+            MySnack
+        {%endblock%}
+    </title>
+
+</head>
+<body>
+    <div class="containerDependente">
+        
 
 
-{% extends 'baseDependente.html' %}
 
-{% block titulo %}
-    HOME
-{% endblock %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {%if messages%}
+                    {%for category, message in messages%}
+                
+                        <p class="flashMessages">{{message}}</p>
+                    {%endfor%}
+                {%endif%}
+            {%endwith%}
 
-{% block conteudo %}
-<body class="bodyDependente">
-    <header>
-        <div>
-            <a class="botãoContainerLogout" href="{{url_for('logout')}}">
-                SAIR
-            </a>
-            <div class="saldoHeader">
-                <h1>Saldo: </h1>
-                <p class="saldoText">{{current_user.saldo}}</p>
-            </div>
-        </div>
-    </header>
-    <div class="bodyChoseDependent">
-        <form method="post">
-            {% for produto in produtos %}
-                {% if produto.quantidade>0 %}
-                <div class="boxChoseLanche">
-                    <h1>{{produto.lanche}}</h1>
-                    <h2>{{produto.valor}}</h2>
-                    <a class="botoesChoseLanche" href="{{url_for('comprarProduto', id = produto.id)}}">COMPRAR</a>
-                    <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
-
+            <header>
+                <div>
+                    <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+                        SAIR
+                    </a>
+                    <div class="saldoHeader">
+                        <h1>Saldo: </h1>
+                        <p class="saldoText">{{current_user.saldo}}</p>
+                    </div>
                 </div>
-                {% endif %}
-            {%endfor%}
-        </form>
+            </header>
+            <div class="bodyChoseDependent">
+                <form method="post">
+                    {% for produto in produtos %}
+                        {% if produto.quantidade>0 %}
+                        <div class="boxChoseLanche">
+                            <h1>{{produto.lanche}}</h1>
+                            <h2>{{produto.valor}}</h2>
+                            <a class="botoesChoseLanche" href="{{url_for('comprarProduto', id = produto.id)}}">COMPRAR</a>
+                            <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
+        
+                        </div>
+                        {% endif %}
+                    {%endfor%}
+                </form>
+            </div>
+        <script src="{{url_for('static', filename='scripts.js')}}"></script>
+        
+        <footer>
+            
+        </footer>
+            
     </div>
+
+
 </body>
-<script src="{{url_for('static', filename='scripts.js')}}"></script>
+</html>
 
-<footer>
     
-</footer>
 
-{%endblock%}

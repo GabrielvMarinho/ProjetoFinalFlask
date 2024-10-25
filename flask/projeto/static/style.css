@@ -7,21 +7,17 @@
 }
 
 .botãoContainerVoltar{
-    margin-top: 2vw;
-    margin-right: 1vw;
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     font-weight: 700;
     color: #66a8dd;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     text-align: center;
     background-color: #4e9edf3b;
-    padding: 0.7vw;
-    height: 2vw;
+    padding: 0.5vw;
     padding-inline: 2.3vw;
-    border-radius: 1vw;
-    border: solid #66a4dd 0.3vw;
+    border-radius: 0.6vw;
+    border: solid #66a4dd 0.2vw;
 }
-
 .botãoContainerLogout {
     box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     font-weight: 700;
@@ -95,16 +91,13 @@
     font-size: 1.6vw;
     color: rgba(255, 255, 255, 0.89);
 }
-.boxChoseLanche h3{
-    font-size: 1.5vw;
-}
+
 .boxChoseDependent h2, .boxChoseLanche h2{
     font-size: 1.5vw;
     color: #ffffff86;
 }
 .estoquetxt{
     color: #ffffff5e;
-    margin-top: 1vw;
 }
 .perfildiv{
     display: flex;
@@ -127,16 +120,15 @@
     justify-content: space-around;
 }
 .boxChoseDependent, .boxChoseLanche{
-    width: 26vw;
-    height: 16vw;
-    border: hsl(198, 40%, 46%) solid 0.6vw;
+    padding: 3vw;
+    border: hsl(198, 40%, 46%) solid 0.2vw;
     background-color: hsl(197, 45%, 44%);
     display: flex;
     flex-direction: column;
     border-radius: 1.2vw;
     justify-content:center;
     align-items: center;
-    gap:0.5vw;
+    gap:0.7vw;
     
 
 }
@@ -167,16 +159,16 @@
     margin-bottom: 2vw;
 }
 .boxChoseLanche{
-    width: 19vw;
-    height: 15vw;
+    padding: 2vw;
+    padding-inline: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     text-align: center;
 }
 header div{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap:2vw;
     margin: 2vw;
 }
@@ -187,8 +179,8 @@ header div div{
     flex-direction: row;
 }
 header div div img{
-    width: 8vw;
-    height: 8vw;
+    width: 6vw;
+    height: 6vw;
 }
 header a{
     width: fit-content;
@@ -197,16 +189,17 @@ header{
     display: flex;
     height: 15%;
     justify-content: center;
+    align-items: center;
 }
 header h1{
     font-size: 1.7vw;
     color: #ffffff79;
 }
-.dadosListaDependentes p{
+.dadosLista p{
     color: #ffffff79;
 
 }
-.dadosListaDependentes .saldoText{
+.dadosLista .saldoText{
     color: #ffffffef;
 
 }
@@ -214,7 +207,7 @@ header h1{
     background-color: hsl(197, 45%, 44%);
     width: fit-content;
     height: fit-content;
-    padding: 0.2vw;
+    padding: 0.4vw;
     border-radius: 0.3vw;
     padding-inline: 4vw;
     display: flex;
@@ -295,13 +288,18 @@ a{
     align-items: center;
     gap: 5vw;
 }
-@media (max-width: 900px){
+@media (max-width: 800px){
     .boxChoseLanche{
         width: 50vw;
         height: 50vw;
         gap:0;
         justify-content: center;
         gap:3vw;
+
+    }
+    header .saldoText{
+        color: #ffffffef;
+        font-size: 6vw;
     }
     .flashMessages{
         margin-top: 2vw;
@@ -344,6 +342,7 @@ a{
     }
     .boxChoseLanche h1{
         font-size: 5vw;
+        line-height: 5vw;
     }
     .boxChoseLanche h3{
         font-size: 5vw;
@@ -448,6 +447,17 @@ a{
     overflow: auto;
     border-radius: 0.4vw;
 }
+.containerDependente{
+    height: calc(100vh - var(--margin-principal) * 2);
+    margin-top: var(--margin-principal);
+    margin-inline: var(--margin-principal-inline);
+    margin-bottom: var(--margin-principal);
+    background-color: #237699;
+    overflow: auto;
+    border-radius: 0.4vw;
+    display: flex;
+    flex-direction: column;
+}
 .botoesChoseDependent a{
     color: hsl(197, 85%, 73%);
 }
@@ -474,7 +484,7 @@ a{
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 2.6vw;
+    height: 2vw;
 }
 
 .bodyaddDependente{
@@ -632,6 +642,13 @@ form{
     gap:3vw;
     /*background-color: #dd66666e;*/
 }
+.section_adicionar_estoque{
+    display: flex;
+    height: 57%;
+    justify-content: center;
+    gap:10vw;
+    align-items: center;
+}
 .dadosReponsavel1{
     display: flex;
     flex-direction: column;
@@ -662,7 +679,7 @@ form{
 .sidebarResponsavel{
     display: flex;
     flex-direction: column;
-    width: 7%;
+    width: 6.5%;
     background-color: hsl(197, 45%, 44%);
     position: absolute;
     border-radius: 0.4vw;
@@ -671,7 +688,7 @@ form{
     align-items: center;
 
 }
-.dadosListaDependentes{
+.dadosLista{
     display: flex;
     flex-direction: column;
     padding: 1vw;
@@ -680,7 +697,7 @@ form{
     justify-content: center;
 
 }
-.dadosListaDependentes{
+.dadosLista{
     overflow: hidden;
     max-height: 20vw;
     overflow-y: scroll;
@@ -690,7 +707,7 @@ form{
     width: 90%;
 }
 
-.listaDependentes h1{
+.lista h1{
     margin: 1vw;
     font-size: 2vw;
 }
@@ -718,19 +735,23 @@ form{
     width:100%;
 }
 .boxFunc{
-    background-color: #66a8dd;
-    border: #66a4dd 0.4vw solid;
-    width:10vw;
-    height: 5vw;
-    margin: 1vw;
-    border-radius: 0.6vw;
+    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
+    font-weight: 700;
+    color: #66a8dd;
+    font-size: 1.2vw;
     text-align: center;
+    background-color: #4e9edf3b;
+    padding: 0.7vw;
+    height: 1.5vw;
+    padding-inline: 0.9vw;
+    border-radius: 0.6vw;
+    border: solid #66a4dd 0.2vw;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .divFunc a{
-    font-size: 1.3vw;
+    font-size: 1.2vw;
     
 }
 
@@ -769,8 +790,8 @@ form{
     align-items: center;
 }
 .sidebarResponsavel img{
-    width: 2.8vw;
-    height: 2.8vw;
+    width: 2.2vw;
+    height: 2.2vw;
 }
 
 /* O Modal (Fundo) */

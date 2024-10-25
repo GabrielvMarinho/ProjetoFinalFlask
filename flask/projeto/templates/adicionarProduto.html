@@ -3,7 +3,7 @@
 {% extends 'baseFuncionario.html' %}
 
 {% block titulo %}
-    HOME
+    ADICIONAR PRODUTO
 {% endblock %}
 
 {% block conteudo %}
@@ -12,24 +12,47 @@
     
 </header>
 
-<section class="section_home_responsavel">
+<section class="section_adicionar_estoque">
 
-    <form method="POST">
+    <form method="POST" class="formsDependente">
         {{ form.hidden_tag() }}
+        <div class="flex">
+        {{form.lanche.label(class="labelLogin")}}
+        {{form.lanche(class="formsLoginBox", placeholder="Nome")}}
+        </div>
+        <div class="flex">
 
-        {{form.lanche.label()}}
-        {{form.lanche(class="formsLoginBox", placeholder="Informe o nome")}}
+        {{form.valor.label(class="labelLogin")}}
+        {{form.valor(class="formsLoginBox", placeholder="Valor")}}
+    </div>
 
-        {{form.valor.label()}}
-        {{form.valor(class="formsLoginBox", placeholder="Informe o valor")}}
+        <div class="flex">
 
-        {{form.quantidade.label()}}
-        {{form.quantidade(class="formsLoginBox", placeholder="Informe o valor")}}
+        {{form.quantidade.label(class="labelLogin")}}
+        {{form.quantidade(class="formsLoginBox", placeholder="Quantidade")}}
+    </div>
 
         {{form.submit(class="botãoContainer1")}}
 
     </form>
-    
+
+    <div class="lista">
+        <h1>Lista de Produtos</h1>
+        
+        <div class="dadosLista">
+
+        {% for i in produtos%}    
+            <p>Nome: <p class="saldoText">{{ i.usuario}}</p></p>
+            
+            <p>Preço: <p class="saldoText">{{ i.email}}</p></p>
+            
+            <p>Estoque: <p class="saldoText">{{ i.saldo}}</p></p>
+            
+            <br>
+        {% endfor%}
+        <div>
+
+    </div>
 </section>
 <footer>
     

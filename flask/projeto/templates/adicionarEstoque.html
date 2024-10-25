@@ -1,9 +1,9 @@
 
 
-{% extends 'baseDependente.html' %}
+{% extends 'baseFuncionario.html' %}
 
 {% block titulo %}
-    HOME
+    ADICIONAR ESTOQUE
 {% endblock %}
 
 {% block conteudo %}
@@ -11,7 +11,6 @@
     <a  class="botãoContainerVoltar" href="{{url_for('homeFunc')}}">Voltar</a>
 
 </header>
-<body class="bodyDependente">
 
     <div class="bodyaddEstoque">
 
@@ -28,5 +27,4 @@
     
     {%endfor%}
 </div>
-</body>
 {%endblock%}

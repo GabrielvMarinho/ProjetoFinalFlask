@@ -2,7 +2,7 @@
 {% extends 'baseResponsavel.html' %}
 
 {% block titulo %}
-    Adicionar Saldo
+    ADICIONAR SALDO
 {% endblock %}
 
 {% block conteudo %}
@@ -12,7 +12,7 @@
 
         {{ form.hidden_tag() }}
 
-        {{form.saldo(class="formsLoginBoxMenor", placeholder="Informe a quantia")}}
+        {{form.saldo(class="formsLoginBox", placeholder="Informe a quantia")}}
         
         {{form.submit(class="botãoContainer1")}}
     </form>
