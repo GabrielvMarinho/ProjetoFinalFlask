@@ -6,7 +6,7 @@ function updateDisplay() {
 }
 
 function increment() {
-    if(count !=10){
+    if(count !=100){
         count++;
         updateDisplay();
     }

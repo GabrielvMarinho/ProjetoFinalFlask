@@ -211,6 +211,7 @@ header{
     justify-content: center;
     align-items: center;
 }
+
 header h1{
     font-size: 1.7vw;
     color: #ffffff79;
@@ -263,11 +264,30 @@ footer{
 
 body{
     background-color: rgb(112, 112, 112);
-    height: calc(100vh - var(--margin-principal) * 2);
+    height: calc(100vh - var(--margin-principal) * 2) !important;
     background-image: url(imagens/FotoFundo1.png);
     background-size: cover;
     height: 100vh;
     overflow-y: hidden;
+}
+.TelaInteira{
+    height: 100vh !important;
+
+}
+.formRemovProduto{
+    display: flex;
+    flex-direction: row;
+    gap: 1vw;
+    max-width: 100%;
+    max-height: 25vw;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.overlay{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .bannerLogin img{
     width: 7vw;
