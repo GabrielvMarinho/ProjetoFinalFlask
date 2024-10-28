@@ -12,6 +12,7 @@
     position: absolute;
     background-color: #c55a5a;
     padding: 1vw;
+    padding-inline: 1.5vw;
     margin: 1vw;
     border-radius: 0.5vw;
     padding-inline: 3vw;
@@ -66,7 +67,32 @@
 }
 .bodyaddEstoque{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2vw;
+}
+#modalConfirmar{
+    border: #862525 solid 0.2vw !important;
+
+}
+#nomeProduto{
+    font-size: 1.5vw;
+    font-weight: 600;
+    color: #ffffffc4;
+    margin-bottom: 1.5vw;
+}
+#modalConfirmar h3{
+    margin-top: 0.5vw;
+
+}
+.buttonConfirm{
+    color: white;
+    background-color: #b63a3a;
+    padding: 0.3vw;
+    padding-inline: 1.8vw;
+    border-radius: 0.5vw;
+    border: #862525 solid 0.2vw !important;
+
 }
 .bodyChoseDependent{
     text-align: center;
@@ -368,7 +394,6 @@ a{
         border: #c55a5a solid 0.4vw !important;
         font-size: 5.5vw !important;
         border-radius: 2vw !important;
-
 
     }
     
@@ -860,7 +885,7 @@ form{
 
 /* Botão de Fechar */
 .close {
-    color: #aaa;
+    color: #ffffffc4;
     float: right;
     font-size: 28px;
     font-weight: bold;

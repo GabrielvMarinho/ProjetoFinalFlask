@@ -13,10 +13,10 @@
         VOLTAR
     </a>
 </header>
-
 <div id="modalConfirmar">
-    <h3>DESEJA EXCLUIR?</h3>
-    <button onclick="confirmar()">SIM</button>
+    <h3>DESEJA REALMENTE EXCLUIR?</h3>
+    <h2 id="nomeProduto"></h2>
+    <button class="buttonConfirm" onclick="confirmar()">SIM</button>
     <span class="close">&times;</span>
 </div>
     <form method="post" class="formRemovProduto">
@@ -25,7 +25,7 @@
             <div class="boxChoseLanche">
                 <h1>{{produto.lanche}}</h1>
                 <h2>{{produto.valor}}</h2>
-                <a class="botoesChoseLanche" onclick="confirmarExclusao({{produto.id}})">EXCLUIR</a>
+                <a class="botoesChoseLanche" onclick="confirmarExclusao({{produto.id}},  '{{produto.lanche}}')">EXCLUIR</a>
                 <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
 
                 
