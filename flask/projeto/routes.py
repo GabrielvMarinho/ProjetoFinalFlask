@@ -367,14 +367,11 @@ def choseProduto():
 @app.route('/removerProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
 def removerProdutos(id):
-    form = confirmarForm()
+    print("entrou")
     obj = Produto.query.get(id)
-    if form.validate_on_submit():
-        db.session.delete(obj)
-        db.session.commit()
-        return redirect(url_for("choseProduto"))
-    return render_template("excluirProduto.html", obj=obj, form=form)
-
+    db.session.delete(obj)
+    db.session.commit()
+    return redirect(url_for("choseProduto"))
         
 @app.route('/dependetes')
 @login_required

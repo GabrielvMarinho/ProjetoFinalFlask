@@ -4,8 +4,27 @@
     font-family: "Montserrat";
     font-weight: bold;
     color: #ffffffef;
+    
 }
 
+#modalConfirmar{
+    display: none;
+    position: absolute;
+    background-color: #c55a5a;
+    padding: 1vw;
+    margin: 1vw;
+    border-radius: 0.5vw;
+    padding-inline: 3vw;
+    z-index: 1000;
+
+}
+.escuro{
+    position: absolute;
+    z-index: 999;
+    height: 100vw;
+    width:  100vw;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
 .botãoContainerVoltar{
     box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     font-weight: 700;
@@ -160,6 +179,7 @@
 }
 .boxChoseLanche{
     padding: 2vw;
+    min-width: 15vw;
     padding-inline: 0;
     display: flex;
     flex-direction: column;

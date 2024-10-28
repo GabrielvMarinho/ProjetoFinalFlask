@@ -22,6 +22,8 @@ function decrement() {
     
 }
 
+
+
 // Inicializa a exibição do contador
 updateDisplay();
 
