@@ -18,7 +18,21 @@
 </head>
 <body>
     <div class="container">
-
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="myModal" class="modal">
+            <ul>
+                {% for i in messages %}    
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <li class="mensagensErro">{{i}}</li>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div> 
+        {% endif %}
+        {% endwith %}
+        <script src="{{url_for('static', filename='modal.js')}}"></script>
         <div class="sidebarResponsavel">
             <div><a href="{{url_for('homeResponsavel')}}"><img src="{{url_for('static', filename='imagens/RealLove.png')}}"><p style="text-align:center">MySnack</a></p></div>
             <div><a href="{{url_for('adicionarDependente')}}"><img src="{{url_for('static', filename='imagens/config.png')}}"><p>CADASTRAR</a></p></div>
@@ -31,14 +45,7 @@
     {%block conteudo%}
         <div class="bodyDependente">
             
-            {% with messages = get_flashed_messages(with_categories=true) %}
-        {%if messages%}
-            {%for category, message in messages%}
-        
-                <p class="flashMessages">{{message}}</p>
-            {%endfor%}
-        {%endif%}
-    {%endwith%}
+            
             <div class="bodyaddDependente">  
                 <div class="containerCadastroDependente">
                     <h1> 

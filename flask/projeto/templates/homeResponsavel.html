@@ -10,14 +10,15 @@
 <header>
 
     <div>
-        <div>
-            <a class="botãoContainerLogout" href="{{url_for('logout')}}">
-                SAIR
-        </a>
+        
         <div class="saldoHeader">
             <h1>Saldo: </h1>
             <p class="saldoText">{{current_user.saldo}}</p>
         </div>
+        <div>
+            <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+                SAIR
+        </a>
         </div>
         
         

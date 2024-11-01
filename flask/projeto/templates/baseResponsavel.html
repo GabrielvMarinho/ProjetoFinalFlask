@@ -28,14 +28,22 @@
         </div>
 
         <div class="bodyBaseResponsavel">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {%if messages%}
-                    {%for category, message in messages%}
-                
-                        <p class="flashMessages">{{message}}</p>
-                    {%endfor%}
-                {%endif%}
-            {%endwith%}
+            {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="myModal" class="modal">
+            <ul>
+                {% for i in messages %}    
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <li class="mensagensErro">{{i}}</li>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div> 
+        {% endif %}
+    {% endwith %}
+    <script src="{{url_for('static', filename='modal.js')}}"></script>
+
 
             {%block conteudo%}
 

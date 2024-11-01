@@ -20,24 +20,33 @@
 
 
 
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {%if messages%}
-                    {%for category, message in messages%}
-                
-                        <p class="flashMessages">{{message}}</p>
-                    {%endfor%}
-                {%endif%}
-            {%endwith%}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="myModal" class="modal">
+            <ul>
+                {% for i in messages %}    
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <li class="mensagensErro">{{i}}</li>
+                    </div>
+                {% endfor %}
+            </ul>
+        </div> 
+        {% endif %}
+        <script src="{{url_for('static', filename='modal.js')}}"></script>
+
+    {% endwith %}
 
             <header>
                 <div>
-                    <a class="botãoContainerLogout" href="{{url_for('logout')}}">
-                        SAIR
-                    </a>
                     <div class="saldoHeader">
                         <h1>Saldo: </h1>
                         <p class="saldoText">{{current_user.saldo}}</p>
                     </div>
+                    <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+                        SAIR
+                    </a>
+                    
                 </div>
             </header>
             <div class="bodyChoseDependent">

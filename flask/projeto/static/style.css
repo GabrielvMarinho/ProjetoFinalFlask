@@ -19,6 +19,46 @@
     z-index: 1000;
 
 }
+.close:hover,
+.close:focus {
+  color: rgb(255, 167, 167);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.close {
+    color: #fefefe;
+    float: right;
+    font-size: 20px;
+    font-weight: normal;
+    display: flex;
+    justify-content: end;
+}
+
+.modal-content {
+    background-color: rgb(255, 77, 77);
+  margin-inline: auto;
+  width: fit-content;
+  text-wrap: nowrap;
+  padding: 1vw;
+  padding-inline: 2vw;
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+  gap:0.8vw;
+  margin-top: 2vw;
+  border-radius: 0.5vw;
+
+}
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1;
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+  }
 .escuro{
     position: absolute;
     z-index: 999;
@@ -354,6 +394,16 @@ a{
     align-items: center;
     gap: 5vw;
 }
+.modal.show {
+    display: block; 
+    opacity: 1; 
+    animation: fadeIn 0.2s; /* Fade-in effect */
+
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 @media (max-width: 800px){
     .boxChoseLanche{
         width: 50vw;
@@ -367,11 +417,15 @@ a{
         color: #ffffffef;
         font-size: 6vw;
     }
-    .flashMessages{
-        margin-top: 2vw;
-        font-size: 4vw !important;
-    }
     
+    .mensagensErro{
+        font-size:2.5vw;
+        color: #fefefe;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+    }
     header h1{
         font-size: 5vw;
     }
@@ -476,13 +530,15 @@ a{
     font-size: 2vw;
     margin: 2vw;
 }
-.flashMessages {
-    margin-top: 1vw;
-    font-size: 1.5vw;
-    color: #ffaaaa;
-        
-    
+.mensagensErro{
+    font-size:1.5vw;
+    color: #fefefe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
+
 .bannerLogin h1{
     font-size: 5vw;
     color: #237699;

@@ -8,14 +8,15 @@
 
 {% block conteudo %}
 <header class="headerFuncM">
-    <a class="botãoContainerLogout" href="{{url_for('logout')}}">
-        SAIR
-    </a>
+    
 
     <div class="saldoHeader">
         <h1>Logado como: </h1>
         <p class="saldoText">{{current_user.usuario}}</p>
     </div>
+    <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+        SAIR
+    </a>
 </header>
 
 <section class="section_home_responsavel">

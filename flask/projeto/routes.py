@@ -43,6 +43,7 @@ def homeResponsavel():
     
     produtos = Produto.query.all()
     return render_template("homeResponsavel.html", produtos=produtos, listaSaldo=listaSaldo, listaQuantidade=listaQuantidade, dados=listaFinal, listaNome=listaNome)
+
 @app.route("/historico")
 
 @app.route("/adicionarSaldoResponsavel", methods=['GET', 'POST'])
