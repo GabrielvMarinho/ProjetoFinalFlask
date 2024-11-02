@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block conteudo %}
-<script src="{{url_for('static', filename='saldoModal.js')}}"></script>
 
             <div id="myModal" class="modal">
                 <ul>
@@ -15,9 +14,9 @@
                           <div>
                             <p>Digite o valor para Depósito:</p>
                               <input type="number" id="depositAmount" placeholder="Insira o valor" min="0" step="0.01">
-                              <button type="submit">Depositar</button>
-                          </div>
-                          <span class="close">&times;</span>
+                              <button type="button" onclick="submitDeposit('{{current_user.id}}')">Depositar</button>
+                            </div>
+                          <span class="closeDepo">&times;</span>
                         </div>
                 </ul>
             </div>
@@ -28,7 +27,8 @@
 <header>
 
         <div>
-          <img class="adicionarButton" onclick="adicionarSaldoModal()" src="{{url_for('static', filename='imagens/adicionar.png')}}">
+
+          <a onclick="adicionarSaldoModal()" ><img class="adicionarButton" src="{{url_for('static', filename='imagens/adicionar.png')}}"></a>
         </div>
         <div class="saldoHeader">
             <h1>Saldo: </h1>
@@ -175,5 +175,6 @@
           </script>
            
         
-    </div>
+    </div>            <script src="{{url_for('static', filename='saldoModal.js')}}"></script>
+
 {%endblock%}

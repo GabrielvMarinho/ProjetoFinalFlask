@@ -34,7 +34,20 @@
     display: flex;
     justify-content: end;
 }
-
+.modalAdicionarSaldo{
+    background-color: rgb(255, 77, 77);
+    margin-inline: auto;
+    width: fit-content;
+    text-wrap: nowrap;
+    padding: 1vw;
+    padding-inline: 2vw;
+    list-style: none;
+    display: flex;
+    flex-direction: row-reverse;
+    gap:0.8vw;
+    margin-top: 2vw;
+    border-radius: 0.5vw;
+}
 .modal-content {
     background-color: rgb(255, 77, 77);
   margin-inline: auto;

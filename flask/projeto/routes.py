@@ -50,20 +50,23 @@ def homeResponsavel():
 
 @app.route("/historico")
 
-@app.route("/adicionarSaldoResponsavel", methods=['GET', 'POST'])
+@app.route("/adicionarSaldoResponsavel/<int:saldo>", methods=['GET', 'POST'])
 @login_required
-def adicionarSaldoResponsavel():
-    form = adicionarSaldoRespo()
+def adicionarSaldoResponsavel(saldo):
+    
+    if saldo>0:
 
-    if form.validate_on_submit():
         responsavel = Responsavel.query.get(current_user.id)
-        responsavel.saldo = responsavel.saldo+form.adicional.data
+        responsavel.saldo = responsavel.saldo+saldo
         db.session.commit()
         flash("Saldo atualizado", "notError")
 
-        return redirect(url_for('homeResponsavel'))
     
-    return render_template("adicionarSaldoResp.html", form =form)
+    else:
+        flash("Digite um valor válido! ")
+
+
+    
 
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
 @login_required
