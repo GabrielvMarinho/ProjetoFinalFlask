@@ -10,8 +10,14 @@ from datetime import date
 @app.route("/Home")
 @login_required
 def homeResponsavel():
-    historicos = Historico.query.all()
-    dependentes = Dependente.query.all()
+    dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
+
+
+    historicos = []
+    for dependente in dependentes:
+        dependente_historicos = Historico.query.filter_by(idDependente=dependente.id).all()
+        historicos.extend(dependente_historicos)
+
     lista = []
     listaNome = []
     listaQuantidade =[]
@@ -34,8 +40,6 @@ def homeResponsavel():
         listaQuantidade.append(0)
         
         for y in historicos:
-            
-
             if lista[i].id == y.idDependente:
                 listaFinal[i] += y.valor
                 listaQuantidade[i] +=y.quantidade
@@ -159,32 +163,42 @@ def login():
         usuario_logado = Responsavel.query.filter_by(usuario=form.usuario.data).first()
         dependente_logado = Dependente.query.filter_by(usuario=form.usuario.data).first()
         funcionario_logado = Funcionario.query.filter_by(usuario=form.usuario.data).first()
-        if usuario_logado and usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
-            login_user(usuario_logado)
-            session['user_type'] = 'responsavel'
-            return redirect(url_for("homeResponsavel"))
-        elif dependente_logado and dependente_logado.converte_senha(senha_texto_claro=form.senha.data):
-            login_user(dependente_logado)
-            session['user_type'] = 'dependente'
-            print("deu certo dependente")
-            return redirect(url_for("escolherProduto"))
+        if usuario_logado:
+            if usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
+                login_user(usuario_logado)
+                session['user_type'] = 'responsavel'
+                return redirect(url_for("homeResponsavel"))
+            flash("Senha Incorreta!")
 
-        elif funcionario_logado and funcionario_logado.senha==form.senha.data:
-            login_user(funcionario_logado)
-            session['user_type'] = 'funcionario'
-            return redirect(url_for("homeFunc"))
+        elif dependente_logado:
+            if dependente_logado.converte_senha(senha_texto_claro=form.senha.data):
+                login_user(dependente_logado)
+                session['user_type'] = 'dependente'
+                return redirect(url_for("escolherProduto"))
+            flash("Senha Incorreta!")
+        elif funcionario_logado:
+            if funcionario_logado.senha==form.senha.data:
+                login_user(funcionario_logado)
+                session['user_type'] = 'funcionario'
+                return redirect(url_for("homeFunc"))
+            flash("Senha Incorreta!")
+
         
         else:
-            flash("OCORREU ERRO NO LOGIN!")
+            flash("Usuário inexistente!")
             return render_template('index.html', form = form)
 
 
     return render_template('index.html', form = form)
 
-@app.route('/perfil-page')
+@app.route('/perfil')
 @login_required
 def PerfilPage():
-    return render_template('PerfilResponsavel.html') 
+    dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
+    historicos = []
+    for dependente in dependentes:
+        historicos.extend(Historico.query.filter_by(idDependente=dependente.id).all())
+    return render_template('PerfilResponsavel.html', dependentes=dependentes, historicos=historicos) 
     
 @app.route('/adicionarSaldo', methods=['GET', 'POST'])
 @login_required
@@ -205,7 +219,7 @@ def addsaldo():
                 print("0")
                 dependente.saldo = dependente.saldo+form.saldo.data
                 current_user.saldo = current_user.saldo-form.saldo.data
-                flash("Saldo adicionado ao dependente - "+dependente.usuario, "notError")
+                flash("Saldo adicionado ao dependente - "+dependente.usuario.upper(), "notError")
 
                 db.session.commit()
                 return redirect(url_for('escolherDependente', form=form))
@@ -221,7 +235,7 @@ def addsaldo():
             else:
                 dependente.saldo = dependente.saldo-form.saldo.data
                 current_user.saldo = current_user.saldo+form.saldo.data
-                flash("Saldo removido de dependente - "+dependente.usuario, "notError")
+                flash("Saldo removido de dependente - "+dependente.usuario.upper(), "notError")
 
                 db.session.commit()
                 return redirect(url_for('escolherDependente', form=form))
@@ -231,9 +245,9 @@ def addsaldo():
             return render_template('homeResponsavel.html')
     if acao==0:
         remover="REMOVER"
-        return render_template('adicionarSaldo.html', form=form, remover=remover)
+        return render_template('adicionarSaldo.html', dependente=dependente, form=form, remover=remover)
 
-    return render_template('adicionarSaldo.html', form=form)
+    return render_template('adicionarSaldo.html', dependente=dependente, form=form)
     
 
 
@@ -412,10 +426,6 @@ def removerProdutos(id):
     db.session.commit()
     return redirect(url_for("choseProduto"))
         
-@app.route('/dependetes')
-@login_required
-def teste():
-    return render_template("Dependentes.html")
 
 
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])

@@ -5,14 +5,70 @@
 {%endblock%}
 
 {%block conteudo%}
+<header>
 
-<div class="perfildiv">
-    <strong>Nome: </strong>
-    <p>{{current_user.usuario}}</p>
-    <strong>Email: </strong>
-    <p>{{current_user.email}}</p>
-    <a class="botãoContainer1" href="{{url_for('atualizar', id=current_user.id)}}">Atualizar</a>
-
-</div>
+        
+    <div class="saldoHeader">
+        <h1>Saldo: </h1>
+        <p class="saldoText">{{current_user.saldo}}</p>
+    </div>
+    <div>
+        <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+            SAIR
+    </a>
+    </div>
     
+    
+    
+</header>
+<section class="perfilPage">
+    <div class="perfildiv">
+        <strong>Nome: </strong>
+        <p>{{current_user.usuario}}</p>
+        <strong>Email: </strong>
+        <p>{{current_user.email}}</p>
+        <a class="botãoContainer1" href="{{url_for('atualizar', id=current_user.id)}}">Atualizar</a>
+        </div>
+
+        <div class="lista">
+            <h1>Lista de Dependentes</h1>
+            
+            <div class="dadosLista">
+
+            {% for i in dependentes%}    
+                <p>Nome: <p class="saldoText">{{ i.usuario}}</p></p>
+                
+                <p>E-mail: <p class="saldoText">{{ i.email}}</p></p>
+                
+                <p>Saldo: <p class="saldoText">{{ i.saldo}}</p></p>
+                
+                <br>
+            {% endfor%}
+            </div>
+
+        </div>
+
+        <div class="lista">
+            <h1>Histórico</h1>
+            
+            <div class="dadosLista">
+
+            {% for i in historicos%}    
+                <p>Data: <p class="saldoText">{{ i.data}}</p></p>
+                
+                <p>Valor: <p class="saldoText">{{ i.valor}}</p></p>
+                <p>Quantidade: <p class="saldoText">{{ i.quantidade}}</p></p>
+
+                {% for ii in dependentes %}
+                    {% if ii.id == i.idDependente %}
+                    <p>Dependente: <p class="saldoText">{{ ii.usuario}}</p></p>
+                    {% endif %}
+                {% endfor %}
+                <br>
+            {% endfor%}
+        </div>
+
+        </div>
+
+</section>    
 {%endblock%}

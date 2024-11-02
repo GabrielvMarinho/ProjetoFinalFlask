@@ -231,8 +231,11 @@
     
 
 }
+.perfilPage{
+    display: flex;
+}
 .divCanvas{
-    
+    gap:4vw;
     display: flex;
     align-items: center;
 }
@@ -331,7 +334,7 @@ header .saldoText{
     display: flex;
     justify-content: center;
     width: 90vw;
-    gap: 2vw;
+    gap: 10vw;
 }
 
 footer{
