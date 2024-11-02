@@ -13,6 +13,33 @@
 
 <body class="loginPrincipal TelaInteira">
     
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        
+        {% if messages %}
+
+            <div id="myModal" class="modal">
+                <ul>
+                    {% for category, i in messages %}    
+                        {% if category == 'notError' %}
+                        <div class="modal-content-NotError">
+                            <span class="close">&times;</span>
+                            <li class="mensagensErro">{{ i }}</li>
+                        </div>
+                            
+                        {% else %}
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <li class="mensagensErro">{{ i }}</li>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% endif %}
+        {% endwith %}
+        <script src="{{url_for('static', filename='modal.js')}}"></script>
+
     <div class="bannerLogin">
         <img src="{{url_for('static', filename='imagens/RealLove.png')}}">
         <h1>MySnack</h1>
@@ -22,21 +49,7 @@
 
     <div class="containerEntrandoLogin">
         <div class="containerLogin">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <div id="myModal" class="modal">
-                <ul>
-                    {% for i in messages %}    
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <li class="mensagensErro">{{i}}</li>
-                        </div>
-                    {% endfor %}
-                </ul>
-            </div> 
-            {% endif %}
-        {% endwith %}
-        <script src="{{url_for('static', filename='modal.js')}}"></script>
+            
 
                 <h1 >
                     Faça seu Cadastro

@@ -55,6 +55,8 @@ def adicionarSaldoResponsavel():
         responsavel = Responsavel.query.get(current_user.id)
         responsavel.saldo = responsavel.saldo+form.adicional.data
         db.session.commit()
+        flash("Saldo atualizado", "notError")
+
         return redirect(url_for('homeResponsavel'))
     
     return render_template("adicionarSaldoResp.html", form =form)
@@ -96,6 +98,8 @@ def adicionarDependente():
             idResponsavel = current_user.id
         )
         db.session.add(usuario)
+        flash("Cadastro realizado", "notError")
+
         db.session.commit()
         return redirect(url_for("homeResponsavel"))
     
@@ -139,6 +143,8 @@ def cadastro():
         )
         
         db.session.add(usuario)
+        flash("Cadastro realizado", "notError")
+
         db.session.commit()
         
         return redirect(url_for('login'))
@@ -199,6 +205,8 @@ def addsaldo():
                 print("0")
                 dependente.saldo = dependente.saldo+form.saldo.data
                 current_user.saldo = current_user.saldo-form.saldo.data
+                flash("Saldo adicionado ao dependente - "+dependente.usuario, "notError")
+
                 db.session.commit()
                 return redirect(url_for('escolherDependente', form=form))
             flash("Saldo da conta INSUFICIENTE")
@@ -213,6 +221,8 @@ def addsaldo():
             else:
                 dependente.saldo = dependente.saldo-form.saldo.data
                 current_user.saldo = current_user.saldo+form.saldo.data
+                flash("Saldo removido de dependente - "+dependente.usuario, "notError")
+
                 db.session.commit()
                 return redirect(url_for('escolherDependente', form=form))
 
@@ -263,17 +273,44 @@ def atualizar(id):
     form = CadastroForm()
     mudar_nome = Responsavel.query.get_or_404(id)
     if request.method=="POST":
-        mudar_nome.usuario = request.form['usuario']
-        mudar_nome.email = request.form['email']
+        novo_usuario = request.form['usuario']
+        novo_email = request.form['email']
         
-        try:
+        if not novo_email.endswith('@gmail.com'):
+            flash('E-mail inválido!')
+            return redirect(url_for('atualizar', id=id))
+
+        usuario_existente = (
+            Responsavel.query.filter_by(usuario=novo_usuario).first() or
+            Dependente.query.filter_by(usuario=novo_usuario).first() or
+            Funcionario.query.filter_by(usuario=novo_usuario).first()
+        )
+
+        if usuario_existente and usuario_existente.id != id:
+            flash("Usuário já cadastrado!")
+            return redirect(url_for('atualizar', id=id))
+
+        email_existente = (
+            Responsavel.query.filter_by(email=novo_email).first() or
+            Dependente.query.filter_by(email=novo_email).first() or
+            Funcionario.query.filter_by(email=novo_email).first()
+        )
+
+        if email_existente and email_existente.id != id:
+            flash("E-mail já cadastrado!")
+            return redirect(url_for('atualizar', id=id))
+
+        if current_user.usuario == novo_usuario and current_user.email == novo_email:
+            flash("Dados novos devem ser diferentes dos atuais!")
+            return redirect(url_for('atualizar', id=id))
+
+        else:
+            mudar_nome.usuario = novo_usuario
+            mudar_nome.email = novo_email
             db.session.commit()
-            flash("Usuairio atualizado")
-            return redirect(url_for('atualizar', id=mudar_nome.id))
-        except:
-            db.session.rollback()
-            flash(f"Erro ao atualizar o usuário")
-            return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
+            flash("Usuário atualizado", "notError")
+            return redirect(url_for('homeResponsavel', id=mudar_nome.id))
+
     
     return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
     
@@ -311,6 +348,7 @@ def addProduto():
         
         db.session.add(produto)
         db.session.commit()
+        flash("Produto adicionado!", "notError")
         return redirect(url_for("homeFunc"))
     return render_template("adicionarProduto.html", form = form, produtos=produtos)
 
@@ -355,6 +393,7 @@ def addProdutoQuantidadeFim(id):
     if form.validate_on_submit():
         produto.quantidade += counter_value
         db.session.commit()
+        flash("Estoque atualizado!", "notError")
         return redirect(url_for("addProdutoQuantidade"))
     return render_template("adicionarEstoqueFim.html", form=form, produto = produto)
 
@@ -368,7 +407,6 @@ def choseProduto():
 @app.route('/removerProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
 def removerProdutos(id):
-    print("entrou")
     obj = Produto.query.get(id)
     db.session.delete(obj)
     db.session.commit()
@@ -404,6 +442,8 @@ def comprarProduto(id):
                 adm.saldo +=obj.valor*counter_value
                 db.session.add(historico)
                 db.session.commit()
+                flash("Compra realizada com sucesso!", "notError")
+
                 return redirect(url_for("escolherProduto"))
             flash("ESTOQUE insuficiente!")
             return render_template("comprarProduto.html", obj=obj, form=form)
