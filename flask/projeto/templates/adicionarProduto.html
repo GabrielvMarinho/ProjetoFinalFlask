@@ -41,12 +41,12 @@
         
         <div class="dadosLista">
 
-        {% for i in produtos%}    
-            <p>Nome: <p class="saldoText">{{ i.usuario}}</p></p>
+        {% for i in produtos %}    
+            <p>Nome: <p class="saldoText">{{ i.lanche}}</p></p>
             
-            <p>Preço: <p class="saldoText">{{ i.email}}</p></p>
+            <p>Preço: <p class="saldoText">{{ i.valor}}</p></p>
             
-            <p>Estoque: <p class="saldoText">{{ i.saldo}}</p></p>
+            <p>Estoque: <p class="saldoText">{{ i.quantidade}}</p></p>
             
             <br>
         {% endfor%}

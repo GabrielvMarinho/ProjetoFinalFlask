@@ -360,16 +360,24 @@ def escolherDependente():
 def addProduto():
     form = adicionarProduto()
     produtos = Produto.query.all()
+    
     if form.validate_on_submit():
-        produto = Produto(
-            lanche = form.lanche.data,
-            valor = form.valor.data,
-            quantidade = form.quantidade.data
-        )
+        produtoExiste = Produto.query.filter_by(lanche = form.lanche.data).first()
         
-        db.session.add(produto)
-        db.session.commit()
-        flash("Produto adicionado!", "notError")
+        if(produtoExiste):
+            flash("Produto com nome existente!")
+            return redirect(url_for("addProduto"))
+        else:
+            
+            produto = Produto(
+                lanche = form.lanche.data,
+                valor = form.valor.data,
+                quantidade = form.quantidade.data
+            )
+            
+            db.session.add(produto)
+            db.session.commit()
+            flash("Produto adicionado!", "notError")
         return redirect(url_for("homeFunc"))
     return render_template("adicionarProduto.html", form = form, produtos=produtos)
 
