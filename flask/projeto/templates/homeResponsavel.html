@@ -11,12 +11,13 @@
             <div id="myModalDepo" class="modal">
                 <ul>
                         <div class="modalAdicionarSaldo">
-                          <div>
-                            <p>Digite o valor para Depósito:</p>
-                              <input type="number" id="depositAmount" placeholder="Insira o valor" step="0.01">
-                              <button type="button" onclick="submitDeposit('{{current_user.id}}')">Depositar</button>
-                            </div>
-                          <span class="closeDepo">&times;</span>
+                            <h1>Digite o valor para Depósito:</p>
+                              <div class="flexJ">
+                                  <input type="number" id="depositAmount" placeholder="Valor">
+                                  <button type="button" class="buttonConfirm" onclick="submitDeposit('{{current_user.id}}')">Depositar</button>
+                                <span class="closeDepo">&times;</span>
+
+                              </div>
                         </div>
                 </ul>
             </div>

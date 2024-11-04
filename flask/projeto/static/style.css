@@ -6,44 +6,48 @@
     color: #ffffffef;
     
 }
+#modalConfirmar h2{
+    font-size: 1.5vw;
+    font-weight: 600;
+    
+}
+#modalConfirmar h3{
+    margin-top: 0.8vw;
+}
+
 
 #modalConfirmar{
     display: none;
     position: absolute;
-    background-color: #c55a5a;
+    background-color: rgb(255, 77, 77);
     padding: 1vw;
     padding-inline: 1.5vw;
     margin: 1vw;
     border-radius: 0.5vw;
     padding-inline: 3vw;
     z-index: 1000;
+}
+#modalConfirmar h1, .modalAdicionarSaldo h1, .modal h1{
+    font-size: 1.8vw;
+}
+#modalConfirmar h1{
+    margin-top: 0.5vw;
+}
+.modalAdicionarSaldo{
+    background-color: rgb(255, 77, 77);
+}
 
-}
-.close:hover,
-.close:focus {
-  color: rgb(255, 167, 167);
-  text-decoration: none;
-  cursor: pointer;
-}
 
-.close {
-    color: #fefefe;
-    float: right;
-    font-size: 20px;
-    font-weight: normal;
-    display: flex;
-    justify-content: end;
-}
+
 .modalAdicionarSaldo{
     background-color: rgb(255, 77, 77);
     margin-inline: auto;
     width: fit-content;
     text-wrap: nowrap;
-    padding: 1vw;
-    padding-inline: 2vw;
+    padding: 1.2vw;
+    padding-inline: 3vw;
     list-style: none;
     display: flex;
-    flex-direction: row-reverse;
     gap:0.8vw;
     margin-top: 2vw;
     border-radius: 0.5vw;
@@ -105,15 +109,20 @@
     border-radius: 0.6vw;
     border: solid #66a4dd 0.2vw;
 }
+.adicionarButton{
+    width: 3vw;
+}
+.adicionarButton:hover, .adicionarButton:focus{
+    cursor:pointer;
+}
 .botãoContainerLogout {
     box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     font-weight: 700;
     color: #dd6666;
-    font-size: 1vw;
+    font-size: 1.2vw;
     text-align: center;
     background-color: #df4e4e4f;
     padding: 0.4vw;
-    height: 1.2vw;
     padding-inline: 1.5vw;
     border-radius: 0.6vw;
     border: solid #dd6666 0.2vw;
@@ -138,28 +147,37 @@
     justify-content: center;
     gap: 2vw;
 }
-#modalConfirmar{
-    border: #862525 solid 0.2vw !important;
 
-}
-#nomeProduto{
-    font-size: 1.5vw;
-    font-weight: 600;
-    color: #ffffffc4;
-    margin-bottom: 1.5vw;
-}
-#modalConfirmar h3{
-    margin-top: 0.5vw;
 
-}
+
 .buttonConfirm{
     color: white;
-    background-color: #b63a3a;
-    padding: 0.3vw;
-    padding-inline: 1.8vw;
+    background-color: #e22b2b;
+    padding: 0.4vw;
+    font-size: 1.1vw;
+    padding-inline: 2vw;
     border-radius: 0.5vw;
-    border: #862525 solid 0.2vw !important;
+    border: 0;
 
+
+}
+.modalAdicionarSaldo input{
+    width: 9vw;
+    height: 2vw;
+    border: 0;
+    background-color: #ffbebe;
+    color: #000;
+    border-radius: 3px;
+}
+.modalAdicionarSaldo input:hover, .modalAdicionarSaldo input:focus{
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.buttonConfirm:hover{
+    background-color: #ffbebe;
+    color: #e22b2b ;
 }
 .bodyChoseDependent{
     text-align: center;
@@ -285,8 +303,8 @@
 header div{
     display: flex;
     flex-direction: row;
-    gap:2vw;
-    margin: 2vw;
+    gap:1vw;
+    margin: 1vw;
 }
 header div div{
     display: flex;
@@ -561,7 +579,7 @@ a{
     margin: 2vw;
 }
 .mensagensErro{
-    font-size:1.5vw;
+    font-size:1.8vw;
     color: #fefefe;
     display: flex;
     justify-content: center;
@@ -608,6 +626,8 @@ a{
     border-radius: 0.4vw;
     display: flex;
     flex-direction: column;
+    width: 88%;
+    margin-inline: auto;
 }
 .botoesChoseDependent a{
     color: hsl(197, 85%, 73%);
@@ -656,10 +676,12 @@ a{
     background-color: #237699;
     overflow: auto;
     border-radius: 0.4vw;
-    width: 92%;
+    width: 88%;
+    margin-inline: auto;
 }
 .container{
-    width: 92%;
+    width: 88%;
+    margin-inline: auto;
 }
 .botoesChoseLanche{
     font-size: 1.1vw;
@@ -716,6 +738,13 @@ a{
 }
 .formsDependente .flex{
     align-items: center;
+}
+.flexJ{
+    margin-top: 0.8vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
 .formsSaldo{
     display: flex;
@@ -830,7 +859,7 @@ form{
 .sidebarResponsavel{
     display: flex;
     flex-direction: column;
-    width: 6.5%;
+    width: 9.5%;
     background-color: hsl(197, 45%, 44%);
     position: absolute;
     border-radius: 0.4vw;
@@ -916,11 +945,11 @@ form{
 }
 .sidebarResponsavel:hover {
     transition: 0.5s;
-    width: 16.5%;
+    width: 21.5%;
     
 }
 .sidebarResponsavel div{
-    margin-left: 2.1vw;
+    margin-left: 3.1vw;
     gap: 1vw;
 }
 .sidebarResponsavel p{
@@ -931,8 +960,9 @@ form{
 
 }
 .sidebarResponsavel:hover p{
-    font-size: 1.2vw;
+    font-size: 1.7vw;
     visibility: visible;
+    margin-left: 0.6vw;
     opacity: 1;
     transition: opacity 0.7s, visibility 0.7s;
     
@@ -942,8 +972,8 @@ form{
     align-items: center;
 }
 .sidebarResponsavel img{
-    width: 2.2vw;
-    height: 2.2vw;
+    width: 3.5vw;
+    height: 3.5vw;
 }
 
 /* O Modal (Fundo) */
@@ -963,14 +993,14 @@ form{
 
 
 /* Botão de Fechar */
-.close {
+.close, .closeDepo {
     color: #ffffffc4;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover{
+.close:hover, .close:focus, .closeDepo:hover, .closeDepo:focus{
     color: black;
     text-decoration: none;
     cursor: pointer;
