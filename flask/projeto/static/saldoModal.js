@@ -1,5 +1,5 @@
 // Get modal and close button elements
-const modalDeposito = document.getElementById("myModal");
+const modalDeposito = document.getElementById("myModalDepo");
 const spanDepo = document.getElementsByClassName("closeDepo")[0];
 console.log(modalDeposito)
 console.log(spanDepo)
