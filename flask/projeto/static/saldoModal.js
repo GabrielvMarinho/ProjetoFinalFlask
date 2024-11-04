@@ -23,12 +23,15 @@ window.onclick = function(event) {
 // Function to submit the deposit amount (optional functionality)
 function submitDeposit() {
     const depositAmount = document.getElementById("depositAmount").value;
-
-    
-    location.reload();
+    console.log(depositAmount)
         fetch(`/adicionarSaldoResponsavel/${parseInt(depositAmount)}`, {
           method: 'POST', 
-      })        
-      modalDeposito.classList.remove("show");  // Close modal after submission
-    
+      })  .then(() => {
+
+        modalDeposito.classList.remove("show");
+        console.log("tirando aq")
+        window.location.href = window.location.href
+
+
+    });
 }
