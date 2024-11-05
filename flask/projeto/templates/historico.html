@@ -12,7 +12,9 @@
             <tr>
                 <th>Produto</th>
                 <th>Data</th>
-                <th>Valor</th>
+                <th>Total</th>
+                <th>Quantidade</th>
+
             </tr>
         </thead>
         <tbody>
@@ -21,6 +23,8 @@
                     <td>{{ nome }}</td>
                     <td>{{ historico.data }}</td>
                     <td>${{ historico.valor }}</td>
+                    <td>{{ historico.quantidade }}</td>
+
                 </tr>
             {% endfor %}
         </tbody>

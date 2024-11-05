@@ -62,7 +62,7 @@ def historico():
         historicos.extend(historico_dependente)
         for i in historico_dependente:
 
-            nomes.append(Produto.query.with_entities(Produto.nomeProduto).filter_by(id=i.idproduto).first())
+            nomes.append(i.nomeProduto[2:-3])
 
     historico_dependente_zip = zip(historicos, nomes)
 
