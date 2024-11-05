@@ -95,7 +95,6 @@ background-color: rgb(255, 77, 77);
     background-color: rgba(0, 0, 0, 0.4) !important;
 }
 .botãoContainerVoltar{
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     font-weight: 700;
     color: #66a8dd;
     font-size: 1.2vw;
@@ -113,7 +112,6 @@ background-color: rgb(255, 77, 77);
     cursor:pointer;
 }
 .botãoContainerLogout {
-    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     font-weight: 700;
     color: #dd6666;
     font-size: 1.2vw;
@@ -125,7 +123,6 @@ background-color: rgb(255, 77, 77);
     border: solid #dd6666 0.2vw;
 }
 .botãoContainer1{
-    box-shadow:rgba(0, 0, 0, 0.1) 0px 0.3vw;
     font-weight: 700;
     color: #b2dbbf;
     font-size: 1.5vw;
@@ -949,7 +946,6 @@ form{
     width:100%;
 }
 .boxFunc{
-    box-shadow:rgba(0, 0, 0, 0.2) 0px 0.3vw;
     font-weight: 700;
     color: #66a8dd;
     font-size: 1.2vw;
@@ -982,11 +978,17 @@ form{
     width: 20.5%;
     
 }
+.sidebarFuncionario:hover{
+    width: 29% !important;
+
+}
 .sidebarResponsavel div{
     margin-left: 3.1vw;
     gap: 1vw;
 }
 .sidebarResponsavel p{
+    display: flex;
+    text-wrap: nowrap;
     visibility: hidden;
     opacity: 0;
     color: #ffffffef;

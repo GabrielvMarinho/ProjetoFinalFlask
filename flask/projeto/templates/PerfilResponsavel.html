@@ -30,6 +30,10 @@
         <h1>Saldo: </h1>
         <p class="saldoText">{{current_user.saldo}}</p>
     </div>
+    <div class="saldoHeader">
+        <h1>Logado como: </h1>
+        <p class="saldoText">{{current_user.usuario}}</p>
+    </div>
     <div>
         <a class="botãoContainerLogout" href="{{url_for('logout')}}">
             SAIR

@@ -21,7 +21,16 @@
     
 
         <div class="containerFunc">
+            <div class="sidebarResponsavel sidebarFuncionario">
+                <div><a href="{{url_for('homeFunc')}}"><img src="{{url_for('static', filename='imagens/RealLove.png')}}"><p style="text-align:center">MySnack</a></p></div>
+                <div><a href="{{url_for('addProduto')}}"><img src="{{url_for('static', filename='imagens/adicionarFunc.png')}}"><p>ADICIONAR PRODUTO</a></p></div>
+                <div><a href="{{url_for('choseProduto')}}"><img src="{{url_for('static', filename='imagens/.png')}}"><p></a>REMOVER PRODUTO</p></div>
+                <div><a href="{{url_for('addProdutoQuantidade')}}"><img src="{{url_for('static', filename='imagens/.png')}}"><p>ADICIONAR ESTOQUE</a></p></div>
+                <div><a href="{{url_for('addProdutoQuantidade')}}"><img src="{{url_for('static', filename='imagens/.svg')}}"><p>VISUALIZAR CARDÁPIO</a></p></div>
+        
+            </div>
             <div class="bodyBaseFuncionario">
+                
                 {% with messages = get_flashed_messages(with_categories=True) %}
         
         {% if messages %}
