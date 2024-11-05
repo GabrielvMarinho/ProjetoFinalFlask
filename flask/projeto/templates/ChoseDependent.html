@@ -10,12 +10,24 @@
 <div id="modalDepositoDependente" class="modal">
     <ul>
             <div class="modalAdicionarSaldo">
-                <h1>Digite o valor para Depósito:</p>
+                <h1>Digite o valor para Dependente:</p>
                   <div class="flexJ">
                       <input type="number" id="depositAmountDepe" placeholder="Valor">
-                      <button type="button" class="buttonConfirm" onclick="submitDeposit('{{current_user.id}}')">Depositar</button>
+                      <button type="button" class="buttonConfirmDepo" onclick="Deposito()">Depositar</button>
                     <span class="spanDepoDep">&times;</span>
+                  </div>
+            </div>
+    </ul>
+</div>
 
+<div id="modalSaqueDependente" class="modal">
+    <ul>
+            <div class="modalAdicionarSaldo">
+                <h1>Digite o valor para Retirar:</p>
+                  <div class="flexJ">
+                      <input type="number" id="saqueAmountDepe" placeholder="Valor">
+                      <button type="button" class="buttonConfirmDepo" onclick="Saque()">Retirar</button>
+                    <span class="spanRemovDep">&times;</span>
                   </div>
             </div>
     </ul>
@@ -31,8 +43,8 @@
                 <div class="boxChoseDependent">
                     <h1>{{ dependente.usuario }}</h1>
                     <h2>Saldo: {{ dependente.saldo }}</h2>
-                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" onclick="adicionarSaldoModalDepo(this.value)" value="0">ADICIONAR</button>
-                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" onclick="adicionarSaldoModalDepo(this.value)" value="1">REMOVER</button>
+                    <a class="botoesChoseDependent" onclick="adicionarSaldoModalDepo({{dependente.id}})">ADICIONAR</a>
+                    <a class="botoesChoseDependent" onclick="retirarSaldoModalDepo({{dependente.id}})">REMOVER</a>
                 </div>
             {% endif %}
         {% endfor %}

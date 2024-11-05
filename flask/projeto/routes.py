@@ -78,12 +78,10 @@ def adicionarSaldoResponsavel(saldo):
             db.session.commit()
             flash("Saldo atualizado", "notError")
         else:
-            print("errrorororroror")
             flash("Digite um valor válido! ")
     except:
         flash("Digite apenas números!")
 
-    
     return ""
 
 
@@ -224,47 +222,51 @@ def PerfilPage():
         historicos.extend(Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all())
     return render_template('PerfilResponsavel.html', dependentes=dependentes, historicos=historicos) 
     
-@app.route('/adicionarSaldo/<acao>/<valor>/<id>', methods=['GET', 'POST'])
+    
+@app.route('/removerSaldo/<valor>/<id>', methods=['GET', 'POST'])
 @login_required
-def mudarSaldo(acao, valor, id):
-
-    try:
+def removSaldo(valor, id):
         
-        valor = int(valor)
-        dependente = Dependente.query.filter_by(id = id).first()
-        if acao == "0":
-            if valor<=current_user.saldo:
-                dependente.saldo = dependente.saldo+valor
-                current_user.saldo = current_user.saldo-valor
-                flash("Saldo adicionado ao dependente - "+dependente.usuario.upper(), "notError")
-
-                db.session.commit()
-                return redirect(url_for('escolherDependente'))
-            flash("Saldo da conta INSUFICIENTE")
-            return redirect(url_for("escolherDependente")) 
-
-
-        elif acao =="1":
-
-            if valor>dependente.saldo:
-                flash("Saldo do dependente INSUFICIENTE")
-                return redirect(url_for("escolherDependente")) 
-            else:
-                dependente.saldo = dependente.saldo-valor
-                current_user.saldo = current_user.saldo+valor
-                flash("Saldo removido de dependente - "+dependente.usuario.upper(), "notError")
-
-                db.session.commit()
-                return redirect(url_for('escolherDependente'))
+    valor = int(valor)
+    dependente = Dependente.query.filter_by(id = id).first()
+    if valor<=0:
+        flash("Digite um valor VÁLIDO!")
+    elif valor>dependente.saldo:
+        flash("Saldo do dependente INSUFICIENTE!")
 
         
-    except:
-        flash("Digite um valor válido")
-
+    else:
+        dependente.saldo = dependente.saldo-valor
+        current_user.saldo = current_user.saldo+valor
+        flash(f"Saldo removido de dependente: {dependente.usuario.upper()}", "notError")
+        db.session.commit()
+    
+    return ""
         
     
 
-    return redirect(url_for('escolherDependente'))
+    
+@app.route('/adicionarSaldo/<valor>/<id>', methods=['GET', 'POST'])
+@login_required
+def addSaldo(valor, id):
+        
+    valor = int(valor)
+
+    dependente = Dependente.query.filter_by(id = id).first()
+    if valor<=0:
+        flash("Digite um valor VÁLIDO")
+    elif valor<=current_user.saldo:
+        dependente.saldo = dependente.saldo+valor
+        current_user.saldo = current_user.saldo-valor
+        flash(f"Saldo adicionado ao dependente: {dependente.usuario.upper()}", "notError")
+        db.session.commit()
+    else:
+        flash(f"Saldo da conta INSUFICIENTE: {current_user.saldo}")
+
+    
+    return ""
+    
+
     
 
 

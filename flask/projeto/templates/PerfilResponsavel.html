@@ -5,6 +5,21 @@
 {%endblock%}
 
 {%block conteudo%}
+<div id="myModalDepo" class="modal">
+    <ul>
+            <div class="modalAdicionarSaldo">
+                <h1>Digite o valor para Depósito:</p>
+                  <div class="flexJ">
+                      <input type="number" id="depositAmount" placeholder="Valor">
+                      <button type="button" class="buttonConfirmDepo" onclick="submitDeposit('{{current_user.id}}')">Depositar</button>
+                    <span class="closeDepo">&times;</span>
+
+                  </div>
+            </div>
+    </ul>
+</div>
+<script src="{{url_for('static', filename='saldoModal.js')}}"></script>
+
 <header>
 
     <div>

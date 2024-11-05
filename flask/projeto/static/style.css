@@ -33,14 +33,11 @@
 #modalConfirmar h1{
     margin-top: 0.5vw;
 }
-.modalAdicionarSaldo{
-    background-color: rgb(255, 77, 77);
-}
 
 
 
 .modalAdicionarSaldo{
-    background-color: rgb(255, 77, 77);
+    background-color: rgb(14, 149, 202);
     margin-inline: auto;
     width: fit-content;
     text-wrap: nowrap;
@@ -53,7 +50,7 @@
     border-radius: 0.5vw;
 }
 .modal-content {
-    background-color: rgb(255, 77, 77);
+background-color: rgb(255, 77, 77);
   margin-inline: auto;
   width: fit-content;
   text-wrap: nowrap;
@@ -149,7 +146,15 @@
 }
 
 
-
+.buttonConfirmDepo{
+    color: white;
+    background-color: #0079b1;
+    padding: 0.4vw;
+    font-size: 1.1vw;
+    padding-inline: 2vw;
+    border-radius: 0.5vw;
+    border: 0;
+}
 .buttonConfirm{
     color: white;
     background-color: #e22b2b;
@@ -165,7 +170,7 @@
     width: 9vw;
     height: 2vw;
     border: 0;
-    background-color: #ffbebe;
+    background-color: #bef0ff;
     color: #000;
     border-radius: 3px;
 }
@@ -174,7 +179,10 @@
     outline: none;
     box-shadow: none;
 }
-
+.buttonConfirmDepo:hover{
+    background-color: #bef0ff;
+    color: rgb(14, 149, 202) ;
+}
 .buttonConfirm:hover{
     background-color: #ffbebe;
     color: #e22b2b ;
@@ -1019,14 +1027,14 @@ form{
 
 
 /* Botão de Fechar */
-.close, .closeDepo {
+.close, .closeDepo, .spanDepoDep {
     color: #ffffffc4;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover, .close:focus, .closeDepo:hover, .closeDepo:focus{
+.close:hover, .close:focus, .closeDepo:hover, .closeDepo:focus,.spanDepoDep:focus, .spanDepoDep:hover {
     color: black;
     text-decoration: none;
     cursor: pointer;

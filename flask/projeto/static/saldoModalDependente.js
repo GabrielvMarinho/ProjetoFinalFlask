@@ -1,42 +1,47 @@
 // Get modal and close button elements
 const modalDepositoDependente = document.getElementById("modalDepositoDependente");
+const modalSaqueDependente = document.getElementById("modalSaqueDependente")
 const spanDepoDep = document.getElementsByClassName("spanDepoDep")[0];
-var action;
+const spanRemovDep = document.getElementsByClassName("spanRemovDep")[0]
+
+var idDependente;
 // Function to show the modal
-console.log("modal =", modalDepositoDependente)
 
-function adicionarSaldoModalDepo(action1) {
-
-    console.log("modal =", modalDepositoDependente)
-    action = action1
+function adicionarSaldoModalDepo(id) {
+    console.log("adicionar")
+    idDependente = id
     modalDepositoDependente.classList.add("show");
+    console.log("adicionar")
+
 }
+function retirarSaldoModalDepo(id){
+        console.log("adicionar")
 
+    idDependente = id
+    modalSaqueDependente.classList.add("show")
+}
+spanRemovDep.onclick = function(){
+
+    modalSaqueDependente.classList.remove("show")
+
+}
 spanDepoDep.onclick = function() {
-
     modalDepositoDependente.classList.remove("show");
 }
 
 // Close the modal if the user clicks outside it
 window.onclick = function(event) {
-
     if (event.target === modalDepositoDependente) {
-        modalDepositoDependente.classList.remove("show");
+        
     }
+
 }
 
 // Function to submit the deposit amount (optional functionality)
-function submitDeposit() {
+function Deposito() {
     const depositAmount = document.getElementById("depositAmountDepe").value;
-    console.log(depositAmount)
 
-    if(action ==0){
-
-    }
-    else if(action == 1){
-
-    }
-        fetch(`/adicionarSaldoResponsavel/${parseInt(depositAmount)}`, {
+        fetch(`/adicionarSaldo/${parseInt(depositAmount)}/${parseInt(idDependente)}`, {
           method: 'POST', 
       })  .then(() => {
 
@@ -44,6 +49,18 @@ function submitDeposit() {
         console.log("tirando aq")
         window.location.href = window.location.href
 
+    });
+}
+function Saque(){
+    const saqueAmountDepe = document.getElementById("saqueAmountDepe").value;
+
+        fetch(`/removerSaldo/${parseInt(saqueAmountDepe)}/${parseInt(idDependente)}`, {
+          method: 'POST', 
+      })  .then(() => {
+
+        modalSaqueDependente.classList.remove("show");
+        console.log("tirando aq")
+        window.location.href = window.location.href
 
     });
 }
