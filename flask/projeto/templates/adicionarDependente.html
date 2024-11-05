@@ -1,57 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0('static', filename='style.css')">
-    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    
-    <title>
-        {%block titulo%}
-            Adicionar Dependente
-        {%endblock%}
-    </title>
 
-</head>
-<body>
-    <div class="container">
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        
-        {% if messages %}
+{% extends 'baseResponsavel.html' %}
 
-            <div id="myModal" class="modal">
-                <ul>
-                    {% for category, i in messages %}    
-                        {% if category == 'notError' %}
-                        <div class="modal-content-NotError">
-                            <span class="close">&times;</span>
-                            <li class="mensagensErro">{{ i }}</li>
-                        </div>
-                            
-                        {% else %}
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <li class="mensagensErro">{{ i }}</li>
-                        </div>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-
-            {% endif %}
-        {% endwith %}
-        <script src="{{url_for('static', filename='modal.js')}}"></script>
-        <div class="sidebarResponsavel">
-            <div><a href="{{url_for('homeResponsavel')}}"><img src="{{url_for('static', filename='imagens/RealLove.png')}}"><p style="text-align:center">MySnack</a></p></div>
-            <div><a href="{{url_for('adicionarDependente')}}"><img src="{{url_for('static', filename='imagens/config.png')}}"><p>CADASTRAR</a></p></div>
-            <div><a href="{{url_for('escolherDependente')}}"><img src="{{url_for('static', filename='imagens/registro.png')}}"><p>GERENCIAR</a></p></div>
-            <div><a href="{{url_for('adicionarSaldoResponsavel')}}"><img src="{{url_for('static', filename='imagens/dolar.png')}}"><p>DEPOSITAR</a></p></div>
-            <div><a href="{{url_for('PerfilPage')}}"><img src="{{url_for('static', filename='imagens/Historico.svg')}}"><p>PERFIL</a></p></div>
-        </div>
-        
+{% block titulo %}
+    HOME
+{% endblock %}
 
     {%block conteudo%}
         <div class="bodyDependente">
@@ -112,12 +65,9 @@
 
                 </div>
             </div>
-            {%endblock%}
             
         </div>
     </div>
-    
-</body>
-</html>
+    {%endblock%}
 
 

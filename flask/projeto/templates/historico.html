@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histórico de Compras</title>
-</head>
-<body>
+{% extends 'baseResponsavel.html' %}
+
+{% block titulo %}
+    HOME
+{% endblock %}
+
+{% block conteudo %}
+       <div class="bodyDependente">
+        <table>
     <h1>Histórico de Compras</h1>
-    <a class="botãoContainerVoltar" href="{{ url_for('homeResponsavel') }}">Voltar para a página principal</a>
         <thead>
             <tr>
                 <th>Produto</th>
@@ -16,14 +16,17 @@
             </tr>
         </thead>
         <tbody>
-            {% for historico in historicos %}
+            {% for historico, nome in historico_dependente_zip %}
                 <tr>
-                    <td>{{ historico.produto }}</td>
+                    <td>{{ nome }}</td>
                     <td>{{ historico.data }}</td>
                     <td>${{ historico.valor }}</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+
+</div>
+
+
+{%endblock%}

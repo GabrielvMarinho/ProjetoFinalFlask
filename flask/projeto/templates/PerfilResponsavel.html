@@ -7,7 +7,10 @@
 {%block conteudo%}
 <header>
 
-        
+    <div>
+
+        <img onclick="adicionarSaldoModal()" class="adicionarButton" src="{{url_for('static', filename='imagens/adicionar.png')}}">
+      </div>
     <div class="saldoHeader">
         <h1>Saldo: </h1>
         <p class="saldoText">{{current_user.saldo}}</p>
@@ -31,7 +34,7 @@
         </div>
 
         <div class="lista">
-            <h1>Lista de Dependentes</h1>
+            <h1>Dependentes</h1>
             
             <div class="dadosLista">
 

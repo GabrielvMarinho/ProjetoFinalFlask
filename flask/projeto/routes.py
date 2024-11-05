@@ -5,7 +5,7 @@ from projeto.models import Responsavel, Funcionario, Dependente, Produto, Histor
 from projeto import db
 from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import _bcrypt, hashpw
-
+from sqlalchemy import desc
 from datetime import date
 @app.route("/Home")
 @login_required
@@ -49,7 +49,24 @@ def homeResponsavel():
     return render_template("homeResponsavel.html", produtos=produtos, listaSaldo=listaSaldo, listaQuantidade=listaQuantidade, dados=listaFinal, listaNome=listaNome)
 
 @app.route("/historico")
+@login_required
+def historico():
+    dependentes = []
+    historicos=[]
+    nomes = []
+    for dependente in Dependente.query.filter_by(idResponsavel=current_user.id).all():
+        dependentes.append(dependente)
 
+    for dependente in dependentes:
+        historico_dependente = Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all()
+        historicos.extend(historico_dependente)
+        for i in historico_dependente:
+
+            nomes.append(Produto.query.with_entities(Produto.nomeProduto).filter_by(id=i.idproduto).first())
+
+    historico_dependente_zip = zip(historicos, nomes)
+
+    return render_template("historico.html", historico_dependente_zip=historico_dependente_zip)
 @app.route("/adicionarSaldoResponsavel/<saldo>", methods=['GET', 'POST'])
 @login_required
 def adicionarSaldoResponsavel(saldo):
@@ -204,7 +221,7 @@ def PerfilPage():
     dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
     historicos = []
     for dependente in dependentes:
-        historicos.extend(Historico.query.filter_by(idDependente=dependente.id).all())
+        historicos.extend(Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all())
     return render_template('PerfilResponsavel.html', dependentes=dependentes, historicos=historicos) 
     
 @app.route('/adicionarSaldo', methods=['GET', 'POST'])
@@ -456,7 +473,7 @@ def comprarProduto(id):
                 obj.quantidade = obj.quantidade-counter_value
                 current_user.saldo = current_user.saldo-obj.valor*counter_value
                 historico = Historico(
-                    idproduto = id,
+                    nomeProduto = str(Produto.query.with_entities(Produto.lanche).filter_by(id = id).first()),
                     data = date.today(),
                     valor = counter_value*obj.valor,
                     quantidade = counter_value, 
