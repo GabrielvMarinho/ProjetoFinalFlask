@@ -224,54 +224,47 @@ def PerfilPage():
         historicos.extend(Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all())
     return render_template('PerfilResponsavel.html', dependentes=dependentes, historicos=historicos) 
     
-@app.route('/adicionarSaldo', methods=['GET', 'POST'])
+@app.route('/adicionarSaldo/<acao>/<valor>/<id>', methods=['GET', 'POST'])
 @login_required
-def addsaldo():
-    form = SaldoForm()
-    id = request.args.get('botao')
-    acao = request.args.get('acao')
-    idAtual = request.args.get('idAtual')
-    botaoid = request.args.get("botaoid")
-    current_user= Responsavel.query.get(idAtual)
-    dependente = Dependente.query.get(id)    
-    if form.validate_on_submit():
-        
-        if acao == "0":
-            ("0")
+def mudarSaldo(acao, valor, id):
 
-            if form.saldo.data<=current_user.saldo:
-                print("0")
-                dependente.saldo = dependente.saldo+form.saldo.data
-                current_user.saldo = current_user.saldo-form.saldo.data
+    try:
+        
+        valor = int(valor)
+        dependente = Dependente.query.filter_by(id = id).first()
+        if acao == "0":
+            if valor<=current_user.saldo:
+                dependente.saldo = dependente.saldo+valor
+                current_user.saldo = current_user.saldo-valor
                 flash("Saldo adicionado ao dependente - "+dependente.usuario.upper(), "notError")
 
                 db.session.commit()
-                return redirect(url_for('escolherDependente', form=form))
+                return redirect(url_for('escolherDependente'))
             flash("Saldo da conta INSUFICIENTE")
-            return redirect(url_for("addsaldo", botao=id, acao=acao, idAtual=idAtual, botaoid=botaoid)) 
+            return redirect(url_for("escolherDependente")) 
 
 
         elif acao =="1":
 
-            if form.saldo.data>dependente.saldo:
+            if valor>dependente.saldo:
                 flash("Saldo do dependente INSUFICIENTE")
-                return redirect(url_for("addsaldo", botao=id, acao=acao, idAtual=idAtual, botaoid=botaoid)) 
+                return redirect(url_for("escolherDependente")) 
             else:
-                dependente.saldo = dependente.saldo-form.saldo.data
-                current_user.saldo = current_user.saldo+form.saldo.data
+                dependente.saldo = dependente.saldo-valor
+                current_user.saldo = current_user.saldo+valor
                 flash("Saldo removido de dependente - "+dependente.usuario.upper(), "notError")
 
                 db.session.commit()
-                return redirect(url_for('escolherDependente', form=form))
+                return redirect(url_for('escolherDependente'))
 
-        else:
-            flash("Insuficiente")
-            return render_template('homeResponsavel.html')
-    if acao==0:
-        remover="REMOVER"
-        return render_template('adicionarSaldo.html', dependente=dependente, form=form, remover=remover)
+        
+    except:
+        flash("Digite um valor válido")
 
-    return render_template('adicionarSaldo.html', dependente=dependente, form=form)
+        
+    
+
+    return redirect(url_for('escolherDependente'))
     
 
 
@@ -357,19 +350,7 @@ def atualizar(id):
 def escolherDependente():
     dependentes = Dependente.query.all()
     idAtual = current_user.id
-    acao = None
-    botao_clicado = None
-    
-    if request.method == 'POST':
-        botaoid = request.form.get('botaoid')
-
-        for dependente in dependentes:
-            if request.form.get(f'acao_{dependente.id}') is not None:
-                botao_clicado = dependente.id
-                acao = request.form.get(f'acao_{dependente.id}')
-                break
         
-        return redirect(url_for("addsaldo", botao=botao_clicado, acao=acao, idAtual=idAtual, botaoid=botaoid))
     return render_template("ChoseDependent.html", dependentes=dependentes, idAtual=idAtual)
 
 @app.route('/adicionarProduto', methods=['GET', 'POST'])

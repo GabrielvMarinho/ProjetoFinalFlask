@@ -4,7 +4,24 @@
     DEPENDENTES
 {%endblock%}
 
+
 {% block conteudo %}
+
+<div id="modalDepositoDependente" class="modal">
+    <ul>
+            <div class="modalAdicionarSaldo">
+                <h1>Digite o valor para Depósito:</p>
+                  <div class="flexJ">
+                      <input type="number" id="depositAmountDepe" placeholder="Valor">
+                      <button type="button" class="buttonConfirm" onclick="submitDeposit('{{current_user.id}}')">Depositar</button>
+                    <span class="spanDepoDep">&times;</span>
+
+                  </div>
+            </div>
+    </ul>
+</div>
+
+
 <div class="bodyChoseDependent">
     <h1 class="titulo">DEPENDENTES</h1>
     <div class="linhaTitulo"></div>
@@ -14,10 +31,8 @@
                 <div class="boxChoseDependent">
                     <h1>{{ dependente.usuario }}</h1>
                     <h2>Saldo: {{ dependente.saldo }}</h2>
-                    <input class="botoesChoseDependent" name="botaoid" type="hidden" value="{{ idAtual }}">
-                    <input class="botoesChoseDependent" name="idDependente" type="hidden" value="{{ dependente.id }}">
-                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" type="submit" value="0">ADICIONAR</button>
-                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" type="submit" value="1">REMOVER</button>
+                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" onclick="adicionarSaldoModalDepo(this.value)" value="0">ADICIONAR</button>
+                    <button class="botoesChoseDependent" name="acao_{{ dependente.id }}" onclick="adicionarSaldoModalDepo(this.value)" value="1">REMOVER</button>
                 </div>
             {% endif %}
         {% endfor %}
@@ -27,4 +42,8 @@
 
     
 </div>
+
+
+<script src="{{url_for('static', filename='saldoModalDependente.js')}}"></script>
+
 {%endblock%}
