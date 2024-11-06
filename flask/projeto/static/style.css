@@ -190,7 +190,32 @@ background-color: rgb(255, 77, 77);
     flex-direction: column;
     align-items: center;
 }
+.historicoListagem{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    margin-left: 10.5%;
+}
+td {
+    padding: 10px;
+    border: 1px solid #0079b1;
+    text-align: left;
+    background-color: #508ba586;
 
+    color: #f1f1f1;
+    font-size: 14px;
+}
+
+thead th {
+    background-color: #508ba5;
+    color: white;
+    padding: 10px;
+    border: 1px solid #0079b1;
+    text-align: left;
+    font-size: 16px;
+}
 .bodyChoseDependent .titulo{
     margin-top: 4vw;
     font-size: 3vw;
@@ -876,7 +901,6 @@ form{
 }
 .dadosLista{
     padding: 1vw;
-
     padding-inline: 2vw;
     background-color: hsl(197, 45%, 44%);
     border-radius: 0.5vw;
@@ -884,24 +908,30 @@ form{
 
 }
 .dadosLista{
+
     overflow: hidden;
     max-height: 20vw;
     overflow-y: auto;
 
 
 }
+.tableContainer{
+    overflow: hidden;
+    max-height: 30vw;
+    overflow-y: auto;
+}
 
 
-.dadosLista::-webkit-scrollbar {
+.dadosLista::-webkit-scrollbar, .tableContainer::-webkit-scrollbar {
     width: 10px;  
 }
 
-.dadosLista::-webkit-scrollbar-track {
+.dadosLista::-webkit-scrollbar-track, .tableContainer::-webkit-scrollbar-track {
     background: #B0BEC5;  
     border-radius: 5px;  
 }
 
-.dadosLista::-webkit-scrollbar-thumb {
+.dadosLista::-webkit-scrollbar-thumb, .tableContainer::-webkit-scrollbar-thumb {
     background-color: #546E7A; 
     border-radius: 5px;     
     border: 2px solid #B0BEC5;
@@ -982,6 +1012,19 @@ form{
     width: 29% !important;
 
 }
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.tituloHistorico{
+    margin: 3vw;
+    font-size: 2.5vw;
+}
+
 .sidebarResponsavel div{
     margin-left: 3.1vw;
     gap: 1vw;
