@@ -10,6 +10,7 @@
     <h1>Histórico de Compras</h1>
         <thead>
             <tr>
+                <th>Nome Usuário</th>
                 <th>Produto</th>
                 <th>Data</th>
                 <th>Total</th>
@@ -18,14 +19,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for historico, nome in historico_dependente_zip %}
-                <tr>
-                    <td>{{ nome }}</td>
-                    <td>{{ historico.data }}</td>
-                    <td>${{ historico.valor }}</td>
-                    <td>{{ historico.quantidade }}</td>
-
-                </tr>
+            {% for historico in historicos %}
+            <tr>
+                <td>{{ historico.nomeDependente }}</td>
+                <td>{{ historico.nomeProduto }}</td>
+                <td>{{ historico.data }}</td>
+                <td>${{ historico.valor }}</td>
+                <td>{{ historico.quantidade }}</td>
+            </tr>
             {% endfor %}
         </tbody>
     </table>

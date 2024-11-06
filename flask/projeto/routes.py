@@ -51,22 +51,16 @@ def homeResponsavel():
 @app.route("/historico")
 @login_required
 def historico():
-    dependentes = []
-    historicos=[]
-    nomes = []
-    for dependente in Dependente.query.filter_by(idResponsavel=current_user.id).all():
-        dependentes.append(dependente)
+    dependentes_do_responsavel = Dependente.query.filter_by(idResponsavel=current_user.id).all()
 
-    for dependente in dependentes:
-        historico_dependente = Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all()
-        historicos.extend(historico_dependente)
-        for i in historico_dependente:
+    ids_dependentes = [dependente.id for dependente in dependentes_do_responsavel]
 
-            nomes.append(i.nomeProduto[2:-3])
+    historicos = Historico.query.filter(Historico.idDependente.in_(ids_dependentes)).order_by(desc(Historico.id)).all()
 
-    historico_dependente_zip = zip(historicos, nomes)
 
-    return render_template("historico.html", historico_dependente_zip=historico_dependente_zip)
+    
+
+    return render_template("historico.html", historicos=historicos)
 @app.route("/adicionarSaldoResponsavel/<saldo>", methods=['GET', 'POST'])
 @login_required
 def adicionarSaldoResponsavel(saldo):
@@ -213,12 +207,28 @@ def login():
 
     return render_template('index.html', form = form)
 
+
+@app.route("/historicoLanches")
+def historicoLaches():
+    historicos=[]
+    
+    historicos=[]
+    
+    
+    
+    historico_dependente = Historico.query.order_by(desc(Historico.id)).all()
+    historicos.extend(historico_dependente)
+
+
+
+    return render_template("historicoFunc.html", historicos=historicos)
+
 @app.route('/perfil')
 @login_required
 def PerfilPage():
     dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
     historicos = []
-    for dependente in dependentes:
+    for dependente in dependentes: 
         historicos.extend(Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all())
     return render_template('PerfilResponsavel.html', dependentes=dependentes, historicos=historicos) 
     
@@ -456,11 +466,12 @@ def comprarProduto(id):
                 obj.quantidade = obj.quantidade-counter_value
                 current_user.saldo = current_user.saldo-obj.valor*counter_value
                 historico = Historico(
-                    nomeProduto = str(Produto.query.with_entities(Produto.lanche).filter_by(id = id).first()),
+                    nomeProduto = str(Produto.query.with_entities(Produto.lanche).filter_by(id = id).first()[0]),
                     data = date.today(),
                     valor = counter_value*obj.valor,
                     quantidade = counter_value, 
-                    idDependente = current_user.id
+                    idDependente = current_user.id,
+                    nomeDependente = current_user.usuario
 
                 )
                 adm = ADM.query.get(1)

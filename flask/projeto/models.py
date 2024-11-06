@@ -92,6 +92,8 @@ class Historico(db.Model):
     valor = db.Column(db.Integer, nullable=False)
     quantidade = db.Column(db.Integer, nullable=False)
     idDependente = db.Column(db.Integer, nullable=False)
+    nomeDependente = db.Column(db.String, nullable=False)
+    
 
 
 class ADM(db.Model, UserMixin):

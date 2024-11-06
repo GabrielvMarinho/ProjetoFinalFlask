@@ -1,0 +1,36 @@
+{% extends 'baseFuncionario.html' %}
+
+{% block titulo %}
+    HOME
+{% endblock %}
+
+{% block conteudo %}
+<div class="bodyDependente">
+    <table>
+<h1>Histórico de Compras</h1>
+    <thead>
+        <tr>
+            <th>Nome Usuário</th>
+            <th>Produto</th>
+            <th>Data</th>
+            <th>Total</th>
+            <th>Quantidade</th>
+
+        </tr>
+    </thead>
+    <tbody>
+            {% for historico in historicos %}
+            <tr>
+                <td>{{ historico.nomeDependente }}</td>
+                <td>{{ historico.nomeProduto }}</td>
+                <td>{{ historico.data }}</td>
+                <td>${{ historico.valor }}</td>
+                <td>{{ historico.quantidade }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+
+{%endblock%}
