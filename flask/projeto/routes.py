@@ -1,4 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request, session
+from flask_socketio import SocketIO, join_room, emit
 from projeto import app
 from projeto.forms import adicionarSaldoRespo, CadastroForm, confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
 from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico, ADM
@@ -7,6 +8,22 @@ from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import _bcrypt, hashpw
 from sqlalchemy import desc
 from datetime import date
+
+
+cont = 0
+socketio = SocketIO(app)
+
+@socketio.on("user_join")
+def conectar_operador(id):
+    join_room(id)
+
+   
+@app.route("/paginamensagens")
+def mensagens():
+    return render_template("painel_controle.html")
+
+
+
 @app.route("/Home")
 @login_required
 def homeResponsavel():
@@ -469,9 +486,11 @@ def comprarProduto(id):
     obj = Produto.query.get(id)
     counter_value = int(request.form.get('counter_value', 1)) 
     if form.validate_on_submit():
-
+        
         if current_user.saldo >= obj.valor*counter_value:
             if obj.quantidade>=counter_value:
+                
+                
                 obj.quantidade = obj.quantidade-counter_value
                 current_user.saldo = current_user.saldo-obj.valor*counter_value
                 historico = Historico(
@@ -487,7 +506,24 @@ def comprarProduto(id):
                 adm.saldo +=obj.valor*counter_value
                 db.session.add(historico)
                 db.session.commit()
-                flash("Compra realizada com sucesso!", "notError")
+
+                global cont
+                #pequena lógica para o codigo não passar de 1000
+                if(cont>1000):
+                    cont =0
+                else:
+                    cont = cont+1
+
+                mensagemFunc = {
+                    "nome":current_user.usuario,
+                    "lanche":obj.lanche,
+                    "quantidade":counter_value,
+                    "codigo":cont
+                }
+                #mandando os feedbacks tanto para o dependente quanto para o funcionario
+                socketio.emit("teste", mensagemFunc, room="salaFunc")
+
+                flash(f"Compra realizada com sucesso! seu codigo é {cont}", "modalCodigo")
 
                 return redirect(url_for("escolherProduto"))
             flash("ESTOQUE insuficiente!")

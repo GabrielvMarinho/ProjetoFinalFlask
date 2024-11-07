@@ -64,6 +64,31 @@ background-color: rgb(255, 77, 77);
   border-radius: 0.5vw;
 
 }
+
+#pedidos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1vw;
+    max-width: 80vw; 
+    margin: 0 auto;
+    max-height: fit-content;
+}
+
+.modalCodigo{
+    background-color: #237699;
+    margin-inline: auto;
+    width: fit-content;
+    text-wrap: nowrap;
+    padding: 5vw;
+    padding-inline: 2vw;
+    list-style: none;
+    display: flex;
+    flex-direction: row-reverse;
+    gap:0.8vw;
+    margin-top: 2vw;
+    border-radius: 0.5vw;
+}
 .modal-content-NotError{
     background-color: rgb(61, 182, 59);
     margin-inline: auto;
@@ -246,13 +271,13 @@ thead th {
     color: rgba(255, 255, 255, 0.89);
     margin: 0;
 }
-.boxChoseDependent h1{
+.boxChoseDependent h1, .boxPedido h1{
     text-transform: uppercase;
     font-size: 1.6vw;
     color: rgba(255, 255, 255, 0.89);
 }
 
-.boxChoseDependent h2, .boxChoseLanche h2{
+.boxChoseDependent h2, .boxChoseLanche h2, .boxPedido h2{
     font-size: 1.5vw;
     color: #ffffff86;
 }
@@ -280,7 +305,21 @@ thead th {
     flex-direction: column;
     justify-content: space-around;
 }
+.boxPedido{
+    max-width: 15vw;
+    max-height: 15vw;
+    padding: 3vw;
+    border: hsl(198, 40%, 46%) solid 0.2vw;
+    background-color: hsl(197, 45%, 44%);
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.2vw;
+    justify-content:center;
+    align-items: center;
+    gap:0.7vw;
+}
 .boxChoseDependent, .boxChoseLanche{
+
     padding: 3vw;
     border: hsl(198, 40%, 46%) solid 0.2vw;
     background-color: hsl(197, 45%, 44%);
