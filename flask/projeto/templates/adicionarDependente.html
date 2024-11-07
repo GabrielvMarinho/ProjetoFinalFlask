@@ -53,13 +53,14 @@
                     <div class="dadosLista">
 
                     {% for i in dependentes%}    
+                    <div>
                         <p>Nome: <p class="saldoText">{{ i.usuario}}</p></p>
                         
                         <p>E-mail: <p class="saldoText">{{ i.email}}</p></p>
                         
                         <p>Saldo: <p class="saldoText">{{ i.saldo}}</p></p>
+                    </div>
                         
-                        <br>
                     {% endfor%}
                     <div>
 

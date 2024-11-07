@@ -1,0 +1,21 @@
+{% extends 'baseFuncionario.html'%}
+
+{%block titulo%}
+    CARDÁPIO
+{%endblock%}
+
+
+{% block conteudo %}
+    <div class="bodyDependente">
+        {% for produto in produtos %}
+                        {% if produto.quantidade>0 %}
+                        <div class="boxChoseLanche">
+                            <h1>{{produto.lanche}}</h1>
+                            <h2>{{produto.valor}}</h2>
+                            <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
+        
+                        </div>
+                        {% endif %}
+                    {%endfor%}
+    </div>
+{% endblock %}

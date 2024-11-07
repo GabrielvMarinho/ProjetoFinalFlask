@@ -58,14 +58,17 @@
             <div class="dadosLista">
 
             {% for i in dependentes%}    
+            <div>
+
                 <p>Nome: <p class="saldoText">{{ i.usuario}}</p></p>
                 
                 <p>E-mail: <p class="saldoText">{{ i.email}}</p></p>
                 
                 <p>Saldo: <p class="saldoText">{{ i.saldo}}</p></p>
                 
-                <br>
-            {% endfor%}
+            </div>
+
+                {% endfor%}
             </div>
 
         </div>
@@ -76,6 +79,8 @@
             <div class="dadosLista">
 
             {% for i in historicos%}    
+                <div>
+
                 <p>Data: <p class="saldoText">{{ i.data}}</p></p>
                 
                 <p>Valor: <p class="saldoText">{{ i.valor}}</p></p>
@@ -86,7 +91,7 @@
                     <p>Dependente: <p class="saldoText">{{ ii.usuario}}</p></p>
                     {% endif %}
                 {% endfor %}
-                <br>
+            </div>
             {% endfor%}
         </div>
 

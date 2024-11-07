@@ -78,8 +78,14 @@ def adicionarSaldoResponsavel(saldo):
 
     return ""
 
+@app.route("/cardapio_func")
+def cardapio_func():
+    return render_template("cardapioFuncionario.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
 
     
+@app.route("/cardapio")
+def cardapio():
+    return render_template("cardapioResponsavel.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
 
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
 @login_required
@@ -423,18 +429,21 @@ def addProdutoQuantidade():
     form = confirmarForm()
     return render_template("adicionarEstoque.html", produtos = produtoSemEstoque, form=form)
 
-@app.route("/adicionarEstoqueFim<int:id>", methods=['GET', 'POST'])
+@app.route("/adicionarEstoqueFim/<id>/<quantidade>", methods=['GET', 'POST'])
 @login_required
-def addProdutoQuantidadeFim(id):  
+def addProdutoQuantidadeFim(id, quantidade):  
     produto = Produto.query.get(id)
-    form = confirmarForm()
-    counter_value = int(request.form.get('counter_value', 1))
-    if form.validate_on_submit():
-        produto.quantidade += counter_value
+    quantidade = int(quantidade)
+    if(quantidade>0):
+        produto.quantidade += quantidade
         db.session.commit()
         flash("Estoque atualizado!", "notError")
-        return redirect(url_for("addProdutoQuantidade"))
-    return render_template("adicionarEstoqueFim.html", form=form, produto = produto)
+    else:
+        flash("Digite um valor válido!")
+    
+    return ""
+    
+    
 
 @app.route("/escolherProduto", methods=['GET', 'POST'])
 @login_required

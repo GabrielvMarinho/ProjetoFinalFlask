@@ -7,6 +7,19 @@
 {% endblock %}
 
 {% block conteudo %}
+<div id="myModalEstoque" class="modal">
+    <ul>
+            <div class="modalAdicionarSaldo">
+                <h1>Digite o estoque adicionado:</p>
+                  <div class="flexJ">
+                      <input type="number" id="estoqueAmount" placeholder="Quantidade">
+                      <button type="button" class="buttonConfirmDepo" onclick="submitEstoque()">Adicionar</button>
+                    <span class="spanDepoDep">&times;</span>
+                  </div>
+            </div>
+    </ul>
+</div>
+
 <header>
     <a  class="botãoContainerVoltar" href="{{url_for('homeFunc')}}">Voltar</a>
 
@@ -19,7 +32,7 @@
         <div class="boxChoseLanche">
             <h1>{{produto.lanche}}</h1>
             <h2>{{produto.valor}}</h2>
-            <a class="botoesChoseLanche" href="{{url_for('addProdutoQuantidadeFim', id = produto.id)}}">+ ESTOQUE</a>
+            <a class="botoesChoseLanche" onclick = "adicionarEstoqueModal({{produto.id}})" >+ ESTOQUE</a>
             <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
             
 
@@ -27,4 +40,5 @@
     
     {%endfor%}
 </div>
+<script src="{{url_for('static', filename='adicionarEstoque.js')}}"></script>
 {%endblock%}

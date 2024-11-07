@@ -365,6 +365,12 @@ header h1{
     color: #ffffff79;
 
 }
+.dadosLista div{
+    background-color: #5aa1c057;
+    margin-bottom: 1vw;
+    padding: 1vw;
+    border-radius: 0.5vw;
+}
 .dadosLista .saldoText{
     color: #ffffffef;
 
