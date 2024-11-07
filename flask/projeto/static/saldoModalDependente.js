@@ -31,8 +31,10 @@ spanDepoDep.onclick = function() {
 
 // Close the modal if the user clicks outside it
 window.onclick = function(event) {
-    if (event.target === modalDepositoDependente) {
-        
+    if (event.target === modalDepositoDependente ||event.target === modalSaqueDependente) {
+        modalDepositoDependente.classList.remove("show")
+        modalSaqueDependente.classList.remove("show")
+
     }
 
 }

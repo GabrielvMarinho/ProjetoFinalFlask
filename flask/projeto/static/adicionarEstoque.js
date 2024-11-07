@@ -8,7 +8,6 @@ function adicionarEstoqueModal(id) {
     idProd = id
     modalEstoque.classList.add("show");
 }
-
 spanEstoque.onclick = function() {
     modalEstoque.classList.remove("show");
 }

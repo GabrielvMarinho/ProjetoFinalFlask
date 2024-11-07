@@ -258,6 +258,7 @@ thead th {
 }
 .estoquetxt{
     color: #ffffff5e;
+    font-size: 1.5vw;
 }
 .perfildiv{
     display: flex;
@@ -552,7 +553,11 @@ a{
         font-size: 5vw;
     }
     .boxChoseDependent h2, .boxChoseLanche h2{
-        font-size: 5vw;
+        font-size: 4vw;
+    }
+    .boxChoseDependent h1{
+        font-size: 4vw;
+
     }
     .botoesChoseLanche{
         width: 25vw;
@@ -1078,14 +1083,14 @@ table {
 
 
 /* Botão de Fechar */
-.close, .closeDepo, .spanDepoDep {
+
+span{
     color: #ffffffc4;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
-
-.close:hover, .close:focus, .closeDepo:hover, .closeDepo:focus,.spanDepoDep:focus, .spanDepoDep:hover {
+span:hover, span:focus{
     color: black;
     text-decoration: none;
     cursor: pointer;

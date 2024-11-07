@@ -1,6 +1,7 @@
 
-var modalconf = document.getElementById("modalConfirmar");
-var span = document.getElementsByClassName("close")[0];
+const modalconf = document.getElementById("modalConfirmar");
+
+const span = document.getElementsByClassName("close")[0];
 var idProduto = null;
 
 function confirmarExclusao(id, nome){
@@ -10,6 +11,13 @@ function confirmarExclusao(id, nome){
     console.log(nome)
     textNome.innerText = "Item: "+nome
     idProduto = id;
+}
+window.onclick = function(event) {
+    if (event.target === modalconf) {
+        modalconf.classList.remove("show")
+
+    }
+
 }
 span.onclick = function() {
     document.getElementsByClassName("overlay")[0].classList.remove("escuro");

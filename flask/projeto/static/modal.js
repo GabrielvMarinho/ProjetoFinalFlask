@@ -10,7 +10,7 @@ var span = document.getElementsByClassName("close")[0];
 
 // Quando checado um texto nas mensagens de erro ele chama
 function checarTexto(){
-  const mensagens = document.getElementsByClassName("mensagensErro");
+  var mensagens = document.getElementsByClassName("mensagensErro");
   if(mensagens.length>0){
       modal.classList.add("show")
   }
@@ -24,7 +24,7 @@ span.onclick = function() {
 
   // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
       modal.classList.remove("show")
 
     }
