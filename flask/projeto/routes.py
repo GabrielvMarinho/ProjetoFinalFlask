@@ -8,7 +8,6 @@ from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import _bcrypt, hashpw
 from sqlalchemy import desc
 from datetime import date
-from time import sleep
 
 
 cont = 0
@@ -482,7 +481,28 @@ def removerProdutos(id):
 def confirmarPedido(id):
     socketio.emit("mostrarConclusao", "Seu pedido foi realizado", room="dependente"+id)
     return ""
+@app.route("/compraConfirmadaHistorico/<id>/<counter_value>", methods=["GET", "POST"])
+def criandoHistorico(id, counter_value):
+    id = int(id)
+    counter_value = int(counter_value)
+    obj = Produto.query.get(id)
 
+    obj.quantidade = obj.quantidade-counter_value
+    current_user.saldo = current_user.saldo-obj.valor*counter_value
+    historico = Historico(
+        nomeProduto = str(Produto.query.with_entities(Produto.lanche).filter_by(id = id).first()[0]),
+        data = date.today(),
+        valor = counter_value*obj.valor,
+        quantidade = counter_value, 
+        idDependente = current_user.id,
+        nomeDependente = current_user.usuario
+
+        )
+    adm = ADM.query.get(1)
+    adm.saldo +=obj.valor*counter_value
+    db.session.add(historico)
+    db.session.commit()
+    return ""
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
 def comprarProduto(id):
@@ -494,22 +514,6 @@ def comprarProduto(id):
         if current_user.saldo >= obj.valor*counter_value:
             if obj.quantidade>=counter_value:
                 
-                
-                obj.quantidade = obj.quantidade-counter_value
-                current_user.saldo = current_user.saldo-obj.valor*counter_value
-                historico = Historico(
-                    nomeProduto = str(Produto.query.with_entities(Produto.lanche).filter_by(id = id).first()[0]),
-                    data = date.today(),
-                    valor = counter_value*obj.valor,
-                    quantidade = counter_value, 
-                    idDependente = current_user.id,
-                    nomeDependente = current_user.usuario
-
-                )
-                adm = ADM.query.get(1)
-                adm.saldo +=obj.valor*counter_value
-                db.session.add(historico)
-                db.session.commit()
 
                 global cont
                 #pequena lógica para o codigo não passar de 1000
@@ -527,8 +531,9 @@ def comprarProduto(id):
                 }
                 #mandando os feedbacks tanto para o dependente quanto para o funcionario
                 socketio.emit("PedidoNovo", mensagemFunc, room="salaFunc")
-                sleep(2)
                 flash(f"Compra realizada com sucesso! seu codigo é {cont}", "modalCodigo")
+                return render_template("comprarProduto.html", obj=obj, form=form, counter_value=counter_value )
+
             else:
                 # return redirect(url_for("escolherProduto"))
                 flash("ESTOQUE insuficiente!")

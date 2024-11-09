@@ -50,8 +50,11 @@
 
         function confirmarPedido(id){
             socket.emit("mandarMensagem", id);
+            const button = event.target;
+            const parent = button.parentNode;
+            parent.remove();
 
-            console.log("enviada dessa vez")
+            
         }
 
 

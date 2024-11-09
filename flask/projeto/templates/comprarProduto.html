@@ -37,10 +37,20 @@
     var id = "dependente"+{{current_user.id}}
     //conectando ao quarto do user específico
     socket.emit("user_join", id);
-    console.log(id)
-    
+
+    const idOBJ = "{{ obj.id }}";  // Variável 'obj' do Flask
+
+    const counter_value = "{{ counter_value }}";  // Variável 'counter_value' do Flask
+    console.log(idOBJ)
+
+    console.log(counter_value)
+
     socket.on("mostrarConclusao", (mensagem) =>{
         console.log(mensagem)
+        console.log(counter_value)
+        fetch(`/compraConfirmadaHistorico/${idOBJ}/${counter_value}`).then(response =>{
+            console.log("historico adicionado")
+        })
     })
 </script>
 <footer>
