@@ -32,20 +32,27 @@
         socket.emit("user_join", id);
 
     
-        socket.on("teste", (obj) => {
+        socket.on("PedidoNovo", (obj) => {
             var pedidos = document.getElementById("pedidos");
             var div = document.createElement("div");
             div.classList.add("boxPedido");
             div.innerHTML = `
+                <h2>${obj.id}</h2>
                 <h1>${obj.nome}</h1>
                 <h2>Código: ${obj.codigo}</h2>
                 <h2>Lanche: ${obj.lanche}</h2>
-
                 <h2>Quantidade: ${obj.quantidade}</h2>
-            `;
+                <button onclick=confirmarPedido('${obj.id}')>COnfirmar Pedido</button>
+                `;
             
             pedidos.appendChild(div);
         });
+
+        function confirmarPedido(id){
+            socket.emit("mandarMensagem", id);
+
+            console.log("enviada dessa vez")
+        }
 
 
     </script>

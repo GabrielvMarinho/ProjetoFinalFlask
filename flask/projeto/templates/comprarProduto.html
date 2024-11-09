@@ -27,8 +27,22 @@
 
 </form>
 
-<script src="{{url_for('static', filename='script.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
 
+
+<script src="{{url_for('static', filename='script.js')}}"></script>
+<script>
+    const socket = io({autoConnect: false});
+    socket.connect();
+    var id = "dependente"+{{current_user.id}}
+    //conectando ao quarto do user específico
+    socket.emit("user_join", id);
+    console.log(id)
+    
+    socket.on("mostrarConclusao", (mensagem) =>{
+        console.log(mensagem)
+    })
+</script>
 <footer>
     
 </footer>

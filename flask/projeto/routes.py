@@ -8,6 +8,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import _bcrypt, hashpw
 from sqlalchemy import desc
 from datetime import date
+from time import sleep
 
 
 cont = 0
@@ -477,7 +478,10 @@ def removerProdutos(id):
     db.session.commit()
     return redirect(url_for("choseProduto"))
         
-
+@socketio.on("mandarMensagem")
+def confirmarPedido(id):
+    socketio.emit("mostrarConclusao", "Seu pedido foi realizado", room="dependente"+id)
+    return ""
 
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -515,22 +519,25 @@ def comprarProduto(id):
                     cont = cont+1
 
                 mensagemFunc = {
+                    "id":current_user.id,
                     "nome":current_user.usuario,
                     "lanche":obj.lanche,
                     "quantidade":counter_value,
                     "codigo":cont
                 }
                 #mandando os feedbacks tanto para o dependente quanto para o funcionario
-                socketio.emit("teste", mensagemFunc, room="salaFunc")
-
+                socketio.emit("PedidoNovo", mensagemFunc, room="salaFunc")
+                sleep(2)
                 flash(f"Compra realizada com sucesso! seu codigo é {cont}", "modalCodigo")
+            else:
+                # return redirect(url_for("escolherProduto"))
+                flash("ESTOQUE insuficiente!")
+                return render_template("comprarProduto.html", obj=obj, form=form)
+        else:
 
-                return redirect(url_for("escolherProduto"))
-            flash("ESTOQUE insuficiente!")
+            flash("SALDO insuficiente!")
             return render_template("comprarProduto.html", obj=obj, form=form)
-        flash("SALDO insuficiente!")
-        return render_template("comprarProduto.html", obj=obj, form=form)
-    
+        
     return render_template("comprarProduto.html", obj=obj, form=form)
     
 
