@@ -9,7 +9,7 @@ from bcrypt import _bcrypt, hashpw
 from sqlalchemy import desc
 from datetime import date
 
-
+from time import sleep
 cont = 0
 socketio = SocketIO(app)
 
@@ -482,9 +482,11 @@ def confirmarPedido(id, mensagem):
     socketio.emit("mostrarConclusao", mensagem, room="dependente"+id)
     return ""
 
-@app.route("/cancelarPedido/<int:id>")
-def cancelarPedido(id):
-
+@app.route("/cancelarPedido")
+def cancelarPedido():
+    id = session.pop('id_pedido', 1)
+    print(id)
+    sleep(0.1)
     socketio.emit("deletarPedido", id, room="salaFunc")
 
     return ""

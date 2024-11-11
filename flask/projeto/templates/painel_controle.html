@@ -32,17 +32,15 @@
         socket.emit("user_join", id);
 
         socket.on("deletarPedido", (id)=>{
-            const elementos = document.querySelectorAll('*'); // Seleciona todos os elementos
-            element = Array.from(elementos).find(element => element.textContent.includes(`Código: ${id}`));
+            const elementos = document.querySelectorAll('.boxPedido');  // Suponha que você tenha uma classe 'pedido'
+            const element = Array.from(elementos).find(element => element.textContent.includes(`Código: ${id}`));
+            console.log(element)
+
             if (element) {  // Verifica se o elemento foi encontrado
                 let parent = element.parentNode;
                 if (parent) {  // Verifica se o parentNode é válido
                     parent.removeChild(element);  // Remove o elemento do DOM
-                } else {
-                    console.log("Não foi possível encontrar o nó pai!");
                 }
-            } else {
-                console.log("Elemento não encontrado!");
             }
         })
         socket.on("PedidoNovo", (obj) => {

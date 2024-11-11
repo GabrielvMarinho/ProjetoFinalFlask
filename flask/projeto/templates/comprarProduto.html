@@ -47,18 +47,9 @@
     window.addEventListener("keydown", function (e) {
     
         console.log("entrou")
-        if (e.key === "F5" || e.keyCode === 116) {
-            e.preventDefault();
-            console.log("deletar")
-            fetch(`/cancelarPedido/${idPedido}`)
-            .then(data => {
-                console.log("Pedido cancelado com sucesso:", data);
-                // Redireciona após o pedido ser cancelado
-                window.location.href = "/homeDependente";
-            })
-                
-    }
-});
+        
+    });
+    
 
     socket.on("mostrarConclusao", (mensagem) =>{
         
@@ -66,7 +57,6 @@
             var mod = document.getElementById("myModal")
             mod.style.display = "none"
             div = document.createElement("div")
-
             div.innerHTML = `
             <div id="myModal" class="modalFeedback">
                 <ul>
@@ -76,7 +66,7 @@
                         </div>
                     </ul>
             </div>`
-        document.body.getElementsByClassName("bodyBaseResponsavel")[0].appendChild(div)
+            document.body.getElementsByClassName("bodyBaseResponsavel")[0].appendChild(div)
         })
     })
 </script>

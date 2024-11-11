@@ -18,17 +18,20 @@ esperarElementoCarregar(".modalFeedback", (element) => {
     spanFeed = document.getElementsByClassName("spanFeedback")[0]
     console.log(spanFeed)
     spanFeed.onclick = function() {
-        element.classList.remove("show")
-      }
+        window.location.href = "/homeDependente";
+    }
       
     
       // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target === element) {
-            element.classList.remove("show")
+            window.location.href = "/homeDependente";
+
     
         }
     }
+    
+
     
 });
 
