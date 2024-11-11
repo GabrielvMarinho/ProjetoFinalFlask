@@ -30,8 +30,21 @@
     <script>
 
         function debug(e){
-            //logica para chamar todos os on click
+
+            const botoes = document.querySelectorAll('button[onclick]');
+            console.log(botoes)
+            botoes.forEach(botao => {
+
+                if (botao.getAttribute('onclick').includes("excluirPedido")) {
+
+                        const funcao = botao.getAttribute('onclick');
+                        eval(funcao); 
+                }
+            });
+
             return "Evento "+e.type
+
+            
         }
         
 
