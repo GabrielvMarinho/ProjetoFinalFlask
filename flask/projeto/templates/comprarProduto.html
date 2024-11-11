@@ -29,6 +29,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
 
+<script src="{{url_for('static', filename='scriptModalFeedbackCompra.js')}}"></script>
 
 <script src="{{url_for('static', filename='script.js')}}"></script>
 <script>
@@ -40,16 +41,42 @@
 
     const idOBJ = "{{ obj.id }}";  // Variável 'obj' do Flask
 
-    const counter_value = "{{ counter_value }}";  // Variável 'counter_value' do Flask
     console.log(idOBJ)
+    const idPedido = "{{ session.get('id_pedido', '') }}";
 
-    console.log(counter_value)
+    window.addEventListener("keydown", function (e) {
+    
+        console.log("entrou")
+        if (e.key === "F5" || e.keyCode === 116) {
+            e.preventDefault();
+            console.log("deletar")
+            fetch(`/cancelarPedido/${idPedido}`)
+            .then(data => {
+                console.log("Pedido cancelado com sucesso:", data);
+                // Redireciona após o pedido ser cancelado
+                window.location.href = "/homeDependente";
+            })
+                
+    }
+});
 
     socket.on("mostrarConclusao", (mensagem) =>{
-        console.log(mensagem)
-        console.log(counter_value)
-        fetch(`/compraConfirmadaHistorico/${idOBJ}/${counter_value}`).then(response =>{
-            console.log("historico adicionado")
+        
+        fetch(`/compraConfirmadaHistorico/${idOBJ}`).then(response =>{
+            var mod = document.getElementById("myModal")
+            mod.style.display = "none"
+            div = document.createElement("div")
+
+            div.innerHTML = `
+            <div id="myModal" class="modalFeedback">
+                <ul>
+                        <div class="modal-content-NotError">
+                            <span class="spanFeedback">&times;</span>
+                            <li class="mensagensErro">${mensagem}</li>
+                        </div>
+                    </ul>
+            </div>`
+        document.body.getElementsByClassName("bodyBaseResponsavel")[0].appendChild(div)
         })
     })
 </script>

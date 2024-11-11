@@ -31,7 +31,20 @@
         //conectando ao quarto do user específico
         socket.emit("user_join", id);
 
-    
+        socket.on("deletarPedido", (id)=>{
+            const elementos = document.querySelectorAll('*'); // Seleciona todos os elementos
+            element = Array.from(elementos).find(element => element.textContent.includes(`Código: ${id}`));
+            if (element) {  // Verifica se o elemento foi encontrado
+                let parent = element.parentNode;
+                if (parent) {  // Verifica se o parentNode é válido
+                    parent.removeChild(element);  // Remove o elemento do DOM
+                } else {
+                    console.log("Não foi possível encontrar o nó pai!");
+                }
+            } else {
+                console.log("Elemento não encontrado!");
+            }
+        })
         socket.on("PedidoNovo", (obj) => {
             var pedidos = document.getElementById("pedidos");
             var div = document.createElement("div");
@@ -42,14 +55,15 @@
                 <h2>Código: ${obj.codigo}</h2>
                 <h2>Lanche: ${obj.lanche}</h2>
                 <h2>Quantidade: ${obj.quantidade}</h2>
-                <button onclick=confirmarPedido('${obj.id}')>COnfirmar Pedido</button>
+                <button onclick="confirmarPedido('${obj.id}', '${obj.quantidade}', '${obj.lanche}')">Confirmar Pedido</button>
                 `;
             
             pedidos.appendChild(div);
         });
 
-        function confirmarPedido(id){
-            socket.emit("mandarMensagem", id);
+        function confirmarPedido(id, quantidade, lanche){
+            mensagem = `Pedido de ${quantidade} ${lanche} foi finalizado!`
+            socket.emit("mandarMensagem", id, mensagem);
             const button = event.target;
             const parent = button.parentNode;
             parent.remove();

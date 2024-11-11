@@ -478,13 +478,23 @@ def removerProdutos(id):
     return redirect(url_for("choseProduto"))
         
 @socketio.on("mandarMensagem")
-def confirmarPedido(id):
-    socketio.emit("mostrarConclusao", "Seu pedido foi realizado", room="dependente"+id)
+def confirmarPedido(id, mensagem):
+    socketio.emit("mostrarConclusao", mensagem, room="dependente"+id)
     return ""
-@app.route("/compraConfirmadaHistorico/<id>/<counter_value>", methods=["GET", "POST"])
-def criandoHistorico(id, counter_value):
+
+@app.route("/cancelarPedido/<int:id>")
+def cancelarPedido(id):
+
+    socketio.emit("deletarPedido", id, room="salaFunc")
+
+    return ""
+
+@app.route("/compraConfirmadaHistorico/<id>", methods=["GET", "POST"])
+def criandoHistorico(id):
     id = int(id)
-    counter_value = int(counter_value)
+    counter_value = session.pop('counter_value', 1)
+
+
     obj = Produto.query.get(id)
 
     obj.quantidade = obj.quantidade-counter_value
@@ -532,16 +542,19 @@ def comprarProduto(id):
                 #mandando os feedbacks tanto para o dependente quanto para o funcionario
                 socketio.emit("PedidoNovo", mensagemFunc, room="salaFunc")
                 flash(f"Compra realizada com sucesso! seu codigo é {cont}", "modalCodigo")
-                return render_template("comprarProduto.html", obj=obj, form=form, counter_value=counter_value )
+                session['counter_value'] = counter_value
+                session['id_pedido'] = cont
+
+                return redirect(url_for("comprarProduto", id=id))
 
             else:
                 # return redirect(url_for("escolherProduto"))
                 flash("ESTOQUE insuficiente!")
-                return render_template("comprarProduto.html", obj=obj, form=form)
+                return redirect(url_for("comprarProduto", id=id))
         else:
 
             flash("SALDO insuficiente!")
-            return render_template("comprarProduto.html", obj=obj, form=form)
+            return redirect(url_for("comprarProduto", id=id))
         
     return render_template("comprarProduto.html", obj=obj, form=form)
     
