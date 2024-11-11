@@ -36,7 +36,10 @@
 
                         {% elif category == 'modalCodigo' %}
                         <div class="modalCodigo">
+                            <div>
                             <li class="mensagensErro">{{ i }}</li>
+                            <li class="hintPedido"> A mudança de página resultará no cancelamento do pedido!</li>
+                            </div>
                         </div>
                         <script>
                             window.addEventListener('beforeunload', function(e) {
