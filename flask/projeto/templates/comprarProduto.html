@@ -50,7 +50,22 @@
         
     });
     
-
+    socket.on("mostrarExclusao", (mensagem) =>{
+        
+            var mod = document.getElementById("myModal")
+            mod.style.display = "none"
+            div = document.createElement("div")
+            div.innerHTML = `
+            <div id="myModal" class="modalFeedback">
+                <ul>
+                        <div class="modal-content"">
+                            <span class="spanFeedback">&times;</span>
+                            <li class="mensagensErro">${mensagem}</li>
+                        </div>
+                    </ul>
+            </div>`
+            document.body.getElementsByClassName("bodyBaseResponsavel")[0].appendChild(div)
+    })
     socket.on("mostrarConclusao", (mensagem) =>{
         
         fetch(`/compraConfirmadaHistorico/${idOBJ}`).then(response =>{

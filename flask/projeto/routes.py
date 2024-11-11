@@ -476,8 +476,14 @@ def removerProdutos(id):
     db.session.delete(obj)
     db.session.commit()
     return redirect(url_for("choseProduto"))
-        
-@socketio.on("mandarMensagem")
+     
+     
+@socketio.on("mandarMensagemExclusao")
+def confirmarPedido(id, mensagem):
+    socketio.emit("mostrarExclusao", mensagem, room="dependente"+id)
+    return ""
+   
+@socketio.on("mandarMensagemConclusao")
 def confirmarPedido(id, mensagem):
     socketio.emit("mostrarConclusao", mensagem, room="dependente"+id)
     return ""
