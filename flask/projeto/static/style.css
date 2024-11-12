@@ -545,6 +545,18 @@ a{
     to { opacity: 1; }
 }
 @media (max-width: 800px){
+    .saldoHeader{
+        padding: 1vw;
+        border-radius: 1vw;
+        padding-inline: 3vw;
+    }
+    header{
+        min-height: 20%;
+    
+    }
+    header div{
+        gap:5vw;
+    }
     .boxChoseLanche{
         width: 50vw;
         height: 50vw;
@@ -592,8 +604,8 @@ a{
     }
     
     .botãoContainerLogout{
-        font-size:5vw;
-        height: 6vw;
+        font-size:4vw;
+        height: 5vw;
         padding: 1vw;
         padding-inline: 3vw;
         border-radius: 2vw;
