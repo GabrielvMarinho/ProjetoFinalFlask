@@ -545,6 +545,57 @@ a{
     to { opacity: 1; }
 }
 @media (max-width: 800px){
+    .counter{
+        font-size: 5.5vw !important;
+        justify-content: center;
+        display: flex;
+    }
+    form{
+        align-items: center;
+        justify-content: center;
+    }
+    .botaoIncremento{
+        width: 50%;
+    }
+    .mensagensErro{
+        font-size: 5vw !important;
+        width: 60vw;
+        text-wrap: wrap;
+    }
+    .modalCodigo{
+        width: 70vw;
+        height: 70vw;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .botãoContainerVoltar{
+        border: solid #66a4dd 0.5vw;
+        font-size: 5vw;
+        padding: 2vw;
+        padding-inline: 4vw;
+        border-radius: 2vw;
+    }
+    .botaoDecremento{
+        width: 50%;
+
+    }
+    .tituloComprarProduto{
+        font-size: 6vw !important;
+        max-width: 70%;
+        text-align: center;
+        margin-inline: auto;
+
+    }
+    .bodyBaseResponsavel{
+        margin-left: 0 !important;
+        width: 100% !important;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        display: flex;
+
+    }
     .saldoHeader{
         padding: 1vw;
         border-radius: 1vw;
