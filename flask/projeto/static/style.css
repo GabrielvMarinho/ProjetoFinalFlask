@@ -545,6 +545,11 @@ a{
     to { opacity: 1; }
 }
 @media (max-width: 800px){
+    .hintPedido{
+        text-align: center;
+        font-size: 3.5vw;
+        text-wrap: wrap;
+    }
     .counter{
         font-size: 5.5vw !important;
         justify-content: center;
@@ -558,14 +563,35 @@ a{
         width: 50%;
     }
     .mensagensErro{
-        font-size: 5vw !important;
+        text-align: center;
+        font-size: 6vw !important;
+        margin-inline: auto;
         width: 60vw;
         text-wrap: wrap;
     }
-    .modalCodigo{
-        width: 70vw;
-        height: 70vw;
+    .espaco{
+        flex-direction: column;
         display: flex;
+        gap:3vw;
+    }
+    span{
+        font-size: 8vw !important;
+        display: flex;
+        align-items: center;
+        width: 6vw;
+    }
+    .modal-content, .modal-content-NotError{
+        width: 90vw;
+        height: 25vw;
+        border-radius: 2vw;
+    }
+    
+    .modalCodigo{
+        border-radius: 2vw;
+        width: 70vw;
+        height: 50vw;
+        display: flex;
+        align-items: center;
         justify-content: center;
     }
     
@@ -621,14 +647,7 @@ a{
         font-size: 6vw;
     }
     
-    .mensagensErro{
-        font-size:2.5vw;
-        color: #fefefe;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     
-    }
     header h1{
         font-size: 5vw;
     }
