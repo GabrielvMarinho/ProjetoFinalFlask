@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request, session
-from flask_socketio import SocketIO, join_room, emit
+from flask_socketio import SocketIO, join_room, emit, leave_room
 from projeto import app
 from projeto.forms import adicionarSaldoRespo, CadastroForm, confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
 from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico, ADM
@@ -8,16 +8,25 @@ from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import _bcrypt, hashpw
 from sqlalchemy import desc
 from datetime import date
+from collections import defaultdict  # Certifique-se de importar defaultdict
 
 from time import sleep
 cont = 0
 socketio = SocketIO(app)
 
+rooms_users = defaultdict(set) 
+
+
 @socketio.on("user_join")
 def conectar_operador(id):
+    print("entrou")
     join_room(id)
+    rooms_users[id].add(current_user.usuario) 
 
    
+
+    
+
 @app.route("/paginamensagens")
 def mensagens():
     return render_template("painel_controle.html")
@@ -417,6 +426,12 @@ def addProduto():
 @app.route('/homeFunc', methods=['GET', 'POST'])
 @login_required
 def homeFunc():
+    global rooms_users
+    id = "salaFunc"
+    if id in rooms_users:
+        rooms_users[id].discard(current_user.usuario)
+        print("delete")
+        print(rooms_users)
     quantidadeEstoque = []
     produtos = Produto.query.all()
     nomes = []
@@ -524,48 +539,57 @@ def criandoHistorico(id):
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
 def comprarProduto(id):
-    form = confirmarFormQuantidade()
-    obj = Produto.query.get(id)
-    counter_value = int(request.form.get('counter_value', 1)) 
-    if form.validate_on_submit():
-        
-        if current_user.saldo >= obj.valor*counter_value:
-            if obj.quantidade>=counter_value:
-                
 
-                global cont
-                #pequena lógica para o codigo não passar de 1000
-                if(cont>1000):
-                    cont =0
+    global rooms_users
+
+    print(rooms_users["salaFunc"])
+
+    if rooms_users["salaFunc"]:
+
+        form = confirmarFormQuantidade()
+        obj = Produto.query.get(id)
+        counter_value = int(request.form.get('counter_value', 1)) 
+        if form.validate_on_submit():
+            
+            if current_user.saldo >= obj.valor*counter_value:
+                if obj.quantidade>=counter_value:
+                    
+
+                    global cont
+                    #pequena lógica para o codigo não passar de 1000
+                    if(cont>1000):
+                        cont =0
+                    else:
+                        cont = cont+1
+
+                    mensagemFunc = {
+                        "id":current_user.id,
+                        "nome":current_user.usuario,
+                        "lanche":obj.lanche,
+                        "quantidade":counter_value,
+                        "codigo":cont
+                    }
+                    #mandando os feedbacks tanto para o dependente quanto para o funcionario
+                    socketio.emit("PedidoNovo", mensagemFunc, room="salaFunc")
+                    flash(f"Compra realizada com sucesso! seu codigo é {cont}", "modalCodigo")
+                    session['counter_value'] = counter_value
+                    session['id_pedido'] = cont
+
+                    return redirect(url_for("comprarProduto", id=id))
+
                 else:
-                    cont = cont+1
-
-                mensagemFunc = {
-                    "id":current_user.id,
-                    "nome":current_user.usuario,
-                    "lanche":obj.lanche,
-                    "quantidade":counter_value,
-                    "codigo":cont
-                }
-                #mandando os feedbacks tanto para o dependente quanto para o funcionario
-                socketio.emit("PedidoNovo", mensagemFunc, room="salaFunc")
-                flash(f"Compra realizada com sucesso! seu codigo é {cont}", "modalCodigo")
-                session['counter_value'] = counter_value
-                session['id_pedido'] = cont
-
-                return redirect(url_for("comprarProduto", id=id))
-
+                    # return redirect(url_for("escolherProduto"))
+                    flash("ESTOQUE insuficiente!")
+                    return redirect(url_for("comprarProduto", id=id))
             else:
-                # return redirect(url_for("escolherProduto"))
-                flash("ESTOQUE insuficiente!")
-                return redirect(url_for("comprarProduto", id=id))
-        else:
 
-            flash("SALDO insuficiente!")
-            return redirect(url_for("comprarProduto", id=id))
-        
-    return render_template("comprarProduto.html", obj=obj, form=form)
-    
+                flash("SALDO insuficiente!")
+                return redirect(url_for("comprarProduto", id=id))
+            
+        return render_template("comprarProduto.html", obj=obj, form=form)
+    else:
+        flash("O sistema de compras está fechado no momento!")
+        return redirect(url_for("escolherProduto"))
 
 @app.route('/homeDependente', methods=['GET', 'POST'])
 @login_required
