@@ -18,8 +18,11 @@
 <body onbeforeunload="return debug(event)">
     <div class="container">
         <div class="flexColumn">
-            <h1 class="hintPedido">A mudança de página causará a exclusão dos pedidos não resolvidos!</h1>
+            <div>
+                <h1 class="hintPedido">A mudança de página causará a exclusão dos pedidos não resolvidos!</h1>
+                <a class="botãoContainerVoltar" href="{{url_for('homeFunc')}}">Voltar</a>
 
+            </div>
             <div id="pedidos">
 
             </div>
