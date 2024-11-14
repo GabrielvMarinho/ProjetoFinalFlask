@@ -9,6 +9,7 @@ from bcrypt import _bcrypt, hashpw
 from sqlalchemy import desc
 from datetime import date
 from collections import defaultdict  # Certifique-se de importar defaultdict
+from functools import wraps
 
 from time import sleep
 cont = 0
@@ -17,6 +18,17 @@ socketio = SocketIO(app)
 rooms_users = defaultdict(set) 
 
 
+def user_type_required(*allowed_types):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if 'user_type' not in session or session['user_type'] not in allowed_types:
+                flash("Você não tem permissão para acessar esta página. Faça login com a conta correta.")
+                return redirect(url_for('login'))
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
 @socketio.on("user_join")
 def conectar_operador(id):
     print("entrou")
@@ -24,17 +36,15 @@ def conectar_operador(id):
     rooms_users[id].add(current_user.usuario) 
 
    
-
-    
-
 @app.route("/paginamensagens")
+@login_required
+@user_type_required("funcionario", "adm")
 def mensagens():
     return render_template("painel_controle.html")
 
-
-
 @app.route("/Home")
 @login_required
+@user_type_required("responsavel")
 def homeResponsavel():
     dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
 
@@ -76,6 +86,7 @@ def homeResponsavel():
 
 @app.route("/historico")
 @login_required
+@user_type_required("responsavel")
 def historico():
     dependentes_do_responsavel = Dependente.query.filter_by(idResponsavel=current_user.id).all()
 
@@ -87,8 +98,10 @@ def historico():
     
 
     return render_template("historico.html", historicos=historicos)
+
 @app.route("/adicionarSaldoResponsavel/<saldo>", methods=['GET', 'POST'])
 @login_required
+@user_type_required("responsavel")
 def adicionarSaldoResponsavel(saldo):
     try:
         saldo = int(saldo)
@@ -105,16 +118,20 @@ def adicionarSaldoResponsavel(saldo):
     return ""
 
 @app.route("/cardapio_func")
+@login_required
+@user_type_required("funcionario", "adm")
 def cardapio_func():
     return render_template("cardapioFuncionario.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
 
-    
 @app.route("/cardapio")
+@login_required
+@user_type_required("responsavel")
 def cardapio():
     return render_template("cardapioResponsavel.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
 
 @app.route("/adicionarFuncionario", methods=['GET', 'POST'])
 @login_required
+@user_type_required("adm")
 def adicionarFuncionario():
     form = CadastroForm()
     funcionarios = Funcionario.query.all()
@@ -159,6 +176,7 @@ def adicionarFuncionario():
 
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
 @login_required
+@user_type_required("responsavel")
 def adicionarDependente():
     form = CadastroForm()
     dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
@@ -298,6 +316,7 @@ def login():
 
 @app.route("/homeAdm")
 @login_required
+@user_type_required("adm")
 def homeAdm():
     funcionarios = Funcionario.query.all()
     quantidadeEstoque = []
@@ -322,6 +341,7 @@ def homeAdm():
 
 @app.route("/historicoLanches")
 @login_required
+@user_type_required("funcionario", "adm")
 def historicoLaches():
     historicos=[]
     
@@ -338,6 +358,7 @@ def historicoLaches():
 
 @app.route('/perfil')
 @login_required
+@user_type_required("responsavel")
 def PerfilPage():
     dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
     historicos = []
@@ -347,6 +368,7 @@ def PerfilPage():
      
 @app.route('/removerSaldo/<valor>/<id>', methods=['GET', 'POST'])
 @login_required
+@user_type_required("responsavel")
 def removSaldo(valor, id):
         
     valor = int(valor)
@@ -367,6 +389,7 @@ def removSaldo(valor, id):
            
 @app.route('/adicionarSaldo/<valor>/<id>', methods=['GET', 'POST'])
 @login_required
+@user_type_required("responsavel")
 def addSaldo(valor, id):
         
     valor = int(valor)
@@ -393,6 +416,7 @@ def logout():
 
 @app.route('/mudar-senha', methods=['POST', 'GET'])
 @login_required
+@user_type_required("responsavel")
 def mudarSenha():
     form = LoginForm() 
     if request.method == 'POST':
@@ -417,6 +441,7 @@ def mudarSenha():
 
 @app.route('/atualizar<int:id>', methods=['POST', 'GET'])
 @login_required
+@user_type_required("responsavel")
 def atualizar(id):
     form = CadastroForm()
     mudar_nome = Responsavel.query.get_or_404(id)
@@ -464,6 +489,7 @@ def atualizar(id):
     
 @app.route('/escolherDependente', methods=['GET', 'POST'])
 @login_required
+@user_type_required("responsavel")
 def escolherDependente():
     dependentes = Dependente.query.all()
     idAtual = current_user.id
@@ -472,6 +498,7 @@ def escolherDependente():
 
 @app.route('/adicionarProduto', methods=['GET', 'POST'])
 @login_required
+@user_type_required("funcionario", "adm")
 def addProduto():
     form = adicionarProduto()
     produtos = Produto.query.all()
@@ -498,6 +525,7 @@ def addProduto():
 
 @app.route('/homeFunc', methods=['GET', 'POST'])
 @login_required
+@user_type_required("funcionario", "adm")
 def homeFunc():
     global rooms_users
     id = "salaFunc"
@@ -528,6 +556,7 @@ def homeFunc():
 
 @app.route("/adicionarEstoques", methods=['GET', 'POST'])
 @login_required
+@user_type_required("funcionario", "adm")
 def addProdutoQuantidade():
     produtoSemEstoque = Produto.query.all()
     form = confirmarForm()
@@ -535,6 +564,7 @@ def addProdutoQuantidade():
 
 @app.route("/adicionarEstoqueFim/<id>/<quantidade>", methods=['GET', 'POST'])
 @login_required
+@user_type_required("funcionario", "adm")
 def addProdutoQuantidadeFim(id, quantidade):  
     produto = Produto.query.get(id)
     quantidade = int(quantidade)
@@ -549,12 +579,14 @@ def addProdutoQuantidadeFim(id, quantidade):
     
 @app.route("/escolherProduto", methods=['GET', 'POST'])
 @login_required
+@user_type_required("dependente")
 def choseProduto():
     produtos = Produto.query.all()
     return render_template("escolherRemoverProduto.html", produtos=produtos)
 
 @app.route('/removerProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
+@user_type_required("funcionario", "adm")
 def removerProdutos(id):
     obj = Produto.query.get(id)
     db.session.delete(obj)
@@ -607,6 +639,7 @@ def criandoHistorico(id):
 
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
+@user_type_required("dependente")
 def comprarProduto(id):
 
     global rooms_users
@@ -662,6 +695,7 @@ def comprarProduto(id):
 
 @app.route('/homeDependente', methods=['GET', 'POST'])
 @login_required
+@user_type_required("dependente")
 def escolherProduto():
     produtos = Produto.query.all()
     return render_template("homeDependente.html", produtos =produtos)
