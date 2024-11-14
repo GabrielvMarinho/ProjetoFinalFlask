@@ -24,7 +24,9 @@
 
 </header>
 
-    <div class="bodyaddEstoque">
+    <div class="cardapioLista">
+        <h1 class="textAlign">Adicionar estoque</h1>
+        <div class="produtosEscolherRemover">
 
     {% for produto in produtos %}
 
@@ -38,6 +40,7 @@
         </div>
     
     {%endfor%}
+</div>
 </div>
 <script src="{{url_for('static', filename='adicionarEstoque.js')}}"></script>
 {%endblock%}

@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request, session, make_response
 from flask_socketio import SocketIO, join_room, emit, leave_room
 from projeto import app
 from projeto.forms import adicionarSaldoRespo, CadastroForm, confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
@@ -10,8 +10,8 @@ from sqlalchemy import desc
 from datetime import date
 from collections import defaultdict  # Certifique-se de importar defaultdict
 from functools import wraps
-
 from time import sleep
+
 cont = 0
 socketio = SocketIO(app)
 
@@ -579,7 +579,7 @@ def addProdutoQuantidadeFim(id, quantidade):
     
 @app.route("/escolherProduto", methods=['GET', 'POST'])
 @login_required
-@user_type_required("dependente")
+@user_type_required("funcionario", "adm")
 def choseProduto():
     produtos = Produto.query.all()
     return render_template("escolherRemoverProduto.html", produtos=produtos)

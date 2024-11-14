@@ -19,9 +19,10 @@
         <span class="close spanExclu">&times;</span>
     </div>
 </div>
+    <div class="cardapioLista">
+    <h1 class="textAlign">Escolha para remover</h1>
+    <form method="post" class="produtosEscolherRemover">
 
-    <form method="post" class="formRemovProduto">
-        
             {% for produto in produtos %}
             <div class="boxChoseLanche">
                 <h1>{{produto.lanche}}</h1>
@@ -34,6 +35,7 @@
             {%endfor%}
         
     </form>
+</div>
     <script src="{{url_for('static', filename='scriptModalConfirmar.js')}}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -144,6 +144,12 @@ background-color: rgb(255, 77, 77);
     padding-inline: 2.3vw;
     border-radius: 0.6vw;
     border: solid #66a4dd 0.2vw;
+    max-height: 2vw;
+}
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .adicionarButton{
     width: 3vw;
@@ -201,8 +207,8 @@ background-color: rgb(255, 77, 77);
     border-radius: 0.5vw;
     border: 0;
 
-
 }
+
 .modalAdicionarSaldo input{
     width: 9vw;
     height: 2vw;
@@ -279,20 +285,20 @@ thead th {
 }
 .boxChoseLanche h1{
     text-transform: uppercase;
-    font-size: 2vw;
+    font-size: 1.5vw;
     word-break: break-word;
     max-width: 90%;
     line-height: 2vw;
     color: rgba(255, 255, 255, 0.89);
     margin: 0;
 }
-.boxChoseDependent h1, .boxPedido h1{
+.boxChoseDependent h1, .boxPedido h1, .boxPedidoMaior h1{
     text-transform: uppercase;
     font-size: 1.6vw;
     color: rgba(255, 255, 255, 0.89);
 }
 
-.boxChoseDependent h2, .boxChoseLanche h2, .boxPedido h2{
+.boxChoseDependent h2, .boxChoseLanche h2, .boxPedido h2, .boxPedidoMaior h2{
     font-size: 1.5vw;
     color: #ffffff86;
 }
@@ -304,9 +310,9 @@ thead th {
     display: flex;
     flex-direction: column;
     margin: 3vw;
-    margin-left: 10vw;
+    margin-left: 5vw;
 
-    gap:2vw
+    gap:1.5vw
 }
 .perfildiv p{
     font-size: 1.5vw;
@@ -320,7 +326,7 @@ thead th {
     flex-direction: column;
     justify-content: space-around;
 }
-.boxPedido{
+.boxPedido, .boxPedidoMaior{
     max-width: 15vw;
     max-height: 15vw;
     padding: 3vw;
@@ -333,9 +339,12 @@ thead th {
     align-items: center;
     gap:0.7vw;
 }
+.boxPedidoMaior{
+    height: 23vw;
+}
 .boxChoseDependent, .boxChoseLanche{
-
-    padding: 3vw;
+    flex-grow: 0;
+    padding: 2vw;
     border: hsl(198, 40%, 46%) solid 0.2vw;
     background-color: hsl(197, 45%, 44%);
     display: flex;
@@ -343,7 +352,7 @@ thead th {
     border-radius: 1.2vw;
     justify-content:center;
     align-items: center;
-    gap:0.7vw;
+    gap:0.5vw;
     
 
 }
@@ -378,8 +387,8 @@ thead th {
     margin-bottom: 2vw;
 }
 .boxChoseLanche{
-    padding: 2vw;
-    min-width: 15vw;
+    padding: 1.5vw;
+    width: 14vw;
     padding-inline: 0;
     display: flex;
     flex-direction: column;
@@ -416,17 +425,17 @@ header h1{
     font-size: 1.7vw;
     color: #ffffff79;
 }
-.dadosLista p{
+.dadosLista p, .dadosListaHist p{
     color: #ffffff79;
 
 }
-.dadosLista div{
+.dadosLista div, .dadosListaHist div{
     background-color: #5aa1c057;
     margin-bottom: 1vw;
     padding: 1vw;
     border-radius: 0.5vw;
 }
-.dadosLista .saldoText{
+.dadosLista .saldoText, .dadosListaHist .saldoText{
     color: #ffffffef;
 
 }
@@ -540,6 +549,10 @@ a{
     animation: fadeIn 0.2s; /* Fade-in effect */
 
 }
+.column{
+    gap:1vw;
+    flex-direction: column;
+}
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -566,7 +579,7 @@ a{
         text-align: center;
         font-size: 6vw !important;
         margin-inline: auto;
-        width: 60vw;
+        width: 80vw;
         text-wrap: wrap;
     }
     .espaco{
@@ -601,6 +614,7 @@ a{
         padding: 2vw;
         padding-inline: 4vw;
         border-radius: 2vw;
+        max-height: 10vw;
     }
     .botaoDecremento{
         width: 50%;
@@ -613,6 +627,7 @@ a{
         margin-inline: auto;
 
     }
+    
     .bodyBaseResponsavel{
         margin-left: 0 !important;
         width: 100% !important;
@@ -1051,7 +1066,7 @@ form{
     align-items: center;
 
 }
-.dadosLista{
+.dadosLista, .dadosListaHist{
     padding: 1vw;
     padding-inline: 2vw;
     background-color: hsl(197, 45%, 44%);
@@ -1059,7 +1074,7 @@ form{
     justify-content: center;
 
 }
-.dadosLista{
+.dadosLista, .dadosListaHist{
 
     overflow: hidden;
     max-height: 20vw;
@@ -1068,6 +1083,9 @@ form{
 
 
 }
+.dadosListaHist{
+    width: 12vw;
+}
 .tableContainer{
     overflow: hidden;
     max-height: 30vw;
@@ -1075,16 +1093,16 @@ form{
 }
 
 
-.dadosLista::-webkit-scrollbar, .tableContainer::-webkit-scrollbar {
+.dadosLista::-webkit-scrollbar, .tableContainer::-webkit-scrollbar, .dadosListaHist::-webkit-scrollbar {
     width: 10px;  
 }
 
-.dadosLista::-webkit-scrollbar-track, .tableContainer::-webkit-scrollbar-track {
+.dadosLista::-webkit-scrollbar-track, .tableContainer::-webkit-scrollbar-track, .dadosListaHist::-webkit-scrollbar-track {
     background: #B0BEC5;  
     border-radius: 5px;  
 }
 
-.dadosLista::-webkit-scrollbar-thumb, .tableContainer::-webkit-scrollbar-thumb {
+.dadosLista::-webkit-scrollbar-thumb, .tableContainer::-webkit-scrollbar-thumb, .dadosListaHist::-webkit-scrollbar-thumb {
     background-color: #546E7A; 
     border-radius: 5px;     
     border: 2px solid #B0BEC5;
@@ -1093,13 +1111,40 @@ form{
     margin-left: 10.5%;
     width: 90%;
 }
+.cardapioListaSemMargin{
+    margin-top: 3vw;
+    margin-left: 10.5%;
+    width: 90%;
+}
+.cardapioLista{
+    margin-top: -5vw;
+    margin-left: 10.5%;
+    width: 90%;
+}
+.textAlign{
+text-align: center;
+margin-bottom: 2vw;
+}
+.fullHeight{
+    height: 100%;
+}   
+.produtosEscolherRemover{
+    margin-block: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap:1.5vw;
+    width: 95%;
+    margin-inline: auto;
 
+}
 .lista h1{
     margin: 1vw;
     font-size: 2vw;
 }
 .lista {
-    width: 20vw;
+    width: fit-content;
 }
 
 .bodyDependente2{

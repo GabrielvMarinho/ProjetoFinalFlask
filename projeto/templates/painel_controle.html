@@ -18,8 +18,8 @@
 <body onbeforeunload="return debug(event)">
     <div class="container">
         <div class="flexColumn">
-            <div>
-                <h1 class="hintPedido">A mudança de página causará a exclusão dos pedidos não resolvidos!</h1>
+            <div class="center">
+                <h1 class="hintPedido">A mudança de página causará o cancelamento dos pedidos não resolvidos!</h1>
                 <a class="botãoContainerVoltar" href="{{url_for('homeFunc')}}">Voltar</a>
 
             </div>
@@ -74,16 +74,15 @@
         socket.on("PedidoNovo", (obj) => {
             var pedidos = document.getElementById("pedidos");
             var div = document.createElement("div");
-            div.classList.add("boxPedido");
+            div.classList.add("boxPedidoMaior");
             div.innerHTML = `
-                <h2>${obj.id}</h2>
                 <h1>${obj.nome}</h1>
                 <h2>Código: ${obj.codigo}</h2>
                 <h2>Lanche: ${obj.lanche}</h2>
                 <h2>Quantidade: ${obj.quantidade}</h2>
-                <div>
-                <button onclick="confirmarPedido('${obj.id}', '${obj.quantidade}', '${obj.lanche}')">Confirmar Pedido</button>
-                <button onclick="excluirPedido('${obj.id}', '${obj.quantidade}', '${obj.lanche}')">Excluir Pedido</button>
+                <div class="center column">
+                <button class="botoesChoseDependent" onclick="confirmarPedido('${obj.id}', '${obj.quantidade}', '${obj.lanche}')">Confirmar Pedido</button>
+                <button class="botoesChoseDependent" onclick="excluirPedido('${obj.id}', '${obj.quantidade}', '${obj.lanche}')">Excluir Pedido</button>
                 </div>
                 `;
             

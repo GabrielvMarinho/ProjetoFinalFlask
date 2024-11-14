@@ -6,7 +6,10 @@
 
 
 {% block conteudo %}
-    <div class="bodyDependente">
+    <div class="cardapioListaSemMargin">
+        <h1 class="textAlign">Adicionar estoque</h1>
+
+        <div class="produtosEscolherRemover">
         {% for produto in produtos %}
                         {% if produto.quantidade>0 %}
                         <div class="boxChoseLanche">
@@ -18,4 +21,5 @@
                         {% endif %}
                     {%endfor%}
     </div>
+</div>
 {% endblock %}

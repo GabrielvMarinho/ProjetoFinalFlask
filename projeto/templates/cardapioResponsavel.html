@@ -9,7 +9,9 @@
 
 
 
-    <div class="bodyDependente">
+    <div class="bodyBaseResponsavel center">
+        <div class="produtosEscolherRemover">
+
         {% for produto in produtos %}
                         {% if produto.quantidade>0 %}
                         <div class="boxChoseLanche">
@@ -20,5 +22,6 @@
                         </div>
                         {% endif %}
                     {%endfor%}
+    </div>
     </div>
 {% endblock %}
