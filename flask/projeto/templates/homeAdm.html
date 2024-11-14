@@ -1,0 +1,119 @@
+
+
+{% extends 'baseAdm.html' %}
+
+{% block titulo %}
+    HOME
+{% endblock %}
+
+{% block conteudo %}
+<header class="headerFuncM">
+    
+
+    <div class="saldoHeader">
+        <h1>Logado como ADMIN</h1>
+    </div>
+    <a class="botãoContainerLogout" href="{{url_for('logout')}}">
+        SAIR
+    </a>
+</header>
+
+<section class="section_home_responsavel">
+        
+        <div class="divFunc">
+            
+            <div class="divCanvas">           
+                <div  class="canvaF">
+                    <h1 class="titCanv">LANCHES NO ESTOQUE</h1>
+                    <canvas id="myChart.1"></canvas>
+                </div>
+                <div  class="canvaF">
+                    <h1 class="titCanv">COMPRAS NO HISTÓRICO</h1>
+                    <canvas id="myChart.2"></canvas>
+                </div>
+            </div>
+
+        </div>  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    //conectando ao quarto do user específico
+
+    const ctx = document.getElementById('myChart.1');
+    const ctx1 = document.getElementById('myChart.2');
+
+    
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          label: 'UNIDADES',
+          data: {{ quantidadeEstoque|tojson }},
+          borderWidth: 1
+        }],
+        labels: {{ nomes|tojson }}
+
+      },
+      options: {
+        responive:true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+
+            labels: {
+                color: 'rgb(205, 220, 231)',
+
+
+                font: {
+                family: 'Arial',
+                size: 11,
+                weight: 'bold'
+
+                }
+            }
+            }
+        }
+        }
+      
+    });
+
+    new Chart(ctx1, {
+      type: 'pie',
+      data: {
+        datasets: [{
+          label: 'R$',
+          data: {{ listaHist|tojson }},
+          borderWidth: 1
+        }],
+        labels: {{ nomes1|tojson }}
+
+      },
+      options: {
+        responive:true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+
+            labels: {
+                color: 'rgb(205, 220, 231)',
+
+
+                font: {
+                family: 'Arial',
+                size: 11,
+                weight: 'bold'
+
+                }
+            }
+            }
+        }
+        }
+      
+    });
+    </script>
+
+</section>
+
+{%endblock%}

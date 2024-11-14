@@ -13,6 +13,8 @@ def load_user(user_id):
         return Dependente.query.get(int(user_id))
     elif user_type == 'funcionario':
         return Funcionario.query.get(int(user_id))
+    elif user_type == 'adm':
+        return ADM.query.get(int(user_id))
     return None
 
 class Dependente(db.Model, UserMixin):
@@ -65,16 +67,7 @@ class Funcionario(db.Model, UserMixin):
     email = db.Column(db.String(length=30), nullable=False, unique=True)
     senha = db.Column(db.String(length=30), nullable=False)
     user_type = 'funcionario'
-    @property
-    def senhacrip(self):
-        return self.senhacrip
-
-    @senhacrip.setter
-    def senhacrip(self, senha_texto):
-        self.senha = bcrypt.generate_password_hash(senha_texto).decode('utf-8')
-        
-    def converte_senha(self, senha_texto_claro):
-        return bcrypt.check_password_hash(self.senha, senha_texto_claro)
+    
     
     def getId(self):
         return self.id
@@ -97,5 +90,8 @@ class Historico(db.Model):
 
 
 class ADM(db.Model, UserMixin):
+    user_type = 'adm'
     id = db.Column(db.Integer, primary_key = True)
+    usuario = db.Column(db.Integer, nullable=False)
+    senha = db.Column(db.String, nullable=False)
     saldo = db.Column(db.Integer, nullable=False, unique=False, default=0)

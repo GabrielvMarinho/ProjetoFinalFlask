@@ -113,6 +113,50 @@ def cardapio_func():
 def cardapio():
     return render_template("cardapioResponsavel.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
 
+@app.route("/adicionarFuncionario", methods=['GET', 'POST'])
+@login_required
+def adicionarFuncionario():
+    form = CadastroForm()
+    funcionarios = Funcionario.query.all()
+    if form.validate_on_submit():
+        existing_usuario = Responsavel.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario1 = Dependente.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario2 = Funcionario.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario3 = ADM.query.filter_by(usuario=form.usuario.data).first()
+
+        if existing_usuario or existing_usuario1 or existing_usuario2 or existing_usuario3:
+            flash('Nome de usuário já existe!')
+            return redirect(url_for('adicionarFuncionario', form=form))
+        
+        existing_email = Responsavel.query.filter_by(email=form.email.data).first()
+        existing_email1 = Dependente.query.filter_by(email=form.email.data).first()
+        existing_email2 = Funcionario.query.filter_by(email=form.email.data).first()
+
+        if existing_email or existing_email1 or existing_email2:
+            flash("E-mail já cadastrado!")
+            return redirect(url_for('adicionarFuncionario', form=form))
+        
+        if '@gmail.com' not in form.email.data:
+            flash('E-mail inválido!')
+            return redirect(url_for('adicionarFuncionario', form=form))
+
+        if form.senha1.data != form.senha2.data:
+            flash("Senhas precisam ser IGUAIS!")
+            return redirect(url_for('adicionarFuncionario', form=form))
+
+        usuario = Funcionario(
+            usuario = form.usuario.data,
+            email = form.email.data,
+            senha = form.senha1.data,
+        )
+        db.session.add(usuario)
+        flash("Cadastro realizado", "notError")
+
+        db.session.commit()
+        return redirect(url_for("homeAdm"))
+    
+    return render_template("adicionarFuncionario.html", form=form, funcionarios=funcionarios)
+
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
 @login_required
 def adicionarDependente():
@@ -122,8 +166,9 @@ def adicionarDependente():
         existing_usuario = Responsavel.query.filter_by(usuario=form.usuario.data).first()
         existing_usuario1 = Dependente.query.filter_by(usuario=form.usuario.data).first()
         existing_usuario2 = Funcionario.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario3 = ADM.query.filter_by(usuario=form.usuario.data).first()
 
-        if existing_usuario or existing_usuario1 or existing_usuario2:
+        if existing_usuario or existing_usuario1 or existing_usuario2 or existing_usuario3:
             flash('Nome de usuário já existe!')
             return redirect(url_for('adicionarDependente', form=form))
         
@@ -166,8 +211,9 @@ def cadastro():
         existing_usuario = Responsavel.query.filter_by(usuario=form.usuario.data).first()
         existing_usuario1 = Dependente.query.filter_by(usuario=form.usuario.data).first()
         existing_usuario2 = Funcionario.query.filter_by(usuario=form.usuario.data).first()
+        existing_usuario3 = ADM.query.filter_by(usuario=form.usuario.data).first()
 
-        if existing_usuario or existing_usuario1 or existing_usuario2:
+        if existing_usuario or existing_usuario1 or existing_usuario2 or existing_usuario3:
             flash('Nome de usuário já existe!')
             return redirect(url_for('cadastro', form=form))
         
@@ -211,6 +257,8 @@ def login():
         usuario_logado = Responsavel.query.filter_by(usuario=form.usuario.data).first()
         dependente_logado = Dependente.query.filter_by(usuario=form.usuario.data).first()
         funcionario_logado = Funcionario.query.filter_by(usuario=form.usuario.data).first()
+        adm_logado = ADM.query.filter_by(usuario=form.usuario.data).first()
+
         if usuario_logado:
             if usuario_logado.converte_senha(senha_texto_claro=form.senha.data):
                 login_user(usuario_logado)
@@ -231,6 +279,15 @@ def login():
                 return redirect(url_for("homeFunc"))
             flash("Senha Incorreta!")
 
+        elif adm_logado:
+            print(adm_logado.senha)
+            print(form.senha.data)
+            if adm_logado.senha==form.senha.data:
+                login_user(adm_logado)
+                print(current_user)
+                session['user_type'] = 'adm'
+                return redirect(url_for("homeAdm"))
+            flash("Senha Incorreta!")
         
         else:
             flash("Usuário inexistente!")
@@ -239,8 +296,32 @@ def login():
 
     return render_template('index.html', form = form)
 
+@app.route("/homeAdm")
+@login_required
+def homeAdm():
+    funcionarios = Funcionario.query.all()
+    quantidadeEstoque = []
+    produtos = Produto.query.all()
+    nomes = []
+    for i in produtos:
+        quantidadeEstoque.append(i.quantidade)
+        nomes.append(i.lanche)
+
+    pessoas = Dependente.query.all()
+    nomes1 = []
+    listaHist=[]
+    for i in pessoas:
+        historico = (Historico.query.filter_by(idDependente=i.id))
+        soma = 0
+        nomes1.append(i.usuario)
+        for ii in historico:
+            soma +=ii.valor
+
+        listaHist.append(soma)
+    return render_template("homeAdm.html", funcionarios=funcionarios, quantidadeEstoque=quantidadeEstoque, nomes=nomes, listaHist=listaHist, nomes1=nomes1)
 
 @app.route("/historicoLanches")
+@login_required
 def historicoLaches():
     historicos=[]
     
@@ -263,8 +344,7 @@ def PerfilPage():
     for dependente in dependentes: 
         historicos.extend(Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all())
     return render_template('PerfilResponsavel.html', dependentes=dependentes, historicos=historicos) 
-    
-    
+     
 @app.route('/removerSaldo/<valor>/<id>', methods=['GET', 'POST'])
 @login_required
 def removSaldo(valor, id):
@@ -284,10 +364,7 @@ def removSaldo(valor, id):
         db.session.commit()
     
     return ""
-        
-    
-
-    
+           
 @app.route('/adicionarSaldo/<valor>/<id>', methods=['GET', 'POST'])
 @login_required
 def addSaldo(valor, id):
@@ -308,10 +385,6 @@ def addSaldo(valor, id):
     
     return ""
     
-
-    
-
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -453,7 +526,6 @@ def homeFunc():
 
     return render_template("homeFuncionario.html", quantidadeEstoque=quantidadeEstoque, nomes=nomes, listaHist=listaHist, nomes1=nomes1)
 
-
 @app.route("/adicionarEstoques", methods=['GET', 'POST'])
 @login_required
 def addProdutoQuantidade():
@@ -475,14 +547,11 @@ def addProdutoQuantidadeFim(id, quantidade):
     
     return ""
     
-    
-
 @app.route("/escolherProduto", methods=['GET', 'POST'])
 @login_required
 def choseProduto():
     produtos = Produto.query.all()
     return render_template("escolherRemoverProduto.html", produtos=produtos)
-
 
 @app.route('/removerProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -491,8 +560,7 @@ def removerProdutos(id):
     db.session.delete(obj)
     db.session.commit()
     return redirect(url_for("choseProduto"))
-     
-     
+       
 @socketio.on("mandarMensagemExclusao")
 def confirmarPedido(id, mensagem):
     socketio.emit("mostrarExclusao", mensagem, room="dependente"+id)
@@ -536,6 +604,7 @@ def criandoHistorico(id):
     db.session.add(historico)
     db.session.commit()
     return ""
+
 @app.route('/comprarProduto/<int:id>', methods=['GET', 'POST'])
 @login_required
 def comprarProduto(id):

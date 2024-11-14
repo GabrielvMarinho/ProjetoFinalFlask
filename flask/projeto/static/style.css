@@ -842,7 +842,7 @@ a{
     width: 100%;
     justify-content: center;
     align-items: start;
-    gap:6vw;
+    gap:3vw;
 }
 .containerFunc{
     display: flex;
@@ -1063,6 +1063,7 @@ form{
 
     overflow: hidden;
     max-height: 20vw;
+    width: 24vw;
     overflow-y: auto;
 
 
@@ -1101,7 +1102,10 @@ form{
     width: 20vw;
 }
 
-
+.bodyDependente2{
+    margin-top: 14vh;
+    width: 90%;
+}
 .bodyDependente{
     
     gap:5vw;

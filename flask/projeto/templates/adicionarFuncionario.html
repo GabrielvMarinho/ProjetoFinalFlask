@@ -1,19 +1,19 @@
 
 
-{% extends 'baseResponsavel.html' %}
+{% extends 'baseAdm.html' %}
 
 {% block titulo %}
     HOME
 {% endblock %}
 
     {%block conteudo%}
-        <div class="bodyDependente2">
+        <div class="bodyDependente">
             
             
             <div class="bodyaddDependente">  
                 <div class="containerCadastroDependente">
                     <h1> 
-                        Adicionar Dependente
+                        Adicionar Funcionário
                     </h1> 
                     <form method="POST" class="formsDependente" style="color: whitesmoke;"> 
             
@@ -48,17 +48,17 @@
                     </form>
                 </div>
                 <div class="lista">
-                    <h1>Lista de Dependentes</h1>
+                    <h1>Lista de Funcionários</h1>
                     
                     <div class="dadosLista">
 
-                    {% for i in dependentes%}    
+                    {% for i in funcionarios%} 
+
                     <div>
                         <p>Nome: <p class="saldoText">{{ i.usuario}}</p></p>
                         
                         <p>E-mail: <p class="saldoText">{{ i.email}}</p></p>
                         
-                        <p>Saldo: <p class="saldoText">{{ i.saldo}}</p></p>
                     </div>
                         
                     {% endfor%}

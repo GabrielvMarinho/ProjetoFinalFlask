@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0('static', filename='style.css')">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>
+        {%block titulo%}
+            MySnack
+        {%endblock%}
+    </title>
+
+</head>
+<div class="overlay">
+</div>
+<body>
+    
+
+        <div class="containerFunc">
+            <div class="sidebarResponsavel sidebarFuncionario">
+                <div><a href="{{url_for('homeFunc')}}"><img src="{{url_for('static', filename='imagens/RealLove.png')}}"><p style="text-align:center">MySnack</a></p></div>
+                <div><a href="{{url_for('addProduto')}}"><img src="{{url_for('static', filename='imagens/adicionarFunc.png')}}"><p>ADICIONAR PRODUTO</a></p></div>
+                <div><a href="{{url_for('choseProduto')}}"><img src="{{url_for('static', filename='imagens/.png')}}"><p>REMOVER PRODUTO</a></p></div>
+                <div><a href="{{url_for('addProdutoQuantidade')}}"><img src="{{url_for('static', filename='imagens/.png')}}"><p>ADICIONAR ESTOQUE</a></p></div>
+                <div><a href="{{url_for('historicoLaches')}}"><img src="{{url_for('static', filename='imagens/.svg')}}"><p>VISUALIZAR HISTÓRICO</a></p></div>
+                <div><a href="{{url_for('cardapio_func')}}"><img src="{{url_for('static', filename='imagens/cardapio.png')}}"><p>VISUALIZAR CARDÁPIO</a></p></div>
+                <div><a href="{{url_for('adicionarFuncionario')}}"><img src="{{url_for('static', filename='imagens/cardapio.png')}}"><p>NOVO FUNCIONÁRIO</a></p></div>
+
+            </div>
+            <div class="bodyBaseFuncionario">
+                
+                {% with messages = get_flashed_messages(with_categories=True) %}
+        
+        {% if messages %}
+
+            <div id="myModal" class="modal">
+                <ul>
+                    {% for category, i in messages %}    
+                        {% if category == 'notError' %}
+                        <div class="modal-content-NotError">
+                            <span class="close">&times;</span>
+                            <li class="mensagensErro">{{ i }}</li>
+                        </div>
+                            
+                        {% else %}
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <li class="mensagensErro">{{ i }}</li>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% endif %}
+        {% endwith %}
+    <script src="{{url_for('static', filename='modal.js')}}"></script>
+
+
+                {%block conteudo%}
+
+                
+                {%endblock%}
+                
+            </div>
+        </div>
+
+
+</body>
+</html>
+
