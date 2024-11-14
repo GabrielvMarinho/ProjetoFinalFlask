@@ -9,19 +9,20 @@
 
 
 
-    <div class="bodyBaseResponsavel center">
-        <div class="produtosEscolherRemover">
+<div class="cardapioListaPoucoMargin">
+    <h1 class="textAlign">Cardápio</h1>
 
-        {% for produto in produtos %}
-                        {% if produto.quantidade>0 %}
-                        <div class="boxChoseLanche">
-                            <h1>{{produto.lanche}}</h1>
-                            <h2>{{produto.valor}}</h2>
-                            <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
-        
-                        </div>
-                        {% endif %}
-                    {%endfor%}
-    </div>
-    </div>
+    <div class="produtosEscolherRemover">
+    {% for produto in produtos %}
+                    {% if produto.quantidade>0 %}
+                    <div class="boxChoseLanche">
+                        <h1>{{produto.lanche}}</h1>
+                        <h2>{{produto.valor}}</h2>
+                        <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
+    
+                    </div>
+                    {% endif %}
+                {%endfor%}
+</div>
+</div>
 {% endblock %}
