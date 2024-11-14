@@ -1024,8 +1024,9 @@ form{
     display: flex;
     height: 57%;
     justify-content: center;
-    gap:10vw;
+    gap:3vw;
     align-items: center;
+    margin-left: 10%;
 }
 .dadosReponsavel1{
     display: flex;
