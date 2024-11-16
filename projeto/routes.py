@@ -11,12 +11,24 @@ from datetime import date
 from collections import defaultdict  # Certifique-se de importar defaultdict
 from functools import wraps
 from time import sleep
+from projeto.__init__ import s, mail
+from flask_mail import Mail, Message
 
 cont = 0
 socketio = SocketIO(app)
 
 rooms_users = defaultdict(set) 
 
+@app.route("/sendEmail")
+def sendEmail():
+    
+
+    return token
+
+@app.route("/confirmEmail/<token>")
+def confirmEmail(token):
+    email = s.loads(token, salt="email-confirm", max_age=60)
+    return "it works"
 
 def user_type_required(*allowed_types):
     def decorator(f):
@@ -220,6 +232,22 @@ def adicionarDependente():
     
     return render_template("adicionarDependente.html", form=form, dependentes=dependentes)
 
+
+@app.route("/cadastroFinal/<usuario1>/<email1>/<senhacrip1>")
+def cadastroFinal(usuario1, email1, senhacrip1):
+
+    usuario = Responsavel(
+        usuario = usuario1,
+        email = email1,
+        senhacrip = senhacrip1
+    )
+        
+    db.session.add(usuario)
+    flash("Cadastro realizado", "notError")
+
+    db.session.commit()
+        
+    return redirect(url_for('login'))
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     form = CadastroForm()
@@ -251,20 +279,20 @@ def cadastro():
             flash("Senhas precisam ser IGUAIS!")
             return redirect(url_for('cadastro', form=form))
 
-        
-        usuario = Responsavel(
-            usuario = form.usuario.data,
-            email = form.email.data,
-            senhacrip = form.senha1.data
-        )
-        
-        db.session.add(usuario)
-        flash("Cadastro realizado", "notError")
 
-        db.session.commit()
+
         
-        return redirect(url_for('login'))
-    
+        token = s.dumps(form.email.data, salt="email-confirm")
+
+        msg = Message("Confirm Email", sender="suporte.my.snack@gmail.com", recipients=[form.email.data])
+
+        link = url_for("cadastroFinal", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data,  token=token, _external=True)
+
+        msg.body = "Seu link de confirmação é "+link
+
+        mail.send(msg)
+        
+        flash("Clique no link de confirmação no E-mail para criar sua conta!", "notError")
     
     return render_template("cadastro.html", form=form)
 
