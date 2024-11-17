@@ -141,6 +141,31 @@ def cardapio_func():
 def cardapio():
     return render_template("cardapioResponsavel.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
 
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/adicionarFuncionarioFim/<usuario1>/<email1>/<senhacrip1>")
+def adicionarFuncionarioFim(usuario1, email1, senhacrip1):
+    usuario = Funcionario(
+        usuario = usuario1,
+        email = email1,
+        senha = senhacrip1,
+    )
+    db.session.add(usuario)
+    flash("Cadastro realizado", "notError")
+
+    db.session.commit()
+    return redirect(url_for("homeAdm"))
+
+
 @app.route("/adicionarFuncionario", methods=['GET', 'POST'])
 @login_required
 @user_type_required("adm")
@@ -173,16 +198,21 @@ def adicionarFuncionario():
             flash("Senhas precisam ser IGUAIS!")
             return redirect(url_for('adicionarFuncionario', form=form))
 
-        usuario = Funcionario(
-            usuario = form.usuario.data,
-            email = form.email.data,
-            senha = form.senha1.data,
-        )
-        db.session.add(usuario)
-        flash("Cadastro realizado", "notError")
 
-        db.session.commit()
-        return redirect(url_for("homeAdm"))
+        token = s.dumps(form.email.data, salt="email-confirm")
+
+        msg = Message("Confirm Email", sender="suporte.my.snack@gmail.com", recipients=[form.email.data])
+
+        link = url_for("adicionarFuncionarioFim", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data,  token=token, _external=True)
+
+        msg.body = "Seu link de confirmação é "+link
+
+        mail.send(msg)
+        
+        flash("Clique no link de confirmação no E-mail para criar conta de Funcionário!", "notError")
+
+
+        
     
     return render_template("adicionarFuncionario.html", form=form, funcionarios=funcionarios)
 
@@ -239,7 +269,7 @@ def adicionarDependente():
 
         msg = Message("Confirm Email", sender="suporte.my.snack@gmail.com", recipients=[form.email.data])
 
-        link = url_for("adicionarDependenteFim", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data, id = current_user.id, token=token, _external=True)
+        link = url_for("adicionarFuncionarioFim", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data, token=token, _external=True)
 
         msg.body = "Seu link de confirmação é "+link
 
