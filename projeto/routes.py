@@ -186,6 +186,22 @@ def adicionarFuncionario():
     
     return render_template("adicionarFuncionario.html", form=form, funcionarios=funcionarios)
 
+
+
+@app.route("/adicionarDependenteFim/<usuario1>/<email1>/<senhacrip1>/<id>")
+def adicionarDependenteFim(usuario1, email1, senhacrip1, id):
+    usuario = Dependente(
+        usuario = usuario1,
+        email = email1,
+        senhacrip = senhacrip1,
+        idResponsavel = id
+    )
+    db.session.add(usuario)
+    flash("Cadastro realizado", "notError")
+
+    db.session.commit()
+    return redirect(url_for("homeResponsavel"))
+
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
 @login_required
 @user_type_required("responsavel")
@@ -218,17 +234,20 @@ def adicionarDependente():
             flash("Senhas precisam ser IGUAIS!")
             return redirect(url_for('adicionarDependente', form=form))
 
-        usuario = Dependente(
-            usuario = form.usuario.data,
-            email = form.email.data,
-            senhacrip = form.senha1.data,
-            idResponsavel = current_user.id
-        )
-        db.session.add(usuario)
-        flash("Cadastro realizado", "notError")
 
-        db.session.commit()
-        return redirect(url_for("homeResponsavel"))
+        token = s.dumps(form.email.data, salt="email-confirm")
+
+        msg = Message("Confirm Email", sender="suporte.my.snack@gmail.com", recipients=[form.email.data])
+
+        link = url_for("adicionarDependenteFim", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data, id = current_user.id, token=token, _external=True)
+
+        msg.body = "Seu link de confirmação é "+link
+
+        mail.send(msg)
+        
+        flash("Clique no link de confirmação no E-mail para criar conta de dependente!", "notError")
+
+        
     
     return render_template("adicionarDependente.html", form=form, dependentes=dependentes)
 
@@ -248,6 +267,8 @@ def cadastroFinal(usuario1, email1, senhacrip1):
     db.session.commit()
         
     return redirect(url_for('login'))
+
+
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     form = CadastroForm()
@@ -278,9 +299,6 @@ def cadastro():
         if form.senha1.data != form.senha2.data:
             flash("Senhas precisam ser IGUAIS!")
             return redirect(url_for('cadastro', form=form))
-
-
-
         
         token = s.dumps(form.email.data, salt="email-confirm")
 
