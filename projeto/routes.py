@@ -19,17 +19,6 @@ socketio = SocketIO(app)
 
 rooms_users = defaultdict(set) 
 
-@app.route("/sendEmail")
-def sendEmail():
-    
-
-    return token
-
-@app.route("/confirmEmail/<token>")
-def confirmEmail(token):
-    email = s.loads(token, salt="email-confirm", max_age=60)
-    return "it works"
-
 def user_type_required(*allowed_types):
     def decorator(f):
         @wraps(f)
@@ -515,6 +504,18 @@ def mudarSenha():
 
     return render_template('mudar-senha.html', form=form)
 
+
+
+@app.route("/atualizarFim/<id1>/<usuario>/<email>")
+def atualizarFim(id1, usuario, email):
+    mudar_nome = Responsavel.query.get_or_404(id1)
+    mudar_nome.usuario = usuario
+    mudar_nome.email = email
+    db.session.commit()
+    flash("Usuário atualizado", "notError")
+    return redirect(url_for('homeResponsavel', id=mudar_nome.id))
+
+
 @app.route('/atualizar<int:id>', methods=['POST', 'GET'])
 @login_required
 @user_type_required("responsavel")
@@ -554,12 +555,14 @@ def atualizar(id):
             return redirect(url_for('atualizar', id=id))
 
         else:
-            mudar_nome.usuario = novo_usuario
-            mudar_nome.email = novo_email
-            db.session.commit()
-            flash("Usuário atualizado", "notError")
-            return redirect(url_for('homeResponsavel', id=mudar_nome.id))
+            
+            token = s.dumps(novo_email, salt="email-confirm")
+            msg = Message("Confirm Email", sender="suporte.my.snack@gmail.com", recipients=[novo_email])
+            link = url_for("atualizarFim", id1 = id,  usuario = novo_usuario, email = novo_email,  token=token, _external=True)
+            msg.body = "Seu link de confirmação é "+link
 
+            mail.send(msg)
+            flash("Clique no link de confirmação no E-mail para criar trocar o E-mail!", "notError")
     
     return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
     
