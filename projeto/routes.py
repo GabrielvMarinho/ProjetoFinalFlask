@@ -647,6 +647,31 @@ def addProdutoQuantidade():
     form = confirmarForm()
     return render_template("adicionarEstoque.html", produtos = produtoSemEstoque, form=form)
 
+
+
+
+@app.route("/retirarEstoqueFim/<id>/<quantidade>", methods=['GET', 'POST'])
+@login_required
+@user_type_required("funcionario", "adm")
+def retirarQuantidadeFim(id, quantidade):  
+    produto = Produto.query.get(id)
+    quantidade = int(quantidade)
+    if(quantidade>produto.quantidade):
+        flash("Estoque insuficiente!")
+
+    elif(quantidade>0):
+        produto.quantidade -= quantidade
+        db.session.commit()
+        flash("Estoque atualizado!", "notError")
+    else:
+        flash("Digite um valor válido!")
+    
+    return ""
+
+
+
+
+
 @app.route("/adicionarEstoqueFim/<id>/<quantidade>", methods=['GET', 'POST'])
 @login_required
 @user_type_required("funcionario", "adm")

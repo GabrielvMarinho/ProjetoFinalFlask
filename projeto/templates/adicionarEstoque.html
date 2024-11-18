@@ -3,7 +3,7 @@
 {% extends 'baseFuncionario.html' %}
 
 {% block titulo %}
-    Adicionar Estoque
+    Mudar Estoque
 {% endblock %}
 
 {% block conteudo %}
@@ -20,12 +20,28 @@
     </ul>
 </div>
 
+<div id="myModalEstoqueDelete" class="modal">
+    <ul>
+            <div class="modalAdicionarSaldo">
+                <h1>Digite o estoque retirado:</p>
+                  <div class="flexJ">
+                      <input type="number" id="estoqueAmountDelete" placeholder="Quantidade">
+                      <button type="button" class="buttonConfirmDepo" onclick="submitEstoqueDelete()">Adicionar</button>
+                    <span class="closeEstoqueDel">&times;</span>
+                  </div>
+            </div>
+    </ul>
+</div>
+
+
+
+
 <header>
 
 </header>
 
     <div class="cardapioLista">
-        <h1 class="textAlign">Adicionar estoque</h1>
+        <h1 class="textAlign">Mudar estoque</h1>
         <div class="produtosEscolherRemover">
 
     {% for produto in produtos %}
@@ -34,6 +50,8 @@
             <h1>{{produto.lanche}}</h1>
             <h2>{{produto.valor}}</h2>
             <a class="botoesChoseLanche" onclick = "adicionarEstoqueModal({{produto.id}})" >+ ESTOQUE</a>
+            <a class="botoesChoseLanche" onclick = "retirarEstoqueModal({{produto.id}})" >- ESTOQUE</a>
+
             <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
             
 
