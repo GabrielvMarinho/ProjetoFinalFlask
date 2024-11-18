@@ -520,6 +520,12 @@ def atualizarFim(id1, usuario, email):
 @login_required
 @user_type_required("responsavel")
 def atualizar(id):
+    dependentes = Dependente.query.filter_by(idResponsavel=current_user.id).all()
+    historicos = []
+    for dependente in dependentes: 
+        historicos.extend(Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all())
+    print(historicos)
+    
     form = CadastroForm()
     mudar_nome = Responsavel.query.get_or_404(id)
     if request.method=="POST":
@@ -564,7 +570,7 @@ def atualizar(id):
             mail.send(msg)
             flash("Clique no link de confirmação no E-mail para criar trocar o E-mail!", "notError")
     
-    return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id)
+    return render_template('atualizar.html', form=form, mudar_nome=mudar_nome, id=id, dependentes=dependentes, historicos=historicos)
     
 @app.route('/escolherDependente', methods=['GET', 'POST'])
 @login_required

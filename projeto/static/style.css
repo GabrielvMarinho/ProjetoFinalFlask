@@ -318,7 +318,7 @@ thead th {
     gap:1.5vw
 }
 .perfildiv p{
-    font-size: 1.5vw;
+    font-size: 1vw;
 
 }
 .perfildiv strong{
@@ -430,6 +430,7 @@ header h1{
 }
 .dadosLista p, .dadosListaHist p{
     color: #ffffff79;
+    font-size: 1.1vw;
 
 }
 .dadosLista div, .dadosListaHist div{
@@ -910,7 +911,8 @@ a{
 .containerAtualizarDados{
     display: flex;
     flex-direction: column;
-    margin-left: 10vw;
+    margin: 2vw;
+    margin-left: 8vw;
     gap:1vw
 }
  .containerAdicionarSaldo{
