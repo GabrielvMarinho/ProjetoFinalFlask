@@ -37,6 +37,19 @@ def conectar_operador(id):
     rooms_users[id].add(current_user.usuario) 
 
    
+
+
+@app.route("/removerFuncionario/<id>", methods=["POST", "GET"])
+def removerFuncionario(id):
+    id = int(id)
+    funcionario = Funcionario.query.get(id)
+    print(funcionario)
+    db.session.delete(funcionario)
+    db.session.commit()
+    return redirect(url_for("adicionarFuncionario"))
+
+
+
 @app.route("/paginamensagens")
 @login_required
 @user_type_required("funcionario", "adm")
@@ -123,6 +136,11 @@ def adicionarSaldoResponsavel(saldo):
 @user_type_required("funcionario", "adm")
 def cardapio_func():
     return render_template("cardapioFuncionario.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
+
+@app.route("/cardapio_adm")
+def cardapio_adm():
+    return render_template("cardapioAdm.html", produtos = Produto.query.filter(Produto.quantidade>0).all())
+
 
 @app.route("/cardapio")
 @login_required
@@ -409,17 +427,24 @@ def homeAdm():
 @user_type_required("funcionario", "adm")
 def historicoLaches():
     historicos=[]
-    
     historicos=[]
-    
-    
-    
     historico_dependente = Historico.query.order_by(desc(Historico.id)).all()
     historicos.extend(historico_dependente)
-
-
-
     return render_template("historicoFunc.html", historicos=historicos)
+
+
+
+@app.route("/historicoLanchesAdm")
+@login_required
+@user_type_required("funcionario", "adm")
+def historicoLachesAdm():
+    historicos=[]
+    historicos=[]
+    historico_dependente = Historico.query.order_by(desc(Historico.id)).all()
+    historicos.extend(historico_dependente)
+    return render_template("historicoAdm.html", historicos=historicos)
+
+
 
 @app.route('/perfil')
 @login_required
@@ -608,6 +633,36 @@ def addProduto():
         return redirect(url_for("homeFunc"))
     return render_template("adicionarProduto.html", form = form, produtos=produtos)
 
+
+
+
+@app.route("/addProdutoAdm", methods=['GET', 'POST'])
+def addProdutoAdm():
+    form = adicionarProduto()
+    produtos = Produto.query.all()
+    
+    if form.validate_on_submit():
+        produtoExiste = Produto.query.filter_by(lanche = form.lanche.data).first()
+        
+        if(produtoExiste):
+            flash("Produto com nome existente!")
+            return redirect(url_for("addProdutoAdm"))
+        else:
+            
+            produto = Produto(
+                lanche = form.lanche.data,
+                valor = form.valor.data,
+                quantidade = form.quantidade.data
+            )
+            
+            db.session.add(produto)
+            db.session.commit()
+            flash("Produto adicionado!", "notError")
+        return redirect(url_for("homeAdm"))
+    return render_template("adicionarProdutoAdm.html", form = form, produtos=produtos)
+
+
+
 @app.route('/homeFunc', methods=['GET', 'POST'])
 @login_required
 @user_type_required("funcionario", "adm")
@@ -648,6 +703,13 @@ def addProdutoQuantidade():
     return render_template("adicionarEstoque.html", produtos = produtoSemEstoque, form=form)
 
 
+@app.route("/adicionarEstoquesAdm", methods=['GET', 'POST'])
+@login_required
+@user_type_required("funcionario", "adm")
+def addProdutoQuantidadeAdm():
+    produtoSemEstoque = Produto.query.all()
+    form = confirmarForm()
+    return render_template("adicionarEstoqueAdm.html", produtos = produtoSemEstoque, form=form)
 
 
 @app.route("/retirarEstoqueFim/<id>/<quantidade>", methods=['GET', 'POST'])
@@ -687,12 +749,34 @@ def addProdutoQuantidadeFim(id, quantidade):
     
     return ""
     
+
+
+@app.route("/escolherRemoverProdutoAdm")
+def choseProdutoAdm():
+    produtos = Produto.query.all()
+    return render_template("escolherRemoverProdutoAdm.html", produtos=produtos)
+
+
+
+@app.route('/removerProdutoAdm/<int:id>', methods=['GET', 'POST'])
+@login_required
+@user_type_required("funcionario", "adm")
+def removerProdutosAdm(id):
+    obj = Produto.query.get(id)
+    db.session.delete(obj)
+    db.session.commit()
+    return redirect(url_for("choseProdutoAdm"))
+       
+
+
+
 @app.route("/escolherProduto", methods=['GET', 'POST'])
 @login_required
 @user_type_required("funcionario", "adm")
 def choseProduto():
     produtos = Produto.query.all()
     return render_template("escolherRemoverProduto.html", produtos=produtos)
+
 
 @app.route('/removerProduto/<int:id>', methods=['GET', 'POST'])
 @login_required

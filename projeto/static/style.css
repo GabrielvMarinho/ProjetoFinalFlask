@@ -15,17 +15,17 @@ button, a{
     font-size: 1.5vw;
     color: rgba(255, 255, 255, 0.726);
 }
-#modalConfirmar h2{
+#modalConfirmar h2, #modalConfirmarExcluFunc h2{
     font-size: 1.5vw;
     font-weight: 600;
     
 }
-#modalConfirmar h3{
+#modalConfirmar h3, #modalConfirmarExcluFunc h3{
     margin-top: 0.8vw;
 }
 
 
-#modalConfirmar{
+#modalConfirmar, #modalConfirmarExcluFunc{
     display: none;
     position: absolute;
     background-color: rgb(255, 77, 77);

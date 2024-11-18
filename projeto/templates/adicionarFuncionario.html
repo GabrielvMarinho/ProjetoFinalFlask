@@ -7,8 +7,20 @@
 {% endblock %}
 
     {%block conteudo%}
-        <div class="bodyDependente">
+        
+    <div id="modalConfirmarExcluFunc">
+        <h1>DESEJA REALMENTE EXCLUIR ESSA CONTA??</h1>
+        <h2 id="nomeProduto"></h2>
+        <div class="flexJ">
+            <button class="buttonConfirm" onclick="confirmarDelFunc()">SIM</button>
+            <span class="close spanExcluFunc">&times;</span>
+        </div>
+    </div>
+    
+    <div class="bodyDependente">
+
             
+
             
             <div class="bodyaddDependente">  
                 <div class="containerCadastroDependente">
@@ -58,11 +70,14 @@
                         <p>Nome: <p class="saldoText">{{ i.usuario}}</p></p>
                         
                         <p>E-mail: <p class="saldoText">{{ i.email}}</p></p>
-                        
+
+                        <button onclick="mostrarModalDeletar({{ i.id}}, '{{ i.usuario}}')">Deletar Conta</button>
                     </div>
+
                         
                     {% endfor%}
                     <div>
+    <script src="{{url_for('static', filename='DeletarFuncionarioModal.js')}}"></script>
 
                 </div>
             </div>

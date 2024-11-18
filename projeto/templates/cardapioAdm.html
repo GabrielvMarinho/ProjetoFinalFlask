@@ -1,0 +1,25 @@
+{% extends 'baseAdm.html'%}
+
+{%block titulo%}
+    Cardápio
+{%endblock%}
+
+
+{% block conteudo %}
+    <div class="cardapioListaSemMargin">
+        <h1 class="textAlign">Cardápio</h1>
+
+        <div class="produtosEscolherRemover">
+        {% for produto in produtos %}
+                        {% if produto.quantidade>0 %}
+                        <div class="boxChoseLanche">
+                            <h1>{{produto.lanche}}</h1>
+                            <h2>{{produto.valor}}</h2>
+                            <h3 class="estoquetxt">estoque: {{produto.quantidade}}</h3>
+        
+                        </div>
+                        {% endif %}
+                    {%endfor%}
+    </div>
+</div>
+{% endblock %}

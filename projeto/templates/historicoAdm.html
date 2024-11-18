@@ -1,0 +1,40 @@
+{% extends 'baseAdm.html' %}
+
+{% block titulo %}
+    Histórico
+{% endblock %}
+
+{% block conteudo %}
+<section class="historicoListagem">
+    <h1 class="tituloHistorico">Histórico de Compras</h1>
+
+    <div class="tableContainer">
+
+    <table>
+
+    <thead>
+        <tr>
+            <th>Nome Usuário</th>
+            <th>Produto</th>
+            <th>Data</th>
+            <th>Total</th>
+            <th>Quantidade</th>
+
+        </tr>
+    </thead>
+    <tbody>
+            {% for historico in historicos %}
+            <tr>
+                <td>{{ historico.nomeDependente }}</td>
+                <td>{{ historico.nomeProduto }}</td>
+                <td>{{ historico.data }}</td>
+                <td>${{ historico.valor }}</td>
+                <td>{{ historico.quantidade }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+</section>
+
+{%endblock%}

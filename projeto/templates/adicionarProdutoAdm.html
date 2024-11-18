@@ -1,0 +1,67 @@
+
+
+{% extends 'baseAdm.html' %}
+
+{% block titulo %}
+    Adicionar Produto
+{% endblock %}
+
+{% block conteudo %}
+<header>
+    
+</header>
+
+<section class="section_adicionar_estoque">
+
+    <form method="POST" class="formsDependente">
+        <h1 class="tituloComprarProduto">Adicionar Produto</h1>
+        {{ form.hidden_tag() }}
+        <div class="flex">
+        {{form.lanche.label(class="labelLogin")}}
+        {{form.lanche(class="formsLoginBox", placeholder="Nome")}}
+        </div>
+        <div class="flex">
+
+        {{form.valor.label(class="labelLogin")}}
+        {{form.valor(class="formsLoginBox", placeholder="Valor")}}
+    </div>
+
+        <div class="flex">
+
+        {{form.quantidade.label(class="labelLogin")}}
+        {{form.quantidade(class="formsLoginBox", placeholder="Quantidade")}}
+    </div>
+
+        {{form.submit(class="botãoContainer1")}}
+
+    </form>
+
+    <div class="lista">
+        <h1>Lista de Produtos</h1>
+        
+        <div class="dadosLista">
+
+        {% for i in produtos %}   
+        <div>
+ 
+            <p>Nome: <p class="saldoText">{{ i.lanche}}</p></p>
+            
+            <p>Preço: <p class="saldoText">{{ i.valor}}</p></p>
+            
+            <p>Estoque: <p class="saldoText">{{ i.quantidade}}</p></p>
+        
+        </div>
+
+        {% endfor%}
+        <div>
+
+    </div>
+</section>
+<footer>
+    
+    
+
+</footer>
+
+
+{%endblock%}
