@@ -562,6 +562,27 @@ a{
     to { opacity: 1; }
 }
 @media (max-width: 800px){
+    .bodyChoseDependent form{
+        flex-direction: column;
+    }
+    
+    .lista h1{
+        font-size: 5vw !important;
+    }
+    .dadosLista, .dadosListaHist{
+        width: 80% !important;
+        max-height: 50% !important;
+        margin-inline: auto;
+    }
+    .dadosLista p, .dadosListaHist p{
+        font-size: 3vw;
+    }
+    .bodyaddDependente{
+        margin-left:5vw;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-direction: column !important;
+    }
     .hintPedido{
         text-align: center;
         font-size: 3.5vw;
@@ -713,6 +734,13 @@ a{
     .boxChoseDependent h1{
         font-size: 4vw;
 
+    }
+    .modalAdicionarSaldo{
+
+    }
+    .boxChoseDependent{
+        width: 100% !important;
+        height: 39% !important;
     }
     .botoesChoseLanche{
         width: 25vw;
