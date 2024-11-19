@@ -27,5 +27,10 @@ function confirmarDelFunc(){
     fetch(`/removerFuncionario/${parseInt(idFunc)}`, {
         method: 'POST', 
     })
+    modalDelFunc.style.display = "none";
+    location.reload();
+
+
+
 
 }

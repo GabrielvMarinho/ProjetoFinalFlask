@@ -20,11 +20,27 @@ button, a{
     font-weight: 600;
     
 }
+#modalConfirmarExcluConta h1{
+    font-size: 2vw;
+    font-weight: 700;
+}
 #modalConfirmar h3, #modalConfirmarExcluFunc h3{
     margin-top: 0.8vw;
 }
+#modalConfirmarExcluConta h3{
+    margin-top: 0.8vw;
 
-
+}
+#modalConfirmarExcluConta{
+    display: none;
+    background-color: rgb(255, 77, 77);
+    padding: 2vw;
+    padding-inline: 1.5vw;
+    margin: 1vw;
+    border-radius: 0.5vw;
+    padding-inline: 3vw;
+    z-index: 1000;
+}
 #modalConfirmar, #modalConfirmarExcluFunc{
     display: none;
     position: absolute;
@@ -1309,7 +1325,7 @@ table {
     background-color: rgb(0,0,0); /* Cor de fundo */
     background-color: rgba(0,0,0,0.4); /* Fundo semi-transparente */
 }
-.modalFeedback.show{
+.modalFeedback.show, #modalConfirmarExcluConta.show{
     display: block;
     opacity: 1;
     animation: fadeIn 0.2s;

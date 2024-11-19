@@ -37,10 +37,20 @@ def conectar_operador(id):
     rooms_users[id].add(current_user.usuario) 
 
    
+@app.route("/excluirContaPropria", methods=["POST", "GET"])
+def excluirContaPropria():
+    resp = Responsavel.query.get(current_user.id)
+    for i in Dependente.query.all():
+        if i.idReponsavel == resp.id:
+            db.session.delete(i)
+    db.session.delete(resp)
+    db.session.commit()
+    return redirect(url_for("login"))
 
 
-@app.route("/removerFuncionario/<id>", methods=["POST", "GET"])
+@app.route("/removerFuncionario/<int:id>", methods=["POST", "GET"])
 def removerFuncionario(id):
+    
     id = int(id)
     funcionario = Funcionario.query.get(id)
     print(funcionario)
@@ -159,8 +169,11 @@ def cardapio():
 
 
 
-@app.route("/adicionarFuncionarioFim/<usuario1>/<email1>/<senhacrip1>")
-def adicionarFuncionarioFim(usuario1, email1, senhacrip1):
+@app.route("/adicionarFuncionarioFim/<usuario1>/<email1>/<senhacrip1>/<token>")
+def adicionarFuncionarioFim(usuario1, email1, senhacrip1, token):
+
+
+
     usuario = Funcionario(
         usuario = usuario1,
         email = email1,
@@ -276,7 +289,7 @@ def adicionarDependente():
 
         msg = Message("Confirm Email", sender="suporte.my.snack@gmail.com", recipients=[form.email.data])
 
-        link = url_for("adicionarFuncionarioFim", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data, token=token, _external=True)
+        link = url_for("adicionarDependenteFim", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data, token=token, _external=True)
 
         msg.body = "Seu link de confirmação é "+link
 

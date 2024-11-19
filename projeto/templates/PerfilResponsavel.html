@@ -5,6 +5,17 @@
 {%endblock%}
 
 {%block conteudo%}
+
+<div id="modalConfirmarExcluConta">
+    <h1>DESEJA EXCLUIR SUA CONTA?</h1>
+    <h1>Essa ação é permanente e não pode ser revertida.</h1>
+    <div class="flexJ">
+        <button class="buttonConfirm" onclick="confirmarExcluConta()">EXCLUIR</button>
+        <span class="close spanExcluConta">&times;</span>
+    </div>
+</div>
+
+
 <div id="myModalDepo" class="modal">
     <ul>
             <div class="modalAdicionarSaldo">
@@ -18,6 +29,8 @@
             </div>
     </ul>
 </div>
+
+
 <script src="{{url_for('static', filename='saldoModal.js')}}"></script>
 
 <header>
@@ -26,6 +39,8 @@
 
         <img onclick="adicionarSaldoModal()" class="adicionarButton" src="{{url_for('static', filename='imagens/adicionar.png')}}">
       </div>
+
+    
     <div class="saldoHeader">
         <h1>Saldo: </h1>
         <p class="saldoText">{{current_user.saldo}}</p>
@@ -38,6 +53,8 @@
         <a class="botãoContainerLogout" href="{{url_for('logout')}}">
             SAIR
     </a>
+    <a class="botãoContainerLogout" onclick="confirmarExclusao()">Excluir conta</a>
+
     </div>
     
     
@@ -98,5 +115,8 @@
 
         </div>
 
-</section>    
+</section>  
+
+<script src="{{url_for('static', filename='excluirContaPropria.js')}}"></script>
+
 {%endblock%}
