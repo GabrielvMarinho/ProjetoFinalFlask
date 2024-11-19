@@ -22,13 +22,11 @@ window.onclick = function(event) {
 // Function to submit the deposit amount (optional functionality)
 function submitDeposit() {
     const depositAmount = document.getElementById("depositAmount").value;
-    console.log(depositAmount)
         fetch(`/adicionarSaldoResponsavel/${parseInt(depositAmount)}`, {
           method: 'POST', 
       })  .then(() => {
 
         modalDeposito.classList.remove("show");
-        console.log("tirando aq")
         window.location.href = window.location.href
 
 

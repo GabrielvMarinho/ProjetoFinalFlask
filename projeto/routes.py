@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, request, session, m
 from flask_socketio import SocketIO, join_room, emit, leave_room
 from projeto import app
 from projeto.forms import adicionarSaldoRespo, CadastroForm, confirmarFormQuantidade, removerProduto, LoginForm, SaldoForm, adicionarProduto, confirmarForm
-from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico, ADM
+from projeto.models import Responsavel, Funcionario, Dependente, Produto, Historico, ADM, sala
 from projeto import db
 from flask_login import login_user, logout_user, current_user, login_required
 from bcrypt import _bcrypt, hashpw
@@ -32,9 +32,10 @@ def user_type_required(*allowed_types):
 
 @socketio.on("user_join")
 def conectar_operador(id):
-    print("entrou")
     join_room(id)
-    rooms_users[id].add(current_user.usuario) 
+    sala1 = sala.query.get(1)
+    sala1.Cheio = True
+    db.session.commit()
 
    
 @app.route("/excluirContaPropria", methods=["POST", "GET"])
@@ -52,7 +53,6 @@ def excluirContaPropria():
 def removerFuncionario(id):
     id = int(id)
     funcionario = Funcionario.query.get(id)
-    print(funcionario)
     db.session.delete(funcionario)
     db.session.commit()
     return redirect(url_for("adicionarFuncionario"))
@@ -250,7 +250,6 @@ def adicionarDependenteFim(usuario1, email1, senhacrip1, id):
     flash("Cadastro realizado", "notError")
     db.session.commit()
     
-    print("deu certo")
 
     return redirect(url_for("homeResponsavel"))
 
@@ -396,11 +395,8 @@ def login():
             flash("Senha Incorreta!")
 
         elif adm_logado:
-            print(adm_logado.senha)
-            print(form.senha.data)
             if adm_logado.senha==form.senha.data:
                 login_user(adm_logado)
-                print(current_user)
                 session['user_type'] = 'adm'
                 return redirect(url_for("homeAdm"))
             flash("Senha Incorreta!")
@@ -564,7 +560,6 @@ def atualizar(id):
     historicos = []
     for dependente in dependentes: 
         historicos.extend(Historico.query.filter_by(idDependente=dependente.id).order_by(desc(Historico.id)).all())
-    print(historicos)
     
     form = CadastroForm()
     mudar_nome = Responsavel.query.get_or_404(id)
@@ -682,12 +677,10 @@ def addProdutoAdm():
 @login_required
 @user_type_required("funcionario", "adm")
 def homeFunc():
-    global rooms_users
-    id = "salaFunc"
-    if id in rooms_users:
-        rooms_users[id].discard(current_user.usuario)
-        print("delete")
-        print(rooms_users)
+    sala1 = sala.query.get(1)
+    sala1.Cheio = False
+    db.session.commit()
+
     quantidadeEstoque = []
     produtos = Produto.query.all()
     nomes = []
@@ -815,7 +808,6 @@ def confirmarPedido(id, mensagem):
 @app.route("/cancelarPedido")
 def cancelarPedido():
     id = session.pop('id_pedido', 1)
-    print(id)
     sleep(0.1)
     socketio.emit("deletarPedido", id, room="salaFunc")
 
@@ -851,11 +843,10 @@ def criandoHistorico(id):
 @user_type_required("dependente")
 def comprarProduto(id):
 
-    global rooms_users
 
-    print(rooms_users["salaFunc"])
+    sala1 = sala.query.get(1)
 
-    if rooms_users["salaFunc"]:
+    if sala1.Cheio:
 
         form = confirmarFormQuantidade()
         obj = Produto.query.get(id)

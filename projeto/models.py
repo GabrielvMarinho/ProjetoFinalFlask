@@ -1,7 +1,7 @@
 from projeto import db, login_manager
 from projeto import bcrypt
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, Boolean
 from flask import session
 
 @login_manager.user_loader
@@ -17,6 +17,14 @@ def load_user(user_id):
         return ADM.query.get(int(user_id))
     return None
 
+
+
+
+class sala(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    Cheio = db.Column(db.Boolean)
+
+    
 class Dependente(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     saldo = db.Column(db.Integer, nullable=False, unique=False, default=0)

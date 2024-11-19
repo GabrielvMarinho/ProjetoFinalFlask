@@ -218,6 +218,7 @@ background-color: rgb(255, 77, 77);
     border: 0;
 }
 .buttonConfirm{
+    margin: 0.5vw;
     color: white;
     background-color: #e22b2b;
     padding: 0.4vw;
@@ -619,8 +620,9 @@ a{
     .mensagensErro{
         text-align: center;
         font-size: 6vw !important;
-        margin-inline: auto;
-        width: 80vw;
+        margin-inline: calc();
+        width: 70vw;
+        
         text-wrap: wrap;
     }
     .espaco{

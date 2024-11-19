@@ -8,7 +8,6 @@ function mostrarModalDeletar(id, nome){
     document.getElementsByClassName("overlay")[0].classList.add("escuro");
     modalDelFunc.style.display = "block";
     var textNome = document.getElementById("nomeProduto")
-    console.log(nome)
     textNome.innerText = "Funcionário: "+nome
     idFunc = id;
 }

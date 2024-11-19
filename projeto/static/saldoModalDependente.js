@@ -8,14 +8,11 @@ var idDependente;
 // Function to show the modal
 
 function adicionarSaldoModalDepo(id) {
-    console.log("adicionar")
     idDependente = id
     modalDepositoDependente.classList.add("show");
-    console.log("adicionar")
 
 }
 function retirarSaldoModalDepo(id){
-        console.log("adicionar")
 
     idDependente = id
     modalSaqueDependente.classList.add("show")
@@ -48,7 +45,6 @@ function Deposito() {
       })  .then(() => {
 
         modalDepositoDependente.classList.remove("show");
-        console.log("tirando aq")
         window.location.href = window.location.href
 
     });
@@ -61,7 +57,6 @@ function Saque(){
       })  .then(() => {
 
         modalSaqueDependente.classList.remove("show");
-        console.log("tirando aq")
         window.location.href = window.location.href
 
     });

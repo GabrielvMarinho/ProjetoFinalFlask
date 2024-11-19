@@ -8,7 +8,6 @@ function confirmarExclusao(id, nome){
     document.getElementsByClassName("overlay")[0].classList.add("escuro");
     modalconf.style.display = "block";
     var textNome = document.getElementById("nomeProduto")
-    console.log(nome)
     textNome.innerText = "Item: "+nome
     idProduto = id;
 }

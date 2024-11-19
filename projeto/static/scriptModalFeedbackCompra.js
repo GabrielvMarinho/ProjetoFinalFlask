@@ -16,7 +16,6 @@ function esperarElementoCarregar(selector, callback) {
 esperarElementoCarregar(".modalFeedback", (element) => {
     element.classList.add("show")
     spanFeed = document.getElementsByClassName("spanFeedback")[0]
-    console.log(spanFeed)
     spanFeed.onclick = function() {
         window.location.href = "/homeDependente";
     }
