@@ -5,3 +5,4 @@ estudo do web sockets
 estilização de alinhamento
 melhora de contraste de cores
 validação de email pelo domínio, só aceitar @estudante.com por exemplo
+acessibilidade para pessoas com deficiência física
