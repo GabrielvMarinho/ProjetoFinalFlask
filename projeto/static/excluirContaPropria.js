@@ -19,7 +19,8 @@ spanExcluConta.onclick = function() {
 function confirmarExcluConta(){
     fetch(`/excluirContaPropria`, {
         method: 'POST', 
+    })  .then(() => {
+        window.location.href = window.location.href
     })
-    location.reload();
 }
 

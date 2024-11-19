@@ -41,7 +41,7 @@ def conectar_operador(id):
 def excluirContaPropria():
     resp = Responsavel.query.get(current_user.id)
     for i in Dependente.query.all():
-        if i.idReponsavel == resp.id:
+        if i.idResponsavel == resp.id:
             db.session.delete(i)
     db.session.delete(resp)
     db.session.commit()
