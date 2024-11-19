@@ -620,9 +620,7 @@ a{
     .mensagensErro{
         text-align: center;
         font-size: 6vw !important;
-        margin-inline: calc();
-        width: 70vw;
-        
+        margin-inline: calc();        
         text-wrap: wrap;
     }
     .espaco{
