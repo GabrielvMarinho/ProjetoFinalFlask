@@ -50,7 +50,6 @@ def excluirContaPropria():
 
 @app.route("/removerFuncionario/<int:id>", methods=["POST", "GET"])
 def removerFuncionario(id):
-    
     id = int(id)
     funcionario = Funcionario.query.get(id)
     print(funcionario)
@@ -247,9 +246,12 @@ def adicionarDependenteFim(usuario1, email1, senhacrip1, id):
         idResponsavel = id
     )
     db.session.add(usuario)
-    flash("Cadastro realizado", "notError")
 
+    flash("Cadastro realizado", "notError")
     db.session.commit()
+    
+    print("deu certo")
+
     return redirect(url_for("homeResponsavel"))
 
 @app.route('/adicionarDependente', methods=['GET', 'POST'])
@@ -289,7 +291,7 @@ def adicionarDependente():
 
         msg = Message("Confirm Email", sender="suporte.my.snack@gmail.com", recipients=[form.email.data])
 
-        link = url_for("adicionarDependenteFim", usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data, token=token, _external=True)
+        link = url_for("adicionarDependenteFim", id = current_user.id, usuario1 = form.usuario.data, email1 = form.email.data, senhacrip1 = form.senha2.data, token=token, _external=True)
 
         msg.body = "Seu link de confirmação é "+link
 
